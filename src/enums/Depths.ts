@@ -1,6 +1,10 @@
 export enum Depths {
     BG_TEXTURE,
-    FLY_TEXT,
     GRID,
+    SHADOW_UNDER,
+    TREE,
+    BUILDINGS,
+    SHADOW_TOP,
+    FLY_TEXT,
     UI
 }

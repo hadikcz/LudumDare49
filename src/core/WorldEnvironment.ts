@@ -1,6 +1,7 @@
 import GameScene from 'scenes/GameScene';
 import Grid from "core/Grid";
 import {Depths} from "enums/Depths";
+import Building from "entity/Building";
 
 export default class WorldEnvironment {
     private scene: GameScene;
@@ -12,6 +13,8 @@ export default class WorldEnvironment {
             .setDepth(Depths.BG_TEXTURE);
 
         new Grid(this.scene);
+
+        new Building(this.scene, 600, 600, 'heating_plant');
     }
 
 }
