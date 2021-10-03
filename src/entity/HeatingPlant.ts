@@ -23,7 +23,11 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
             if (this.scene.pipeSystem.isDisconnectMode()) {
                 this.pipeVisual?.destroy();
             } else {
-                this.scene.pipeSystem.startConnecting(this);
+                if (this.outputSocketBuilding) {
+                    this.scene.ui.showSocketOccupied();
+                } else {
+                    this.scene.pipeSystem.startConnecting(this);
+                }
             }
         });
 

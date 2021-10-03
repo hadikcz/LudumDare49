@@ -62,8 +62,7 @@ a {text-decoration: none;}
 .actionInfo {
     padding: 5px;
     height: auto;
-    background: #000000;
-    opacity: 50%;
+    background: rgba(0,0,0, 0.5);
     left: 50%;
     top: 100px;
     position: absolute;
@@ -93,4 +92,18 @@ a {text-decoration: none;}
     padding: 5px;
     pointer-events: all;
     cursor: pointer;
+}
+
+.socketOccupied {
+    padding: 5px;
+    height: auto;
+    background: rgba(0,0,0, 0.5);
+    left: 50%;
+    top: 300px;
+    position: absolute;
+    transform: translateX(-50%);
+    color: red;
+    font-size: 20px;
+    z-index: 1000;
+    pointer-events: all
 }

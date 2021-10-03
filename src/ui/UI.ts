@@ -77,4 +77,11 @@ export default class UI {
         $('.actionInfo').hide();
         $('.disconnectInfo').hide();
     }
+
+    showSocketOccupied (): void {
+        $('.socketOccupied').slideDown();
+        setTimeout(() => {
+            $('.socketOccupied').slideUp();
+        }, 3000);
+    }
 }
