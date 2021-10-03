@@ -32,7 +32,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         scene.add.existing(this);
         this.scene = scene;
 
-        this.setDepth(Depths.PIPES);
+        this.setDepth(Depths.PIPE_BOXES);
 
         this.image = this.scene.add.image(0, 0, 'assets', 'splitter');
         this.add(this.image);

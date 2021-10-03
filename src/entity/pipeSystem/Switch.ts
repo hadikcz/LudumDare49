@@ -4,6 +4,7 @@ import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
+import { Depths } from 'enums/Depths';
 
 export default class Switch extends Container implements OutputSocket, InputSocket {
 
@@ -20,12 +21,14 @@ export default class Switch extends Container implements OutputSocket, InputSock
         super(scene, x, y, []);
         scene.add.existing(this);
 
+        this.setDepth(Depths.PIPE_BOXES);
+
         this.scene = scene;
 
         this.image = this.scene.add.image(0, 0, 'assets', 'switch');
         this.add(this.image);
 
-        this.overlay = this.scene.add.sprite(0, 0, 'assets', 'splitter_overlay').setAlpha(0.00001);
+        this.overlay = this.scene.add.sprite(0, 5, 'assets', 'splitter_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
         this.add(this.overlay);
 

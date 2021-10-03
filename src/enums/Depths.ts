@@ -3,6 +3,7 @@ export enum Depths {
     ROAD,
     GRID,
     PIPES,
+    PIPE_BOXES,
     ZONE,
     SHADOW_UNDER,
     TREE,
