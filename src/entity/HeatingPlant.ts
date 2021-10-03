@@ -186,7 +186,6 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
     }
 
     updateHeat (): void {
-        console.log('HEAT: tick heating plant');
         const outputObject = this.getOutputObject();
         if (!outputObject) return;
 
@@ -217,7 +216,6 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
     }
 
     disconnect (): void {
-        console.log('HEAT: disconnect');
         this.outputSocketBuilding = null;
     }
 

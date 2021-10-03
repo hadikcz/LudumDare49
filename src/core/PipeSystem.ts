@@ -5,6 +5,7 @@ import { SocketType } from 'enums/SocketType';
 import GameScene from 'scenes/GameScene';
 import Line = Phaser.GameObjects.Line;
 import ConsumerBuilding from 'entity/ConsumerBuilding';
+import Combiner from 'entity/pipeSystem/Combiner';
 import { InputSocket } from 'entity/pipeSystem/InputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
 
@@ -33,8 +34,6 @@ export default class PipeSystem {
     }
 
     updateHeat (): void {
-        console.log('HEAT: tick heat system');
-
         try {
             // @ts-ignore
             for (let object of this.worldEnvironment.heaterGroup.getChildren()) {
@@ -45,6 +44,11 @@ export default class PipeSystem {
             for (let object of this.worldEnvironment.buildingsGroup.getChildren()) {
                 let building = object as any as ConsumerBuilding;
                 building.updateHeat();
+            }
+
+            for (let object of this.worldEnvironment.combiners.getChildren()) {
+                let combiner = object as any as Combiner;
+                combiner.updateHeat();
             }
         } catch (e) {
             console.error(e);

@@ -152,6 +152,7 @@ export default class Switch extends Container implements OutputSocket, InputSock
     setOutputObject (object: InputSocket, pipe: PipeVisual): void {
         this.outputSocket = object;
         this.outputPipe = pipe;
-        pipe.setStrokeStyle(2, 0xeff500);
+        // '#b1b508'
+        pipe.setStrokeStyle(2, 0xb1b508);
     }
 }

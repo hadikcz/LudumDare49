@@ -6,7 +6,7 @@ import TiledObject = Phaser.Types.Tilemaps.TiledObject;
 import Editor from 'core/editor/Editor';
 import Zone from 'core/Zone';
 import Group = Phaser.GameObjects.Group;
-import Combiner from 'entity/Combiner';
+import Combiner from 'entity/pipeSystem/Combiner';
 import Splitter from 'entity/pipeSystem/Splitter';
 import Switch from 'entity/pipeSystem/Switch';
 

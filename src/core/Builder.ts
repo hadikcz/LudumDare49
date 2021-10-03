@@ -4,6 +4,8 @@ import { Building } from 'enums/Building';
 import { Depths } from 'enums/Depths';
 import GameScene from 'scenes/GameScene';
 import Image = Phaser.GameObjects.Image;
+import HeatingPlant from 'entity/HeatingPlant';
+import Combiner from 'entity/pipeSystem/Combiner';
 import Switch from 'entity/pipeSystem/Switch';
 
 export default class Builder {
@@ -53,8 +55,13 @@ export default class Builder {
         } else if (this.buildMode === Building.SWITCH) {
             const obj = new Switch(this.scene, worldX, worldY);
             this.worldEnvironment.switches.add(obj);
+        } else if (this.buildMode === Building.COMBINER) {
+            const obj = new Combiner(this.scene, worldX, worldY);
+            this.worldEnvironment.combiners.add(obj);
+        } else if (this.buildMode === Building.HEATING_PLANT) {
+            const obj = new HeatingPlant(this.scene, worldX, worldY);
+            this.worldEnvironment.heaterGroup.add(obj);
         }
-
 
         this.previewImage.setPosition(-100, -100).setVisible(false);
         this.buildMode = null;

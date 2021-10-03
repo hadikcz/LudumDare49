@@ -229,7 +229,6 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             this.variableOutput.sendHeat(variableHeat);
         }
         // process heat by split
-        console.log('HEAT: splitter -> ' + heatValue);
 
         this.staticOutputText.setText(staticHeat.toString());
         this.variableOutputText.setText(variableHeat.toString());

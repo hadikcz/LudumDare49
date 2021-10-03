@@ -33,6 +33,10 @@ export default class UI {
         $('#buildSwitch').on('click', () => {
             this.scene.builder.startBuild(Building.SWITCH);
         });
+
+        $('#buildHeatingPlant').on('click', () => {
+            this.scene.builder.startBuild(Building.HEATING_PLANT);
+        });
     }
 
     update () {

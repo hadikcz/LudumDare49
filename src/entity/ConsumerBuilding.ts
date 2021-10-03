@@ -113,11 +113,8 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
     }
 
     updateHeat (): void {
-        console.log('HEAT: coinsumer update heat');
         if (this.heatDeposit < 0) {
-            console.log('Building is freezing');
         } else if (this.heatDeposit > this.highLimit) {
-            console.log('house is too hot');
             if (this.steamInterval === undefined) {
                 this.handleSteam();
             }
@@ -165,7 +162,6 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
     }
 
     disconnect (): void {
-        console.log('HEAT: disconnect');
         this.inputSocket = null;
     }
 
