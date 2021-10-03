@@ -45,11 +45,12 @@ export default class Zone {
 
         this.updateBuildingsInRadius();
         setInterval(() => {
-            this.radius += 10;
+            this.radius += 5;
+            // this.radius += 10;
             this.zoneCircle.setRadius(this.radius);
 
             this.updateBuildingsInRadius();
-        }, 1000);
+        }, 100);
     }
 
     private updateBuildingsInRadius (): void {
@@ -61,8 +62,8 @@ export default class Zone {
             }
         };
 
+        // @ts-ignore
         this.worldEnvironment.roadsGroup.getChildren().forEach((image: Image) => {
-
             if (TransformHelpers.getDistanceBetween(Zone.ZONE_CENTER.x, Zone.ZONE_CENTER.y, image.x, image.y) > this.radius) {
                 image.setVisible(false);
                 image.setActive(false);
@@ -71,7 +72,9 @@ export default class Zone {
                 image.setActive(true);
             }
         });
+        // @ts-ignore
         this.worldEnvironment.buildingsGroup.getChildren().forEach(processBuilding);
+        // @ts-ignore
         this.worldEnvironment.factoriesGroup.getChildren().forEach(processBuilding);
     }
 }

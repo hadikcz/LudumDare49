@@ -1,12 +1,12 @@
 import Polygon = Phaser.Geom.Polygon;
-import GameScene from "scenes/GameScene";
+import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
-import ArrayHelpers from "helpers/ArrayHelpers";
-import NumberHelpers from "helpers/NumberHelpers";
-import GameConfig from "config/GameConfig";
-import Tree from "entity/Tree";
+import GameConfig from 'config/GameConfig';
+import Tree from 'entity/Tree';
+import ArrayHelpers from 'helpers/ArrayHelpers';
+import NumberHelpers from 'helpers/NumberHelpers';
 import Group = Phaser.GameObjects.Group;
-import WorldEnvironment from "core/WorldEnvironment";
+import WorldEnvironment from 'core/WorldEnvironment';
 
 export default class TreeSpawner {
 
@@ -14,7 +14,7 @@ export default class TreeSpawner {
     private worldEnvironment: WorldEnvironment;
     private group: Group;
 
-    constructor(scene: GameScene, worldEnvironment: WorldEnvironment) {
+    constructor (scene: GameScene, worldEnvironment: WorldEnvironment) {
         this.scene = scene;
         this.worldEnvironment = worldEnvironment;
 
@@ -22,7 +22,14 @@ export default class TreeSpawner {
         this.create();
     }
 
-    private create(): void {
+    update (): void {
+        // @ts-ignore
+        this.group.getChildren().forEach((tree: Tree) => {
+            tree.update();
+        });
+    }
+
+    private create (): void {
         for (let i = 0; i < 80; i++) {
             let spawnPoint = this.generateSpawnPoint();
             let treeIndex = this.generateTreeSpriteIndex();
@@ -32,9 +39,9 @@ export default class TreeSpawner {
         }
     }
 
-    private generateSpawnPoint(): Vector2 {
+    private generateSpawnPoint (): Vector2 {
         let i = 0;
-        while(true) {
+        while (true) {
             if (i >= 50) {
                 break;
             }
@@ -54,7 +61,7 @@ export default class TreeSpawner {
         return new Vector2(-1000, -1000);
     }
 
-    private generateTreeSpriteIndex(): string {
+    private generateTreeSpriteIndex (): string {
         return ArrayHelpers.getRandomFromArray([
             'tree1',
             'tree2',

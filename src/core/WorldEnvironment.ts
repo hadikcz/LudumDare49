@@ -19,6 +19,7 @@ export default class WorldEnvironment {
     public readonly buildingsGroup: Group;
     public readonly factoriesGroup: Group;
     public readonly roadsGroup: Group;
+    private treeSpawner: TreeSpawner;
 
     constructor (scene: GameScene) {
         this.scene = scene;
@@ -31,7 +32,7 @@ export default class WorldEnvironment {
         this.prepareRiverLayer();
 
         new Grid(this.scene);
-        new TreeSpawner(this.scene, this);
+        this.treeSpawner = new TreeSpawner(this.scene, this);
 
         this.editor = new Editor(this.scene);
 
@@ -41,6 +42,10 @@ export default class WorldEnvironment {
 
         this.zone = new Zone(this.scene, this);
 
+    }
+
+    update (): void {
+        this.treeSpawner.update();
     }
 
     isInRiver (x: number, y: number): boolean {

@@ -1,8 +1,8 @@
+import WorldEnvironment from 'core/WorldEnvironment';
+import EffectManager from 'effects/EffectManager';
 import Phaser from 'phaser';
-import EffectManager from "effects/EffectManager";
-import UI from "ui/UI";
-import WorldEnvironment from "core/WorldEnvironment";
-import DatGui from "ui/DatGui";
+import DatGui from 'ui/DatGui';
+import UI from 'ui/UI';
 
 declare let window: any;
 
@@ -11,7 +11,7 @@ export default class GameScene extends Phaser.Scene {
     public effectManager!: EffectManager;
     public ui!: UI;
     public datGui!: DatGui;
-    private worldEnvironment!: WorldEnvironment;
+    public worldEnvironment!: WorldEnvironment;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -34,5 +34,6 @@ export default class GameScene extends Phaser.Scene {
 
     update (): void {
         this.ui.update();
+        this.worldEnvironment.update();
     }
 }
