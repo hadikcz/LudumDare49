@@ -222,16 +222,6 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         if (variableHeat < 0) {
             variableHeat = 0;
         }
-        //
-        // if (heatValue <= this.staticPass) {
-        //     console.log('overlap');
-        //     staticHeat = Math.abs(heatValue);
-        // } else {
-        //     staticHeat = heatValue - this.staticPass;
-        // }
-        //
-        // let variableHeat = Math.abs(heatValue - staticHeat);
-
 
         if (this.staticOutput) {
             this.staticOutput.sendHeat(staticHeat); // swap because it work swap not normally

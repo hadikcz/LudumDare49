@@ -92,6 +92,16 @@ export default class Switch extends Container implements OutputSocket, InputSock
     }
 
     disconnect (onlyInput: boolean): void {
+        setTimeout(() => {
+
+            this.inputSocket = null;
+            this.inputPipe = null;
+            if (!onlyInput) {
+                this.outputPipe = null;
+                this.outputSocket = null;
+            }
+            this.heatValuesZero();
+        }, 800);
     }
 
     getInputSocket (): OutputSocket | null {
