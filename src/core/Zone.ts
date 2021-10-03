@@ -16,7 +16,7 @@ export default class Zone {
     );
 
     private static readonly BEGIN_RADIUS = 80;
-    private visibleCircle = false;
+    private visibleCircle = true;
 
     private scene: GameScene;
 
@@ -32,6 +32,9 @@ export default class Zone {
 
         if (!__DEV__) {
             this.visibleCircle = false;
+        } else {
+            // dev - full city
+            // this.radius = 1000;
         }
 
         this.zoneCircle = this.scene.add.circle(Zone.ZONE_CENTER.x, Zone.ZONE_CENTER.y, this.radius, 0x00FF00, 0.25 )
@@ -45,8 +48,8 @@ export default class Zone {
 
         this.updateBuildingsInRadius();
         this.interval = setInterval(() => {
-            this.radius += 5;
-            // this.radius += 10;
+            // this.radius += 5; // dev - test
+            this.radius += 0.5; // dev - test
             this.zoneCircle.setRadius(this.radius);
 
             this.updateBuildingsInRadius();
@@ -60,10 +63,15 @@ export default class Zone {
 
     private updateBuildingsInRadius (): void {
         const processBuilding = (building: Building) => {
-            if (TransformHelpers.getDistanceBetween(Zone.ZONE_CENTER.x, Zone.ZONE_CENTER.y, building.x, building.y) > this.radius) {
-                building.disable();
-            } else {
-                building.enable();
+            try {
+
+                if (TransformHelpers.getDistanceBetween(Zone.ZONE_CENTER.x, Zone.ZONE_CENTER.y, building.x, building.y) > this.radius) {
+                    building.disable();
+                } else {
+                    building.enable();
+                }
+            } catch (e) {
+                console.error(e);
             }
         };
 

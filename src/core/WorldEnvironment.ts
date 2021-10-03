@@ -19,6 +19,7 @@ export default class WorldEnvironment {
     public readonly buildingsGroup: Group;
     public readonly factoriesGroup: Group;
     public readonly roadsGroup: Group;
+    public readonly heaterGroup: Group;
     private treeSpawner: TreeSpawner;
 
     constructor (scene: GameScene) {
@@ -39,6 +40,7 @@ export default class WorldEnvironment {
         this.buildingsGroup = this.editor.getLayerGroupByName('buildings');
         this.factoriesGroup = this.editor.getLayerGroupByName('factories');
         this.roadsGroup = this.editor.getLayerGroupByName('roads');
+        this.heaterGroup = this.editor.getLayerGroupByName('heater');
 
         this.zone = new Zone(this.scene, this);
 

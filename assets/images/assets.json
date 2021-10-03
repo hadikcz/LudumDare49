@@ -642,21 +642,21 @@
 				{
 					"filename": "factory3_shadow_bottom",
 					"rotated": false,
-					"trimmed": false,
+					"trimmed": true,
 					"sourceSize": {
 						"w": 64,
 						"h": 58
 					},
 					"spriteSourceSize": {
-						"x": 0,
+						"x": 2,
 						"y": 0,
-						"w": 64,
+						"w": 62,
 						"h": 58
 					},
 					"frame": {
 						"x": 1,
 						"y": 541,
-						"w": 64,
+						"w": 62,
 						"h": 58
 					}
 				},
@@ -675,7 +675,7 @@
 						"h": 46
 					},
 					"frame": {
-						"x": 67,
+						"x": 65,
 						"y": 563,
 						"w": 58,
 						"h": 46
@@ -696,7 +696,7 @@
 						"h": 46
 					},
 					"frame": {
-						"x": 67,
+						"x": 65,
 						"y": 563,
 						"w": 58,
 						"h": 46
@@ -771,6 +771,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:898ec11ac2cbf050f8037bef68a52c7a:d2c58ae8c9dddca6d14727ec96ced2cd:a759b6bbc8381ac9c472b28f589ad0d6$"
+		"smartupdate": "$TexturePacker:SmartUpdate:64ef70fadb67bfa7109ceb4b52247275:b72ab308af21142a58fb0f21f0a62e2a:a759b6bbc8381ac9c472b28f589ad0d6$"
 	}
 }

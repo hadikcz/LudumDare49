@@ -69,6 +69,10 @@ export default class Tree extends Container {
             for (let child of this.scene.worldEnvironment.roadsGroup.getChildren()) {
                 cleanFunction(child as any as Image);
             }
+
+            for (let child of this.scene.worldEnvironment.heaterGroup.getChildren()) {
+                cleanFunction(child as any as Image);
+            }
         } catch (e) {
 
         }

@@ -12,8 +12,8 @@ export default {
         y: 5
     },
     factory3: {
-        x: 20,
-        y: 5
+        x: 7,
+        y: 4
     },
     factory3_shadow_top: {
         x: 15,

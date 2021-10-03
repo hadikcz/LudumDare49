@@ -10,7 +10,7 @@ declare let __DEV__: any;
 
 export default class Editor {
 
-    public static readonly LOAD_FROM_LOCAL_STORAGE = false;
+    public static readonly LOAD_FROM_LOCAL_STORAGE = true;
     public static readonly ALLOWED_OBJECTS = [
         'road_vertical',
         'factory1',
@@ -25,7 +25,7 @@ export default class Editor {
         'tree_large1'
     ];
 
-private isEnabled: boolean = false;
+    private isEnabled: boolean = true;
 
 
     private scene: GameScene;
@@ -278,7 +278,7 @@ private isEnabled: boolean = false;
     private createObject (layer: string, depth: number, index: string, x: number, y: number, angle: number = 0, scaleX: number = 1, scaleY: number = 1, originX: number = 0.5, originY: number = 0.5): GameObject {
         let object;
 
-        if (layer === 'buildings' || layer === 'factories') {
+        if (layer === 'buildings' || layer === 'factories' || layer === 'heater') {
         // if (false) {
             object = new Building(this.scene, x, y, index);
         } else {
