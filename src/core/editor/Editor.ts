@@ -129,10 +129,50 @@ export default class Editor {
 
         const image = this.editorUI.placeObjectType;
         console.info('editor place object ' + image + ' into layer ' + this.pickedLayer);
-        const generatdObject = this.scene.add.image(100, 100, 'assets', image);
-        this.scene.input.setDraggable(generatdObject.setInteractive());
 
-        foundLayer.group.add(generatdObject);
+        let object = this.createObject(image, 100, 100);
+        foundLayer.group.add(object);
+        this.editorUI.redraw();
+    }
+
+    public deleteObject(): void {
+        if (this.lastPickedItem === undefined) {
+            console.error('can not delete object, becuase no selected');
+            return;
+        }
+
+        this.lastPickedItem.destroy(true);
+        // @ts-ignore
+        this.lastPickedItem = undefined;
+        this.editorUI.redraw();
+    }
+
+    public duplicateObject(): void {
+        if (this.lastPickedItem === undefined) {
+            console.error('can not delete object, becuase no selected');
+            return;
+        }
+        if (this.pickedLayer === undefined) {
+            console.error('editor layer not picked');
+            return;
+        }
+        let foundLayer = this.layers.find((layer) => {
+            return layer.name === this.pickedLayer;
+        });
+
+        if (!foundLayer || foundLayer === undefined) {
+            console.info('layer ' + this.pickedLayer + ' not found');
+            return;
+        }
+
+        // @ts-ignore
+        const image = this.lastPickedItem.frame.name;
+        console.info('editor duplicate object ' + image + ' into layer ' + this.pickedLayer);
+        console.info(`editor duplicate object ${image} into layer ${this.pickedLayer} on ${image.x},${image.y}`);
+
+        // @ts-ignore
+        let object = this.createObject(image, this.lastPickedItem.x, this.lastPickedItem.y, this.lastPickedItem.angle, this.lastPickedItem.scaleX, this.lastPickedItem.scaleY, this.lastPickedItem.originX, this.lastPickedItem.originY);
+        foundLayer.group.add(object);
         this.editorUI.redraw();
     }
 
@@ -196,5 +236,15 @@ export default class Editor {
             this.lastPickedItem = obj;
             this.editorUI.redraw();
         });
+    }
+
+    private createObject(index: string, x: number, y: number, angle: number = 0, scaleX: number = 1, scaleY: number = 1, originX: number = 0.5, originY: number = 0.5): GameObject {
+        const object = this.scene.add.image(x, y, 'assets', index)
+            .setScale(scaleX, scaleY)
+            .setOrigin(originX, originY)
+            .setAngle(angle);
+
+        this.scene.input.setDraggable(object.setInteractive());
+        return object;
     }
 }

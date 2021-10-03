@@ -48,6 +48,12 @@ export default class EditorUI {
             this.itemFolder.add(this.editor.lastPickedItem, 'scaleY').listen();
             this.itemFolder.add(this.editor.lastPickedItem, 'originX').listen();
             this.itemFolder.add(this.editor.lastPickedItem, 'originY').listen();
+
+            const deleteObject = {deleteObject: this.editor.deleteObject.bind(this.editor)};
+            this.itemFolder.add(deleteObject, 'deleteObject');
+
+            const duplicateObject = {duplicateObject: this.editor.duplicateObject.bind(this.editor)};
+            this.itemFolder.add(duplicateObject, 'duplicateObject');
         }
 
         // this.layerSelector.options(this.editor.getAllLayersNames());
