@@ -96,10 +96,12 @@ export default class Building extends Container {
             for (let smokeSource of this.smokeSources) {
                 this.scene.effectManager.launchSmoke(
                     this.x + smokeSource.x,
-                    this.y + smokeSource.y
+                    this.y + smokeSource.y,
+                    true,
+                    false
                 );
             }
-        }, 100);
+        }, 250);
     }
 
     private isIndustrial(): boolean {
