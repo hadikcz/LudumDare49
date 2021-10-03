@@ -3,10 +3,13 @@ import GameScene from "scenes/GameScene";
 import {Depths} from "enums/Depths";
 import Shadows from "config/Shadows";
 import GameConfig from "config/GameConfig";
+import Sprite = Phaser.GameObjects.Sprite;
 
 export default class Tree extends Container {
 
     protected scene: GameScene;
+    private shadow!: Sprite;
+
     constructor (scene: GameScene, x: number, y: number, image: string) {
         super(scene, x, y, []);
         scene.add.existing(this);
@@ -14,17 +17,18 @@ export default class Tree extends Container {
         this.scene = scene;
         this.setDepth(Depths.TREE);
 
-        let buildingImage = this.scene.add.sprite(0, 0, 'assets', image)
+        this.createShadow(image);
+        this.createTree(image);
+    }
+
+    private createTree(image: string): void {
+        let treeImage = this.scene.add.sprite(0, 0, 'assets', image)
             .setDepth(Depths.BUILDINGS);
-        this.add(buildingImage);
+        this.add(treeImage);
+    }
 
-
-        let shadowFrame = '';
-        if (image === 'factory1') {
-            shadowFrame = image + 'shadow_bottom';
-        } else {
-            shadowFrame = image + '_shadow';
-        }
+    private createShadow(image: string): void {
+        let shadowFrame = image + '_shadow';
 
         let shadowCoords = Shadows[image];
         if (shadowCoords === undefined) {
@@ -35,10 +39,14 @@ export default class Tree extends Container {
             };
         }
 
-        let shadow = this.scene.add.sprite(0 + shadowCoords.x, 0 + shadowCoords.y, 'assets', shadowFrame)
+        let shadow = this.scene.add.sprite(this.x + shadowCoords.x, this.y + shadowCoords.y, 'assets', shadowFrame)
             .setDepth(Depths.SHADOW_UNDER)
             .setAlpha(GameConfig.shadowAlpha);
-        this.add(shadow);
+        // this.add(shadow);
+    }
 
+    destroy(fromScene?: boolean) {
+        super.destroy(fromScene);
+        this.shadow.destroy();
     }
 }

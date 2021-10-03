@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-up" compressionlevel="-1" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="3">
+ <editorsettings>
+  <export target="map.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="bg.tsx"/>
+ <layer id="1" name="bad" width="50" height="50">
+  <data encoding="base64" compression="zstd">
+   KLUv/WAQJk0AABAAAAEAC4cHWA==
+  </data>
+ </layer>
+ <objectgroup id="2" name="img">
+  <object id="1" gid="1" x="1.07573" y="768.095" width="1360" height="768"/>
+ </objectgroup>
+ <objectgroup id="3" name="not_spawn_tree">
+  <object id="2" x="3.95974" y="195.347">
+   <polygon points="0,0 213.826,25.0784 434.252,26.3983 671.836,-5.27966 798.548,-109.553 813.067,-187.428 814.387,-194.027 716.713,-196.667 695.595,-129.352 636.199,-91.0741 578.122,-67.3156 438.212,-55.4364 263.983,-50.1567 89.7542,-65.9957 -31.6779,-71.2754"/>
+  </object>
+ </objectgroup>
+</map>

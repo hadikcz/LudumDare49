@@ -24,5 +24,21 @@ export default {
     house_large: {
         x: 15,
         y: 15
+    },
+    tree1: {
+        x: 8,
+        y: 8
+    },
+    tree2: {
+        x: 8,
+        y: 8
+    },
+    tree_large1: {
+        x: 7,
+        y: 5
+    },
+    tree_group: {
+        x: 7,
+        y: 5
     }
 };
