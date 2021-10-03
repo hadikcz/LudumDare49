@@ -5,6 +5,7 @@ import Container = Phaser.GameObjects.Container;
 import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import Vector2 = Phaser.Math.Vector2;
+import { Depths } from 'enums/Depths';
 
 export default class Splitter extends Container implements InputSocket, DoubleOutputSocket, OutputSocket {
 
@@ -19,6 +20,9 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     private image: Phaser.GameObjects.Image;
     private settingsIcon: Phaser.GameObjects.Image;
     private staticPass = 1;
+    private staticOutputText: Phaser.GameObjects.Text;
+    private variableOutputText: Phaser.GameObjects.Text;
+    private inputText: Phaser.GameObjects.Text;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
@@ -26,21 +30,54 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         scene.add.existing(this);
         this.scene = scene;
 
+        this.setDepth(Depths.PIPES);
+
         this.image = this.scene.add.image(0, 0, 'assets', 'splitter');
         this.add(this.image);
 
-        this.settingsIcon = this.scene.add.image(20, 0, 'assets', 'ui_settings');
+        this.settingsIcon = this.scene.add.image(0, -20, 'assets', 'ui_settings');
         this.settingsIcon.setInteractive({ useHandCursor: true });
         this.add(this.settingsIcon);
 
         this.settingsIcon.on('pointerdown', () => {
-            let value = prompt('Define how much will pass thru on static output. Rest of income heat will be send into variable output', '1');
+            let value = prompt('Define how much will pass thru on static output. Rest of income heat will be send into variable output.\n Green input\n blue static ouput (number which you pick here)\n red different between static output and input (rest of heat).', '1');
             if (!value) return;
 
             let parsed = parseInt(value);
 
             this.staticPass = parsed;
         });
+
+        const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#417093', align: 'center' };
+
+        this.staticOutputText = this.scene.add.text(
+            this.x + -25,
+            this.y + -13,
+            '0',
+            style
+        )
+            .setScale(0.3)
+            .setDepth(Depths.UI);
+
+        const style2 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#ae3030', align: 'center' };
+        this.variableOutputText = this.scene.add.text(
+            this.x + 15,
+            this.y -13,
+            '0',
+            style2
+        )
+            .setScale(0.3)
+            .setDepth(Depths.UI);
+
+        const style3 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#04ff00', align: 'center' };
+        this.inputText = this.scene.add.text(
+            this.x - 2,
+            this.y + 11,
+            '0',
+            style3
+        )
+            .setScale(0.3)
+            .setDepth(Depths.UI);
 
         this.overlay = this.scene.add.sprite(0, 0, 'assets', 'splitter_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
@@ -81,7 +118,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         if (!this.variableOutput) {
             this.variableOutput = object;
             this.variableOutputPipe = pipe;
-            pipe.setStrokeStyle(2, 0x8d6363);
+            pipe.setStrokeStyle(2, 0xae3030);
         }
     }
 
@@ -96,6 +133,9 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
                 this.staticOutput = null;
                 this.staticOutputPipe = null;
             }
+            this.staticOutputText.setText('0');
+            this.variableOutputText.setText('0');
+            this.inputText.setText('0');
         }, 800);
     }
 
@@ -139,13 +179,17 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
 
 
         if (this.staticOutput) {
-            this.staticOutput.sendHeat(staticHeat);
+            this.staticOutput.sendHeat(variableHeat); // swap because it work swap not normally
         }
         if (this.variableOutput) {
-            this.variableOutput.sendHeat(variableHeat);
+            this.variableOutput.sendHeat(staticHeat);
         }
         // process heat by split
         console.log('HEAT: splitter -> ' + heatValue);
+
+        this.staticOutputText.setText(variableHeat.toString());
+        this.variableOutputText.setText(staticHeat.toString());
+        this.inputText.setText(heatValue.toString());
     }
 
     setInputSocket (object: OutputSocket, pipe: PipeVisual): void {
