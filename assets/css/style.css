@@ -59,7 +59,7 @@ a {text-decoration: none;}
 }
 
 
-.socketTypeWrapper {
+.actionInfo {
     padding: 5px;
     height: auto;
     background: #000000;
@@ -72,4 +72,25 @@ a {text-decoration: none;}
     font-size: 20px;
     z-index: 1000;
     pointer-events: all
+}
+
+
+.actionMenu {
+    position: absolute;
+    top: 100px;
+    right: 0;
+    width: 90px;
+    height: 100px;
+    background: rgba(0,0,0, 0.5);
+    padding: 5px;
+}
+
+.actionMenu .actionButton{
+    width: auto;
+    height: auto;
+    color: white;
+    background: black;
+    padding: 5px;
+    pointer-events: all;
+    cursor: pointer;
 }

@@ -11,12 +11,24 @@
     <body>
         <div id="content" style="display: block; width: 100%; text-align: center"></div>
         <div class="ui">
+            <div class="actionMenu">
+                <div class="actionButton" id="disconnect">
+                    Disconnect
+                </div>
+            </div>
             <div id="editor">
                 <div class="pickedObject"></div>
             </div>
-            <div class="socketTypeWrapper" style="display: none;">
-                Select <span id="socketType"></span> socket building
-                <button type="button" id="cancelSocket">CANCEL</button>
+            <div class="actionInfo" style="display: none;">
+                <div class="socketInfo" style="display: none;">
+                    Select <span id="socketType"></span> socket building
+                    <button type="button" id="cancelSocket">CANCEL</button>
+                </div>
+                <div class="disconnectInfo" style="display: none;">
+                    Click on building which you want disconnect
+                    <button type="button" id="cancelDisconnect">CANCEL</button>
+                </div>
+
             </div>
         </div>
 

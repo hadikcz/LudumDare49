@@ -13,6 +13,7 @@ export default class PipeSystem {
     private worldEnvironment: WorldEnvironment;
     private scene: GameScene;
     private selectedOutputSocket: OutputSocket|null = null;
+    private disconnectMode = false;
 
     private pipeVisual: Line | null = null;
     private pipesVisuals: PipeVisual[] = [];
@@ -47,6 +48,7 @@ export default class PipeSystem {
     }
 
     startConnecting (output: OutputSocket): void {
+        if (this.isDisconnectMode()) return;
         if (this.selectedOutputSocket !== null) {
             console.error('HEAT: Cant select another output socket, because one is already using');
             return;
@@ -59,6 +61,7 @@ export default class PipeSystem {
     }
 
     completeConnecting (input: InputSocket): void {
+        if (this.isDisconnectMode()) return;
         if (this.selectedOutputSocket === null) {
             console.error('HEAT: Cant finish connecting becuase output is missing');
             return;
@@ -72,17 +75,25 @@ export default class PipeSystem {
             outputPos.x,
             outputPos.y,
             inputPos.x,
-            inputPos.y
+            inputPos.y,
+            input,
+            this.selectedOutputSocket
         );
+        pipe.on('destroy', () => {
+            const indexOf = this.pipesVisuals.indexOf(pipe);
+            this.pipesVisuals.splice(indexOf, 1);
+        });
         this.pipesVisuals.push(pipe);
 
         // real connection
-        this.selectedOutputSocket.setOutputObject(input);
-        input.setInputSocket(this.selectedOutputSocket);
+        this.selectedOutputSocket.setOutputObject(input, pipe);
+        input.setInputSocket(this.selectedOutputSocket, pipe);
 
         this.selectedOutputSocket = null;
 
         this.scene.ui.hideSocket();
+
+        this.pipeVisual?.setVisible(false);
     }
 
     cancelConnecting (): void {
@@ -98,6 +109,20 @@ export default class PipeSystem {
 
     isConnectingMode (): boolean {
         return !!this.selectedOutputSocket;
+    }
+
+    startDisconnectMode (): void {
+        this.disconnectMode = true;
+        this.scene.ui.showDisconnectMode();
+    }
+
+    stopDisconnectMode (): void {
+        this.disconnectMode = false;
+        this.scene.ui.hideDisconnectMode();
+    }
+
+    isDisconnectMode (): boolean {
+        return this.disconnectMode;
     }
 
     private createPipeCursor (): void {

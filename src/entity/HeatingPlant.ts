@@ -4,11 +4,13 @@ import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import { PipeSystemObject } from 'entity/pipeSystem/PipeSystemObject';
 import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
+import PipeVisual from 'entity/pipeSystem/PipeVisual';
 
 export default class HeatingPlant extends Building implements OutputSocket, PipeSystemObject {
 
     private outputSocketBuilding: InputSocket | null = null;
     private overlay: Phaser.GameObjects.Image;
+    private pipeVisual: PipeVisual|null = null;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, 'heating_plant');
@@ -18,7 +20,11 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         this.add(this.overlay);
 
         this.overlay.on('pointerdown', () => {
-            this.scene.pipeSystem.startConnecting(this);
+            if (this.scene.pipeSystem.isDisconnectMode()) {
+                this.pipeVisual?.destroy();
+            } else {
+                this.scene.pipeSystem.startConnecting(this);
+            }
         });
 
         this.overlay.on('pointerover', () => {
@@ -45,8 +51,9 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         return this.outputSocketBuilding;
     }
 
-    setOutputObject (object: InputSocket): void {
+    setOutputObject (object: InputSocket, pipe: PipeVisual): void {
         this.outputSocketBuilding = object;
+        this.pipeVisual = pipe;
     }
 
     getOutputPower (): number {
@@ -58,6 +65,11 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
             this.x,
             this.y
         );
+    }
+
+    disconnect (): void {
+        console.log('HEAT: disconnect');
+        this.outputSocketBuilding = null;
     }
 
 }

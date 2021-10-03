@@ -12,6 +12,14 @@ export default class UI {
         $('#cancelSocket').on('click', () => {
             this.scene.pipeSystem.cancelConnecting();
         });
+
+        $('#disconnect').on('click', () => {
+            this.scene.pipeSystem.startDisconnectMode();
+        });
+
+        $('#cancelDisconnect').on('click', () => {
+            this.scene.pipeSystem.stopDisconnectMode();
+        });
     }
 
     update () {
@@ -50,12 +58,23 @@ export default class UI {
     }
 
     showSocket (socketType: SocketType): void {
-        console.log('hrrr');
-        $('.socketTypeWrapper').show();
+        $('.actionInfo').show();
+        $('.socketInfo').show();
         $('#socketType').html(socketType);
     }
 
     hideSocket (): void {
-        $('.socketTypeWrapper').hide();
+        $('.socketInfo').hide();
+        $('.actionInfo').hide();
+    }
+
+    showDisconnectMode (): void {
+        $('.actionInfo').show();
+        $('.disconnectInfo').show();
+    }
+
+    hideDisconnectMode (): void {
+        $('.actionInfo').hide();
+        $('.disconnectInfo').hide();
     }
 }
