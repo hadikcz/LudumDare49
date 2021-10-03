@@ -1,6 +1,10 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": "plugin:@typescript-eslint/recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -11,13 +15,53 @@
   "rules": {
     "indent": ["error", 4, { "SwitchCase": 1 }],
     "semi": ["error", "always"],
-    "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "valid-jsdoc": ["error", {"requireParamDescription": false, "requireReturnDescription": false, "requireReturn": false }],
-    "no-trailing-spaces": ["warn", { "skipBlankLines": true }],
+    "no-trailing-spaces": ["error", { "skipBlankLines": false }],
     "prefer-const": "off",
     "@typescript-eslint/no-inferrable-types": "off",
-    "@typescript-eslint/interface-name-prefix": "off"
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "progress/activate": 1,
+    "no-multi-spaces": "warn",
+    "space-before-function-paren": ["error", "always"],
+    "object-curly-spacing": ["error", "always"],
+    "eslint-disable-next-line @typescript-eslint/no-empty-function": "off",
+    "typescript-eslint/no-unused-vars": "off",
+    "sort-class-members/sort-class-members": [2, {
+      "order": [
+        "[static-properties]",
+        "[properties]",
+        "[conventional-private-properties]",
+        "constructor",
+        "[methods]",
+        "[conventional-private-methods]",
+        "[static-methods]"
+      ],
+      "accessorPairPositioning": "getThenSet"
+    }],
+    "quotes": [ "error", "single" ],
+    "space-before-blocks": "error",
+    "eol-last": [ "error" ],
+    "func-call-spacing": [ "error", "never" ],
+    "no-mixed-spaces-and-tabs": "error",
+    "lines-between-class-members": ["error", "always", {"exceptAfterSingleLine":  true}],
+    "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "sort-imports": "off",
+    "keyword-spacing": ["error", { "before": true }],
+    "unused-imports/no-unused-imports": "error"
+    //    "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
   },
+  "plugins": [
+    "progress",
+    "sort-class-members",
+    "simple-import-sort",
+    "unused-imports"
+    //    "eslint-plugin-import-order-alphabetical"
+  ],
   "globals": {
     "Phaser": true,
     "__DEV__": true,

@@ -1,10 +1,10 @@
+import Grid from 'core/Grid';
+import TreeSpawner from 'core/TreeSpawner';
+import { Depths } from 'enums/Depths';
 import GameScene from 'scenes/GameScene';
-import Grid from "core/Grid";
-import {Depths} from "enums/Depths";
-import Building from "entity/Building";
-import TreeSpawner from "core/TreeSpawner";
 import TiledObject = Phaser.Types.Tilemaps.TiledObject;
-import Editor from "core/editor/Editor";
+import Editor from 'core/editor/Editor';
+import Zone from 'core/Zone';
 
 export default class WorldEnvironment {
 
@@ -13,6 +13,7 @@ export default class WorldEnvironment {
     private riverRectangles: Phaser.Geom.Rectangle[] = [];
 
     private editor: Editor;
+    private zone: Zone;
 
     constructor (scene: GameScene) {
         this.scene = scene;
@@ -29,11 +30,12 @@ export default class WorldEnvironment {
         new TreeSpawner(this.scene, this);
 
         this.editor = new Editor(this.scene);
+        this.zone = new Zone(this.scene);
 
         // this.scene.add.image(100, 109, 'assets', 'road_vertical').setDepth(Depths.ROAD);
     }
 
-    isInRiver(x: number, y: number): boolean {
+    isInRiver (x: number, y: number): boolean {
         for (let rectangle of this.riverRectangles) {
             if (rectangle.contains(x, y)) {
                 return true;
@@ -43,7 +45,7 @@ export default class WorldEnvironment {
         return false;
     }
 
-    private prepareRiverLayer(): void {
+    private prepareRiverLayer (): void {
         const layer = this.map.getObjectLayer('not_spawn_tree');
 
         if (layer === undefined || layer.objects.length === 0) {
