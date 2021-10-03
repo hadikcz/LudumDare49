@@ -8,6 +8,10 @@ export default class UI {
 
     constructor (scene: GameScene) {
         this.scene = scene;
+
+        $('#cancelSocket').on('click', () => {
+            this.scene.pipeSystem.cancelConnecting();
+        });
     }
 
     update () {

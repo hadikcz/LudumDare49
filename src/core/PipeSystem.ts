@@ -34,4 +34,14 @@ export default class PipeSystem {
         this.selectedOutputSocket = output;
         this.scene.ui.showSocket(SocketType.OUTPUT);
     }
+
+    cancelConnecting (): void {
+        if (this.selectedOutputSocket === null) {
+            console.error('HEAT: cant cancel selecting, no socket selected');
+            return;
+        }
+
+        this.selectedOutputSocket = null;
+        this.scene.ui.hideSocket();
+    }
 }
