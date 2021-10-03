@@ -5,7 +5,7 @@ import Image = Phaser.GameObjects.Image;
 import GameObject = Phaser.GameObjects.GameObject;
 import EditorUI from 'core/editor/EditorUI';
 import world from 'core/editor/world.json';
-import Building from 'entity/Building';
+import ConsumerBuilding from 'entity/ConsumerBuilding';
 import HeatingPlant from 'entity/HeatingPlant';
 declare let __DEV__: any;
 
@@ -284,7 +284,7 @@ export default class Editor {
             object = new HeatingPlant(this.scene, x, y);
         } else if (layer === 'buildings' || layer === 'factories') {
         // if (false) {
-            object = new Building(this.scene, x, y, index);
+            object = new ConsumerBuilding(this.scene, x, y, index);
         } else {
             object = this.scene.add.image(x, y, 'assets', index)
                 .setScale(scaleX, scaleY)

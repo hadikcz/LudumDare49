@@ -3,6 +3,7 @@ import { InputSocket } from 'entity/pipeSystem/InputSocket';
 import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import { PipeSystemObject } from 'entity/pipeSystem/PipeSystemObject';
 import GameScene from 'scenes/GameScene';
+import Vector2 = Phaser.Math.Vector2;
 
 export default class HeatingPlant extends Building implements OutputSocket, PipeSystemObject {
 
@@ -50,6 +51,13 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
 
     getOutputPower (): number {
         return 100;
+    }
+
+    getPosition (): Phaser.Math.Vector2 {
+        return new Vector2(
+            this.x,
+            this.y
+        );
     }
 
 }
