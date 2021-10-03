@@ -29,6 +29,11 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('smoke', 'assets/images/smoke.png');
 
         this.load.tilemapTiledJSON('map', 'assets/map.json');
+
+        // audio
+        this.load.audio('music1', 'assets/audio/music/music1.ogg');
+        this.load.audio('music2', 'assets/audio/music/music2.ogg');
+        this.load.audio('music3', 'assets/audio/music/music3.ogg');
     }
 
     private startGame (): void {

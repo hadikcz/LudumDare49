@@ -25,9 +25,11 @@ export default class Editor {
         'tree_large1'
     ];
 
+private isEnabled: boolean = false;
+
+
     private scene: GameScene;
     public layers: { name: string; depth: number; type: 'images' | 'points'; group: Group}[] = [];
-    private isEnabled: boolean = false;
 
     public lastPickedItem!: GameObject;
     public pickedLayer: string = '';
@@ -37,7 +39,9 @@ export default class Editor {
     constructor (scene: GameScene) {
         this.scene = scene;
 
-        this.isEnabled = __DEV__;
+        if (!__DEV__) {
+            this.isEnabled = false;
+        }
         this.load();
         // this.isEnabled = false;
         if (this.isEnabled) {

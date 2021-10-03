@@ -1,3 +1,4 @@
+import MusicPlayer from 'core/MusicPlayer';
 import WorldEnvironment from 'core/WorldEnvironment';
 import EffectManager from 'effects/EffectManager';
 import Phaser from 'phaser';
@@ -12,6 +13,7 @@ export default class GameScene extends Phaser.Scene {
     public ui!: UI;
     public datGui!: DatGui;
     public worldEnvironment!: WorldEnvironment;
+    private musicPlayer!: MusicPlayer;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -30,6 +32,7 @@ export default class GameScene extends Phaser.Scene {
         window.worldEnvironment = this.worldEnvironment;
 
         this.ui = new UI(this);
+        this.musicPlayer = new MusicPlayer(this);
     }
 
     update (): void {
