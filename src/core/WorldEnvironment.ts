@@ -6,6 +6,7 @@ import TiledObject = Phaser.Types.Tilemaps.TiledObject;
 import Editor from 'core/editor/Editor';
 import Zone from 'core/Zone';
 import Group = Phaser.GameObjects.Group;
+import Combiner from 'entity/Combiner';
 import Splitter from 'entity/pipeSystem/Splitter';
 import Switch from 'entity/pipeSystem/Switch';
 
@@ -24,6 +25,7 @@ export default class WorldEnvironment {
     public readonly heaterGroup: Group;
     public readonly splitters: Group
     public readonly switches: Group
+    public readonly combiners: Group
     private treeSpawner: TreeSpawner;
 
     constructor (scene: GameScene) {
@@ -47,6 +49,7 @@ export default class WorldEnvironment {
         this.heaterGroup = this.editor.getLayerGroupByName('heater');
         this.splitters = this.scene.add.group();
         this.switches = this.scene.add.group();
+        this.combiners = this.scene.add.group();
 
         this.zone = new Zone(this.scene, this);
 
@@ -55,6 +58,9 @@ export default class WorldEnvironment {
 
         let testSwitch = new Switch(this.scene, 500, 600);
         this.switches.add(testSwitch);
+
+        let testCombiner = new Combiner(this.scene, 700, 600);
+        this.combiners.add(testCombiner);
     }
 
     update (): void {

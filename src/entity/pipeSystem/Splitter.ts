@@ -46,7 +46,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.add(this.settingsIcon);
 
         this.settingsIcon.on('pointerdown', () => {
-            let value = prompt('Define how much will pass thru on static output. Rest of income heat will be send into variable output.\n Green input\n blue static ouput (number which you pick here)\n red different between static output and input (rest of heat).\n Current static output: ' +this.staticPass + '\nCurrent variable output: ' + this.lastVariableOutput, '1');
+            let value = prompt('SPLITTER\n\nDefine how much will pass thru on static output. Rest of income heat will be send into variable output.\n Green input\n blue static ouput (number which you pick here)\n red different between static output and input (rest of heat).\n Current static output: ' +this.staticPass + '\nCurrent variable output: ' + this.lastVariableOutput, '1');
             if (!value) return;
 
             let parsed = parseInt(value);
@@ -167,7 +167,6 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
 
     disconnect (onlyInput: boolean = false): void {
         setTimeout(() => {
-
             this.inputSocket = null;
             this.inputPipe = null;
             if (!onlyInput) {
@@ -247,7 +246,6 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.variableOutputText.setText('0');
         this.inputText.setText('0');
         this.lastVariableOutput = 0;
-
     }
 
     setInputSocket (object: OutputSocket, pipe: PipeVisual): void {
