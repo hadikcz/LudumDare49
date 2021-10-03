@@ -6,23 +6,24 @@ import NumberHelpers from "helpers/NumberHelpers";
 import GameConfig from "config/GameConfig";
 import Tree from "entity/Tree";
 import Group = Phaser.GameObjects.Group;
+import WorldEnvironment from "core/WorldEnvironment";
 
 export default class TreeSpawner {
 
     private scene: GameScene;
-    private notSpawnPolygon: Polygon;
+    private worldEnvironment: WorldEnvironment;
     private group: Group;
 
-    constructor(scene: GameScene, notSpawnPolygon: Polygon) {
+    constructor(scene: GameScene, worldEnvironment: WorldEnvironment) {
         this.scene = scene;
-        this.notSpawnPolygon = notSpawnPolygon;
+        this.worldEnvironment = worldEnvironment;
 
         this.group = this.scene.add.group();
         this.create();
     }
 
     private create(): void {
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 80; i++) {
             let spawnPoint = this.generateSpawnPoint();
             let treeIndex = this.generateTreeSpriteIndex();
 
@@ -44,9 +45,7 @@ export default class TreeSpawner {
                 NumberHelpers.randomIntInRange(0, GameConfig.World.size.height)
             );
 
-            console.log(this.notSpawnPolygon);
-            console.log(this.notSpawnPolygon.contains(randomSpawn.x, randomSpawn.y));
-            if (!this.notSpawnPolygon.contains(randomSpawn.x, randomSpawn.y)) {
+            if (!this.worldEnvironment.isInRiver(randomSpawn.x, randomSpawn.y)) {
                 return randomSpawn;
             }
         }

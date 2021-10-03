@@ -2,14 +2,14 @@ import GameScene from 'scenes/GameScene';
 import Grid from "core/Grid";
 import {Depths} from "enums/Depths";
 import Building from "entity/Building";
-import Polygon = Phaser.Geom.Polygon;
 import TreeSpawner from "core/TreeSpawner";
+import TiledObject = Phaser.Types.Tilemaps.TiledObject;
 
 export default class WorldEnvironment {
 
     private scene: GameScene;
     private map: Phaser.Tilemaps.Tilemap;
-    private riverPolygon: Polygon;
+    private riverRectangles: Phaser.Geom.Rectangle[] = [];
 
     constructor (scene: GameScene) {
         this.scene = scene;
@@ -20,19 +20,30 @@ export default class WorldEnvironment {
 
         this.map = this.scene.make.tilemap({ key: 'map' });
         const layer = this.map.getObjectLayer('not_spawn_tree');
-        const notSpawnTree = layer.objects[0];
-        console.log(notSpawnTree);
-        // notSpawnTree.polygon.
 
-        if (notSpawnTree.polygon !== undefined) {
-            // @ts-ignore
-            this.riverPolygon = new Polygon(notSpawnTree.polygon);
-        } else {
+        if (layer === undefined || layer.objects.length === 0) {
             throw new Error('river poly not found');
+        } else {
+            this.riverRectangles = layer.objects.map((object: TiledObject) => {
+                const rect = new Phaser.Geom.Rectangle(object.x, object.y, object.width, object.height);
+                // console.log(rect.x, rect.y);
+                // this.scene.add.rectangle(object.x, object.y, object.width, object.height, 0xFF0000, 1).setDepth(Depths.UI).setOrigin(0);
+                return rect;
+            });
         }
         new Grid(this.scene);
         new Building(this.scene, 600, 600, 'heating_plant');
-        new TreeSpawner(this.scene, this.riverPolygon);
+        new TreeSpawner(this.scene, this);
+    }
+
+    isInRiver(x: number, y: number): boolean {
+        for (let rectangle of this.riverRectangles) {
+            if (rectangle.contains(x, y)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
