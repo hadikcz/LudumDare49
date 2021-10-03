@@ -105,6 +105,14 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             }
         });
 
+        this.overlay.on('pointerover', () => {
+            this.overlay.setAlpha(1);
+        });
+
+        this.overlay.on('pointerout', () => {
+            this.overlay.setAlpha(0.0001);
+        });
+
         // plus
         this.plusButton = this.scene.add.image(
             this.x + 20,

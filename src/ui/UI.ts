@@ -29,6 +29,10 @@ export default class UI {
         $('#buildCombiner').on('click', () => {
             this.scene.builder.startBuild(Building.COMBINER);
         });
+
+        $('#buildSwitch').on('click', () => {
+            this.scene.builder.startBuild(Building.SWITCH);
+        });
     }
 
     update () {

@@ -5,7 +5,7 @@
 			"format": "RGBA8888",
 			"size": {
 				"w": 126,
-				"h": 769
+				"h": 771
 			},
 			"scale": 1,
 			"frames": [
@@ -718,9 +718,30 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 715,
+						"y": 671,
 						"w": 45,
 						"h": 39
+					}
+				},
+				{
+					"filename": "ui_progressbar_small_inner",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 7,
+						"h": 29
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 7,
+						"h": 26
+					},
+					"frame": {
+						"x": 48,
+						"y": 671,
+						"w": 7,
+						"h": 26
 					}
 				},
 				{
@@ -739,7 +760,7 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 671,
+						"y": 715,
 						"w": 36,
 						"h": 34
 					}
@@ -759,8 +780,8 @@
 						"h": 19
 					},
 					"frame": {
-						"x": 39,
-						"y": 671,
+						"x": 1,
+						"y": 751,
 						"w": 19,
 						"h": 19
 					}
@@ -780,31 +801,31 @@
 						"h": 17
 					},
 					"frame": {
-						"x": 39,
-						"y": 692,
+						"x": 22,
+						"y": 751,
 						"w": 18,
 						"h": 17
 					}
 				},
 				{
-					"filename": "ui_progressbar_small_inner",
+					"filename": "house_overlay",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
-						"w": 7,
-						"h": 29
+						"w": 36,
+						"h": 34
 					},
 					"spriteSourceSize": {
 						"x": 0,
-						"y": 1,
-						"w": 7,
-						"h": 26
+						"y": 0,
+						"w": 36,
+						"h": 34
 					},
 					"frame": {
-						"x": 48,
-						"y": 711,
-						"w": 7,
-						"h": 26
+						"x": 39,
+						"y": 715,
+						"w": 36,
+						"h": 34
 					}
 				},
 				{
@@ -822,8 +843,8 @@
 						"h": 17
 					},
 					"frame": {
-						"x": 48,
-						"y": 739,
+						"x": 42,
+						"y": 751,
 						"w": 17,
 						"h": 17
 					}
@@ -843,31 +864,31 @@
 						"h": 17
 					},
 					"frame": {
-						"x": 57,
-						"y": 715,
+						"x": 61,
+						"y": 751,
 						"w": 17,
 						"h": 17
 					}
 				},
 				{
-					"filename": "house_overlay",
+					"filename": "switch",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 36,
-						"h": 34
+						"w": 17,
+						"h": 25
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 36,
-						"h": 34
+						"w": 17,
+						"h": 25
 					},
 					"frame": {
-						"x": 67,
-						"y": 734,
-						"w": 36,
-						"h": 34
+						"x": 77,
+						"y": 715,
+						"w": 17,
+						"h": 25
 					}
 				},
 				{
@@ -885,8 +906,8 @@
 						"h": 17
 					},
 					"frame": {
-						"x": 76,
-						"y": 715,
+						"x": 80,
+						"y": 742,
 						"w": 17,
 						"h": 17
 					}
@@ -906,7 +927,7 @@
 						"h": 17
 					},
 					"frame": {
-						"x": 95,
+						"x": 96,
 						"y": 715,
 						"w": 17,
 						"h": 17
@@ -927,7 +948,7 @@
 						"h": 17
 					},
 					"frame": {
-						"x": 105,
+						"x": 99,
 						"y": 734,
 						"w": 17,
 						"h": 17
@@ -939,6 +960,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:4e88988b3c36074f5dd07bdfede59a5c:3df8673762447a7ecf042f13c4b50f76:a759b6bbc8381ac9c472b28f589ad0d6$"
+		"smartupdate": "$TexturePacker:SmartUpdate:b5905f865151ff66c2d86fb2c0729d0b:cfd7d996493b47a0fb0753f707e22fa7:a759b6bbc8381ac9c472b28f589ad0d6$"
 	}
 }

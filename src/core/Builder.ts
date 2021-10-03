@@ -1,9 +1,10 @@
 import WorldEnvironment from 'core/WorldEnvironment';
+import Splitter from 'entity/pipeSystem/Splitter';
 import { Building } from 'enums/Building';
+import { Depths } from 'enums/Depths';
 import GameScene from 'scenes/GameScene';
 import Image = Phaser.GameObjects.Image;
-import Splitter from 'entity/pipeSystem/Splitter';
-import { Depths } from 'enums/Depths';
+import Switch from 'entity/pipeSystem/Switch';
 
 export default class Builder {
 
@@ -46,8 +47,15 @@ export default class Builder {
     finishBuilding (worldX: number, worldY: number): void {
         if (!this.isBuildMode()) return;
 
-        const obj = new Splitter(this.scene, worldX, worldY);
-        this.worldEnvironment.splitters.add(obj);
+        if (this.buildMode === Building.SPLITTER) {
+            const obj = new Splitter(this.scene, worldX, worldY);
+            this.worldEnvironment.splitters.add(obj);
+        } else if (this.buildMode === Building.SWITCH) {
+            const obj = new Switch(this.scene, worldX, worldY);
+            this.worldEnvironment.switches.add(obj);
+        }
+
+
         this.previewImage.setPosition(-100, -100).setVisible(false);
         this.buildMode = null;
     }

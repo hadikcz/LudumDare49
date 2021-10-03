@@ -7,6 +7,7 @@ import Editor from 'core/editor/Editor';
 import Zone from 'core/Zone';
 import Group = Phaser.GameObjects.Group;
 import Splitter from 'entity/pipeSystem/Splitter';
+import Switch from 'entity/pipeSystem/Switch';
 
 export default class WorldEnvironment {
 
@@ -22,6 +23,7 @@ export default class WorldEnvironment {
     public readonly roadsGroup: Group;
     public readonly heaterGroup: Group;
     public readonly splitters: Group
+    public readonly switches: Group
     private treeSpawner: TreeSpawner;
 
     constructor (scene: GameScene) {
@@ -44,11 +46,15 @@ export default class WorldEnvironment {
         this.roadsGroup = this.editor.getLayerGroupByName('roads');
         this.heaterGroup = this.editor.getLayerGroupByName('heater');
         this.splitters = this.scene.add.group();
+        this.switches = this.scene.add.group();
 
         this.zone = new Zone(this.scene, this);
 
         let testSplitter = new Splitter(this.scene, 500, 500);
         this.splitters.add(testSplitter);
+
+        let testSwitch = new Switch(this.scene, 500, 600);
+        this.switches.add(testSwitch);
     }
 
     update (): void {
