@@ -1,4 +1,5 @@
 export enum Building {
     SPLITTER = 'splitter',
-    COMBINER = 'combiner'
+    COMBINER = 'combiner',
+    SWITCH = 'switch'
 }

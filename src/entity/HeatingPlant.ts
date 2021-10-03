@@ -17,7 +17,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
     private healthbar: ProgressBarUI;
     private heatText: Phaser.GameObjects.Text;
     private plusButton: Phaser.GameObjects.Image;
-    private heatGeneration = HeatingPlant.MAX_HEAT;
+    private heatGeneration = 0;
     private minusButton: Phaser.GameObjects.Image;
     private plusButton10: Phaser.GameObjects.Image;
     private minusButton10: Phaser.GameObjects.Image;
@@ -45,7 +45,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
             bgAlpha: 0.75,
         });
         this.healthbar.setTint(0xffcc68);
-        this.healthbar.setPercent(50);
+        this.healthbar.setPercent(0);
 
         // plus
         this.plusButton = this.scene.add.image(
@@ -160,7 +160,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         this.heatText.setText(this.getOutputPower().toString());
         this.healthbar.setPercent(this.getOutputPower());
 
-        let targetTime;
+        let targetTime = 10000;
         if (this.heatGeneration > 0 && this.heatGeneration <= 10) {
             targetTime = 700;
         }
@@ -179,7 +179,6 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         if (this.heatGeneration > 85) {
             targetTime = 200;
         }
-
         if (this.timeBetweenSmoke !== targetTime) {
             this.timeBetweenSmoke = targetTime;
             this.startSmoke();
