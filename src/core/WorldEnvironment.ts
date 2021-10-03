@@ -4,12 +4,15 @@ import {Depths} from "enums/Depths";
 import Building from "entity/Building";
 import TreeSpawner from "core/TreeSpawner";
 import TiledObject = Phaser.Types.Tilemaps.TiledObject;
+import Editor from "core/editor/Editor";
 
 export default class WorldEnvironment {
 
     private scene: GameScene;
     private map: Phaser.Tilemaps.Tilemap;
     private riverRectangles: Phaser.Geom.Rectangle[] = [];
+
+    private editor: Editor;
 
     constructor (scene: GameScene) {
         this.scene = scene;
@@ -19,6 +22,28 @@ export default class WorldEnvironment {
 
 
         this.map = this.scene.make.tilemap({ key: 'map' });
+        this.prepareRiverLayer();
+
+        new Grid(this.scene);
+        new Building(this.scene, 600, 600, 'heating_plant');
+        new TreeSpawner(this.scene, this);
+
+        this.editor = new Editor(this.scene);
+
+        // this.scene.add.image(100, 109, 'assets', 'road_vertical').setDepth(Depths.ROAD);
+    }
+
+    isInRiver(x: number, y: number): boolean {
+        for (let rectangle of this.riverRectangles) {
+            if (rectangle.contains(x, y)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private prepareRiverLayer(): void {
         const layer = this.map.getObjectLayer('not_spawn_tree');
 
         if (layer === undefined || layer.objects.length === 0) {
@@ -31,19 +56,6 @@ export default class WorldEnvironment {
                 return rect;
             });
         }
-        new Grid(this.scene);
-        new Building(this.scene, 600, 600, 'heating_plant');
-        new TreeSpawner(this.scene, this);
-    }
-
-    isInRiver(x: number, y: number): boolean {
-        for (let rectangle of this.riverRectangles) {
-            if (rectangle.contains(x, y)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
 }

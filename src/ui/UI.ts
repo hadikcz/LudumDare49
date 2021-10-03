@@ -21,6 +21,7 @@ export default class UI {
     showWin(): void {
 // @ts-ignore
         $('#level').html(window.level);
+// @ts-ignore
         $('#data').html(this.scene.dataUploading.getUploaded());
         $('.winPart').hide();
         $('.levelFinished').show();

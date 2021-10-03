@@ -21,21 +21,21 @@ const config = {
     physics: {
         fps: 60,
         default: 'arcade',
-        matter: {
-            fps: 60,
-            // debug: true,
-            gravity: {
-                scale: 0
-            },
-            plugins: {
-                attractors: true
-            },
-            // debug: {
-            //     showBounds: true,
-            //     showVelocity: true,
-            //     showRotation: true
-            // }
-        },
+        // matter: {
+        //     fps: 60,
+        //     // debug: true,
+        //     gravity: {
+        //         scale: 0
+        //     },
+        //     plugins: {
+        //         attractors: true
+        //     },
+        //     // debug: {
+        //     //     showBounds: true,
+        //     //     showVelocity: true,
+        //     //     showRotation: true
+        //     // }
+        // },
         arcade: {
             debug: true,
             gravity: {y: 200}
@@ -56,10 +56,6 @@ const config = {
         WinScene
     ]
 };
-// @ts-ignore
-window.level = 1;
-// @ts-ignore
-window.firstGame = true;
 // @ts-ignore
 const game = new Phaser.Game(config);
 //

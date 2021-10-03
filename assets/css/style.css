@@ -38,6 +38,7 @@ a {text-decoration: none;}
 #content {
     position: absolute;
     z-index: 0;
+    pointer-events: all;
     /*top: 50%;*/
     /*transform: translate(0px, -50%);*/
 }
@@ -53,5 +54,6 @@ a {text-decoration: none;}
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
+    pointer-events: none;
     /*background: #1bb7b7;*/
 }

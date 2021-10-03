@@ -1,0 +1,17 @@
+import * as dat from 'dat.gui';
+import GameScene from "scenes/GameScene";
+import {GUI} from "dat.gui";
+
+export default class DatGui {
+
+    private scene: GameScene;
+    public gui: GUI;
+
+    constructor(scene: GameScene) {
+        this.scene = scene;
+        this.gui = new dat.GUI();
+
+        let folder1 = this.gui.addFolder('Camera');
+        folder1.add(this.scene.cameras.main, 'x', 0.1, 2).listen();
+    }
+}
