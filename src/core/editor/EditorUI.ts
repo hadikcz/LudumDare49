@@ -59,6 +59,9 @@ export default class EditorUI {
         let folder2 = this.datGui.addFolder('EDITOR');
         folder2.open();
 
+        const obj3 = {worldLoadedFromLocalStorage: Editor.LOAD_FROM_LOCAL_STORAGE};
+        folder2.add(obj3, 'worldLoadedFromLocalStorage');
+
         let obj2 = {saveEditor: this.editor.save.bind(this.editor)};
         folder2.add(obj2, 'saveEditor');
 

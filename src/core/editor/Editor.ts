@@ -4,11 +4,13 @@ import Group = Phaser.GameObjects.Group;
 import Image = Phaser.GameObjects.Image;
 import GameObject = Phaser.GameObjects.GameObject;
 import EditorUI from "core/editor/EditorUI";
-
+import world from 'core/editor/world.json';
 declare let __DEV__: any;
 
 export default class Editor {
 
+
+    public static readonly LOAD_FROM_LOCAL_STORAGE = true;
     public static readonly ALLOWED_OBJECTS = [
         'road_vertical',
         'factory1'
@@ -43,14 +45,17 @@ export default class Editor {
     }
 
     public load(): void {
-
-        const rawData = localStorage.getItem('editor');
-        if (!rawData) {
-            console.info('Editor data not found in localstorage');
-            return;
+        let data;
+        if (Editor.LOAD_FROM_LOCAL_STORAGE) {
+            const rawData = localStorage.getItem('editor');
+            if (!rawData) {
+                console.info('Editor data not found in localstorage');
+                return;
+            }
+            data = JSON.parse(rawData) as Layer[];
+        } else {
+            data = world;
         }
-
-        const data = JSON.parse(rawData) as Layer[];
 
         for (let layer of data) {
             console.log(`loading layer ${layer.name} with ${layer.objects.length} objects of type ${layer.type}`);
