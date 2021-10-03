@@ -8,6 +8,8 @@ export interface Layer {
         angle: number;
         scaleX: number;
         scaleY: number;
+        originX: number;
+        originY: number;
         indexName: string;
     }[];
 }
