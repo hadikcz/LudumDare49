@@ -6,7 +6,7 @@ import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import Vector2 = Phaser.Math.Vector2;
 
-export default class Splitter extends Container implements InputSocket, DoubleOutputSocket {
+export default class Splitter extends Container implements InputSocket, DoubleOutputSocket, OutputSocket {
 
     protected scene: GameScene;
     private variableOutputPipe: PipeVisual|null = null;
@@ -15,12 +15,16 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     private staticOutputPipe: PipeVisual|null = null;
     private staticOutput: InputSocket|null = null;
     private overlay: Phaser.GameObjects.Sprite;
+    private image: Phaser.GameObjects.Image;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
 
         scene.add.existing(this);
         this.scene = scene;
+
+        this.image = this.scene.add.image(0, 0, 'assets', 'splitter');
+        this.add(this.image);
 
         this.overlay = this.scene.add.sprite(0, 0, 'assets', 'splitter_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
@@ -29,14 +33,34 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.overlay.on('pointerdown', () => {
             // if (this.scene.pipeSystem.isDisconnectMode()) {
             //     this.pipeVisual?.destroy();
-            // } else {
-            //     if (this.outputSocketBuilding) {
-            //         this.scene.ui.showSocketOccupied();
-            //     } else {
-            //         this.scene.pipeSystem.startConnecting(this);
-            //     }
             // }
+            if (this.scene.pipeSystem.isConnectingMode()) {
+                this.scene.pipeSystem.completeConnecting(this);
+            }
+
+            if (this.staticOutputPipe && this.variableOutput) {
+                this.scene.ui.showSocketOccupied();
+            } else {
+                this.scene.pipeSystem.startConnecting(this);
+            }
         });
+    }
+
+    getOutputObject (): InputSocket | null {
+        return this.staticOutput;
+    }
+
+    setOutputObject (object: InputSocket, pipe: PipeVisual): void {
+        if (!this.staticOutput) {
+            this.staticOutput = object;
+            this.staticOutputPipe = pipe;
+            return;
+        }
+
+        if (!this.variableOutput) {
+            this.variableOutput = object;
+            this.variableOutputPipe = pipe;
+        }
     }
 
     disconnect (): void {
@@ -75,7 +99,15 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     }
 
     sendHeat (heatValue: number): void {
+        let split = heatValue / 2;
+        if (this.staticOutput) {
+            this.staticOutput.sendHeat(split);
+        }
+        if (this.variableOutput) {
+            this.variableOutput.sendHeat(split);
+        }
         // process heat by split
+        console.log('HEAT: splitter -> ' + heatValue);
     }
 
     setInputSocket (object: OutputSocket, pipe: PipeVisual): void {

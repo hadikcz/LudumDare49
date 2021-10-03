@@ -1,3 +1,4 @@
+import { Building } from 'enums/Building';
 import { SocketType } from 'enums/SocketType';
 import $ from 'jquery';
 import GameScene from 'scenes/GameScene';
@@ -19,6 +20,14 @@ export default class UI {
 
         $('#cancelDisconnect').on('click', () => {
             this.scene.pipeSystem.stopDisconnectMode();
+        });
+
+        $('#buildSplitter').on('click', () => {
+            this.scene.builder.startBuild(Building.SPLITTER);
+        });
+
+        $('#buildCombiner').on('click', () => {
+            this.scene.builder.startBuild(Building.COMBINER);
         });
     }
 

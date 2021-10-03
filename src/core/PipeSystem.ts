@@ -67,6 +67,12 @@ export default class PipeSystem {
             return;
         }
 
+        if (input.getInputSocket()) {
+            this.scene.ui.showSocketOccupied();
+            this.cancelConnecting();
+            return;
+        }
+
         // create visual cable
         const outputPos = this.selectedOutputSocket.getPosition();
         const inputPos = input.getPosition();
