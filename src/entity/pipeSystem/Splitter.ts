@@ -23,6 +23,8 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     private staticOutputText: Phaser.GameObjects.Text;
     private variableOutputText: Phaser.GameObjects.Text;
     private inputText: Phaser.GameObjects.Text;
+    private plusButton: Phaser.GameObjects.Image;
+    private minusButton: Phaser.GameObjects.Image;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
@@ -35,7 +37,8 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.image = this.scene.add.image(0, 0, 'assets', 'splitter');
         this.add(this.image);
 
-        this.settingsIcon = this.scene.add.image(0, -20, 'assets', 'ui_settings');
+        this.settingsIcon = this.scene.add.image(0, -20, 'assets', 'ui_settings')
+            .setDepth(Depths.UI);
         this.settingsIcon.setInteractive({ useHandCursor: true });
         this.add(this.settingsIcon);
 
@@ -51,7 +54,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#417093', align: 'center' };
 
         this.staticOutputText = this.scene.add.text(
-            this.x + -25,
+            this.x + 15,
             this.y + -13,
             '0',
             style
@@ -61,7 +64,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
 
         const style2 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#ae3030', align: 'center' };
         this.variableOutputText = this.scene.add.text(
-            this.x + 15,
+            this.x + -25,
             this.y -13,
             '0',
             style2
@@ -100,6 +103,35 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             } else {
                 this.scene.pipeSystem.startConnecting(this);
             }
+        });
+
+        // plus
+        this.plusButton = this.scene.add.image(
+            this.x + 20,
+            this.y - 20,
+            'assets',
+            'ui_plus'
+        )
+            .setDepth(Depths.UI)
+            .setInteractive({ useHandCursor: true });
+
+        // minus
+        this.minusButton = this.scene.add.image(
+            this.x - 20,
+            this.y - 20,
+            'assets',
+            'ui_minus'
+        )
+            .setDepth(Depths.UI)
+            .setInteractive({ useHandCursor: true });
+
+        this.plusButton.on('pointerdown', () => {
+            this.staticPass++;
+        });
+
+        this.minusButton.on('pointerdown', () => {
+            if (this.staticPass <= 0) return;
+            this.staticPass--;
         });
     }
 
