@@ -17,6 +17,8 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     private inputPipe: PipeVisual|null = null;
     private overlay: Phaser.GameObjects.Sprite;
     private image: Phaser.GameObjects.Image;
+    private settingsIcon: Phaser.GameObjects.Image;
+    private staticPass = 1;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
@@ -26,6 +28,19 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
 
         this.image = this.scene.add.image(0, 0, 'assets', 'splitter');
         this.add(this.image);
+
+        this.settingsIcon = this.scene.add.image(20, 0, 'assets', 'ui_settings');
+        this.settingsIcon.setInteractive({ useHandCursor: true });
+        this.add(this.settingsIcon);
+
+        this.settingsIcon.on('pointerdown', () => {
+            let value = prompt('Define how much will pass thru on static output. Rest of income heat will be send into variable output', '1');
+            if (!value) return;
+
+            let parsed = parseInt(value);
+
+            this.staticPass = parsed;
+        });
 
         this.overlay = this.scene.add.sprite(0, 0, 'assets', 'splitter_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
@@ -110,12 +125,22 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     }
 
     sendHeat (heatValue: number): void {
-        let split = heatValue / 2;
+        let staticHeat = 0;
+
+        if (heatValue <= this.staticPass) {
+            staticHeat = Math.abs(heatValue);
+        } else {
+            staticHeat = heatValue - this.staticPass;
+        }
+
+        let variableHeat = Math.abs(heatValue - staticHeat);
+
+
         if (this.staticOutput) {
-            this.staticOutput.sendHeat(split);
+            this.staticOutput.sendHeat(staticHeat);
         }
         if (this.variableOutput) {
-            this.variableOutput.sendHeat(split);
+            this.variableOutput.sendHeat(variableHeat);
         }
         // process heat by split
         console.log('HEAT: splitter -> ' + heatValue);
