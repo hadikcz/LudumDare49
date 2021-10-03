@@ -3,11 +3,23 @@ import GameScene from "scenes/GameScene";
 import {Depths} from "enums/Depths";
 import Shadows from "config/Shadows";
 import GameConfig from "config/GameConfig";
+import ArrayHelpers from "helpers/ArrayHelpers";
+import Vector2 = Phaser.Math.Vector2;
+import SmokeSource from "config/SmokeSource";
 
 export default class Building extends Container {
 
+    private static readonly INDUSTRIAL = [
+        'factory1',
+        'factory2',
+        'factory3',
+        'heating_plant',
+    ]
+
     protected scene: GameScene;
     private frameName: string;
+
+    private smokeSources: Vector2[] = [];
 
     constructor (scene: GameScene, x: number, y: number, image: string) {
         super(scene, x, y, []);
@@ -59,9 +71,38 @@ export default class Building extends Container {
                 .setAlpha(GameConfig.shadowAlpha);
             this.add(shadow);
         }
+
+        this.handleSmoke();
     }
 
     getFrameName(): string {
         return this.frameName;
+    }
+
+
+    private handleSmoke(): void {
+        if (!this.isIndustrial()) return;
+
+        if (this.smokeSources.length === 0) {
+            let smokeSources = SmokeSource[this.frameName];
+            if (smokeSources === undefined) {
+                console.error('smoke soruces not found');
+                return;
+            }
+            this.smokeSources = smokeSources;
+        }
+
+        setInterval(() => {
+            for (let smokeSource of this.smokeSources) {
+                this.scene.effectManager.launchSmoke(
+                    this.x + smokeSource.x,
+                    this.y + smokeSource.y
+                );
+            }
+        }, 100);
+    }
+
+    private isIndustrial(): boolean {
+        return ArrayHelpers.inArray(Building.INDUSTRIAL, this.frameName);
     }
 }

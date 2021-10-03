@@ -26,6 +26,7 @@ export default class BootScene extends Phaser.Scene {
         // LOAD assets HERE
         this.load.atlas('assets', 'assets/images/assets.png', 'assets/images/assets.json');
         this.load.image('bg', 'assets/images/bg.png');
+        this.load.image('smoke', 'assets/images/smoke.png');
 
         this.load.tilemapTiledJSON('map', 'assets/map.json');
     }

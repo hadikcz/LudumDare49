@@ -6,6 +6,7 @@ export enum Depths {
     TREE,
     BUILDINGS,
     SHADOW_TOP,
+    SMOKE,
     FLY_TEXT,
     UI
 }
