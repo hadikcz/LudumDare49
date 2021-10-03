@@ -159,6 +159,31 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
     preUpdate (): void {
         this.heatText.setText(this.getOutputPower().toString());
         this.healthbar.setPercent(this.getOutputPower());
+
+        let targetTime;
+        if (this.heatGeneration > 0 && this.heatGeneration <= 10) {
+            targetTime = 700;
+        }
+        if (this.heatGeneration > 10 && this.heatGeneration <= 30) {
+            targetTime = 600;
+        }
+        if (this.heatGeneration > 30 && this.heatGeneration <= 50) {
+            targetTime = 500;
+        }
+        if (this.heatGeneration > 50 && this.heatGeneration <= 70) {
+            targetTime = 400;
+        }
+        if (this.heatGeneration > 70 && this.heatGeneration <= 85) {
+            targetTime = 250;
+        }
+        if (this.heatGeneration > 85) {
+            targetTime = 200;
+        }
+
+        if (this.timeBetweenSmoke !== targetTime) {
+            this.timeBetweenSmoke = targetTime;
+            this.startSmoke();
+        }
     }
 
     updateHeat (): void {

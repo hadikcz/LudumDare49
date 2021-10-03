@@ -23,6 +23,8 @@ export default class Building extends Container {
     private buildingImage: Phaser.GameObjects.Sprite;
     private shadow: Phaser.GameObjects.Sprite;
     protected steamInterval!: NodeJS.Timeout;
+    protected timeBetweenSmoke = 250;
+    private smokeInterval: NodeJS.Timeout|null = null;
 
     constructor (scene: GameScene, x: number, y: number, image: string) {
         super(scene, x, y, []);
@@ -104,8 +106,15 @@ export default class Building extends Container {
             }
             this.smokeSources = smokeSources;
         }
+        this.startSmoke();
+    }
 
-        setInterval(() => {
+    protected startSmoke (): void {
+        if (this.smokeInterval) {
+            clearInterval(this.smokeInterval);
+        }
+
+        this.smokeInterval = setInterval(() => {
             if (!this.active) return;
             for (let smokeSource of this.smokeSources) {
                 this.scene.effectManager.launchSmoke(
@@ -115,7 +124,7 @@ export default class Building extends Container {
                     false
                 );
             }
-        }, 250);
+        }, this.timeBetweenSmoke);
     }
 
     protected handleSteam (): void {
