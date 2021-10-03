@@ -1,3 +1,4 @@
+import { SocketType } from 'enums/SocketType';
 import $ from 'jquery';
 import GameScene from 'scenes/GameScene';
 
@@ -18,29 +19,39 @@ export default class UI {
     hide (): void {
     }
 
-    showWin(): void {
-// @ts-ignore
+    showWin (): void {
+        // @ts-ignore
         $('#level').html(window.level);
-// @ts-ignore
+        // @ts-ignore
         $('#data').html(this.scene.dataUploading.getUploaded());
         $('.winPart').hide();
         $('.levelFinished').show();
         $('.win').slideDown('slow');
     }
 
-    hideWin(): void {
+    hideWin (): void {
         $('.win').slideUp('slow');
     }
 
-    showLose(): void {
+    showLose (): void {
         $('.winPart').hide();
         $('.failed').show();
         $('.win').slideDown('slow');
     }
 
-    showGameOver(): void {
+    showGameOver (): void {
         $('.winPart').hide();
         $('.gameOver').show();
         $('.win').slideDown('slow');
+    }
+
+    showSocket (socketType: SocketType): void {
+        console.log('hrrr');
+        $('.socketTypeWrapper').show();
+        $('#socketType').html(socketType);
+    }
+
+    hideSocket (): void {
+        $('.socketTypeWrapper').hide();
     }
 }

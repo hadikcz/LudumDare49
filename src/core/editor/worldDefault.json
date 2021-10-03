@@ -1,0 +1,26 @@
+[
+  {
+    "name": "roads",
+    "depth": 1,
+    "type": "images",
+    "objects": []
+  },
+  {
+    "name": "buildings",
+    "depth": 5,
+    "type": "images",
+    "objects": []
+  },
+  {
+    "name": "factories",
+    "depth": 5,
+    "type": "images",
+    "objects": []
+  },
+  {
+    "name": "heater",
+    "depth": 5,
+    "type": "images",
+    "objects": []
+  }
+]

@@ -140,4 +140,8 @@ export default class Building extends Container {
     private isIndustrial (): boolean {
         return ArrayHelpers.inArray(Building.INDUSTRIAL, this.frameName);
     }
+
+    //# region pipe system bellow
+
+    //# endregion
 }

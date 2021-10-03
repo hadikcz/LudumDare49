@@ -6,6 +6,7 @@ import GameObject = Phaser.GameObjects.GameObject;
 import EditorUI from 'core/editor/EditorUI';
 import world from 'core/editor/world.json';
 import Building from 'entity/Building';
+import HeatingPlant from 'entity/HeatingPlant';
 declare let __DEV__: any;
 
 export default class Editor {
@@ -278,7 +279,10 @@ export default class Editor {
     private createObject (layer: string, depth: number, index: string, x: number, y: number, angle: number = 0, scaleX: number = 1, scaleY: number = 1, originX: number = 0.5, originY: number = 0.5): GameObject {
         let object;
 
-        if (layer === 'buildings' || layer === 'factories' || layer === 'heater') {
+        // layer = 'DEBUG_LAYER->ALLWILLBE_IMAGE';
+        if (layer === 'heater') {
+            object = new HeatingPlant(this.scene, x, y);
+        } else if (layer === 'buildings' || layer === 'factories') {
         // if (false) {
             object = new Building(this.scene, x, y, index);
         } else {

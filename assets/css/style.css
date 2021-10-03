@@ -57,3 +57,18 @@ a {text-decoration: none;}
     pointer-events: none;
     /*background: #1bb7b7;*/
 }
+
+
+.socketTypeWrapper {
+    padding: 5px;
+    height: auto;
+    background: #000000;
+    opacity: 50%;
+    left: 50%;
+    top: 100px;
+    position: absolute;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 20px;
+    z-index: 1000;
+}

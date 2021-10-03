@@ -4,8 +4,8 @@
 			"image": "assets.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 127,
-				"h": 653
+				"w": 128,
+				"h": 716
 			},
 			"scale": 1,
 			"frames": [
@@ -52,6 +52,27 @@
 					}
 				},
 				{
+					"filename": "tree1_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 111,
+						"y": 64,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
 					"filename": "ui_minus",
 					"rotated": false,
 					"trimmed": false,
@@ -67,7 +88,7 @@
 					},
 					"frame": {
 						"x": 111,
-						"y": 64,
+						"y": 82,
 						"w": 14,
 						"h": 14
 					}
@@ -88,7 +109,7 @@
 					},
 					"frame": {
 						"x": 111,
-						"y": 80,
+						"y": 98,
 						"w": 14,
 						"h": 14
 					}
@@ -109,7 +130,7 @@
 					},
 					"frame": {
 						"x": 111,
-						"y": 96,
+						"y": 114,
 						"w": 14,
 						"h": 14
 					}
@@ -130,9 +151,30 @@
 					},
 					"frame": {
 						"x": 111,
-						"y": 112,
+						"y": 130,
 						"w": 14,
 						"h": 14
+					}
+				},
+				{
+					"filename": "heating_plant_overlay",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 108,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 108,
+						"h": 68
+					},
+					"frame": {
+						"x": 1,
+						"y": 134,
+						"w": 108,
+						"h": 68
 					}
 				},
 				{
@@ -151,135 +193,9 @@
 					},
 					"frame": {
 						"x": 111,
-						"y": 128,
+						"y": 146,
 						"w": 12,
 						"h": 12
-					}
-				},
-				{
-					"filename": "factory2_shadow",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 106,
-						"h": 59
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 106,
-						"h": 59
-					},
-					"frame": {
-						"x": 1,
-						"y": 134,
-						"w": 106,
-						"h": 59
-					}
-				},
-				{
-					"filename": "pipe_limiter_horizontal",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 17,
-						"h": 17
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 17,
-						"h": 17
-					},
-					"frame": {
-						"x": 109,
-						"y": 142,
-						"w": 17,
-						"h": 17
-					}
-				},
-				{
-					"filename": "pipe_limiter_vertical",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 17,
-						"h": 17
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 17,
-						"h": 17
-					},
-					"frame": {
-						"x": 109,
-						"y": 161,
-						"w": 17,
-						"h": 17
-					}
-				},
-				{
-					"filename": "tree1_shadow",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 16,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 16,
-						"h": 16
-					},
-					"frame": {
-						"x": 109,
-						"y": 180,
-						"w": 16,
-						"h": 16
-					}
-				},
-				{
-					"filename": "heating_plant_shadow",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 105,
-						"h": 63
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 105,
-						"h": 63
-					},
-					"frame": {
-						"x": 1,
-						"y": 195,
-						"w": 105,
-						"h": 63
-					}
-				},
-				{
-					"filename": "tree2_shadow",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 18,
-						"h": 17
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 18,
-						"h": 17
-					},
-					"frame": {
-						"x": 108,
-						"y": 198,
-						"w": 18,
-						"h": 17
 					}
 				},
 				{
@@ -297,31 +213,10 @@
 						"h": 12
 					},
 					"frame": {
-						"x": 108,
-						"y": 217,
+						"x": 111,
+						"y": 160,
 						"w": 12,
 						"h": 12
-					}
-				},
-				{
-					"filename": "pipe_vertical",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 4,
-						"h": 23
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 4,
-						"h": 23
-					},
-					"frame": {
-						"x": 122,
-						"y": 217,
-						"w": 4,
-						"h": 23
 					}
 				},
 				{
@@ -339,8 +234,8 @@
 						"h": 29
 					},
 					"frame": {
-						"x": 108,
-						"y": 231,
+						"x": 111,
+						"y": 174,
 						"w": 7,
 						"h": 29
 					}
@@ -360,10 +255,136 @@
 						"h": 26
 					},
 					"frame": {
-						"x": 117,
-						"y": 242,
+						"x": 120,
+						"y": 174,
 						"w": 7,
 						"h": 26
+					}
+				},
+				{
+					"filename": "ui_warn",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 6,
+						"h": 23
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 6,
+						"h": 23
+					},
+					"frame": {
+						"x": 120,
+						"y": 202,
+						"w": 6,
+						"h": 23
+					}
+				},
+				{
+					"filename": "factory2_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 106,
+						"h": 59
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 106,
+						"h": 59
+					},
+					"frame": {
+						"x": 1,
+						"y": 204,
+						"w": 106,
+						"h": 59
+					}
+				},
+				{
+					"filename": "tree2_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 18,
+						"h": 17
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 18,
+						"h": 17
+					},
+					"frame": {
+						"x": 109,
+						"y": 227,
+						"w": 18,
+						"h": 17
+					}
+				},
+				{
+					"filename": "pipe_limiter_horizontal",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 17,
+						"h": 17
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 17,
+						"h": 17
+					},
+					"frame": {
+						"x": 109,
+						"y": 246,
+						"w": 17,
+						"h": 17
+					}
+				},
+				{
+					"filename": "heating_plant_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 105,
+						"h": 63
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 105,
+						"h": 63
+					},
+					"frame": {
+						"x": 1,
+						"y": 265,
+						"w": 105,
+						"h": 63
+					}
+				},
+				{
+					"filename": "road_horizontal",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 19,
+						"h": 97
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 19,
+						"h": 97
+					},
+					"frame": {
+						"x": 108,
+						"y": 265,
+						"w": 19,
+						"h": 97
 					}
 				},
 				{
@@ -382,7 +403,7 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 260,
+						"y": 330,
 						"w": 100,
 						"h": 51
 					}
@@ -403,30 +424,30 @@
 					},
 					"frame": {
 						"x": 103,
-						"y": 270,
+						"y": 364,
 						"w": 23,
 						"h": 6
 					}
 				},
 				{
-					"filename": "road_horizontal",
+					"filename": "tree_large1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
 						"w": 19,
-						"h": 97
+						"h": 19
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
 						"w": 19,
-						"h": 97
+						"h": 19
 					},
 					"frame": {
 						"x": 103,
-						"y": 278,
+						"y": 372,
 						"w": 19,
-						"h": 97
+						"h": 19
 					}
 				},
 				{
@@ -445,9 +466,30 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 313,
+						"y": 383,
 						"w": 97,
 						"h": 19
+					}
+				},
+				{
+					"filename": "tree_large1_shadow",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 41,
+						"h": 39
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 11,
+						"w": 27,
+						"h": 25
+					},
+					"frame": {
+						"x": 100,
+						"y": 393,
+						"w": 27,
+						"h": 25
 					}
 				},
 				{
@@ -466,30 +508,51 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 334,
+						"y": 404,
 						"w": 95,
 						"h": 51
 					}
 				},
 				{
-					"filename": "tree_large1_shadow",
+					"filename": "pipe_limiter_vertical",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
-						"w": 41,
-						"h": 39
+						"w": 17,
+						"h": 17
 					},
 					"spriteSourceSize": {
-						"x": 10,
-						"y": 11,
-						"w": 27,
-						"h": 25
+						"x": 0,
+						"y": 0,
+						"w": 17,
+						"h": 17
 					},
 					"frame": {
 						"x": 98,
-						"y": 377,
-						"w": 27,
-						"h": 25
+						"y": 420,
+						"w": 17,
+						"h": 17
+					}
+				},
+				{
+					"filename": "pipe_vertical",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 4,
+						"h": 23
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 4,
+						"h": 23
+					},
+					"frame": {
+						"x": 117,
+						"y": 420,
+						"w": 4,
+						"h": 23
 					}
 				},
 				{
@@ -508,7 +571,7 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 387,
+						"y": 457,
 						"w": 87,
 						"h": 79
 					}
@@ -529,7 +592,7 @@
 					},
 					"frame": {
 						"x": 90,
-						"y": 404,
+						"y": 457,
 						"w": 36,
 						"h": 43
 					}
@@ -550,7 +613,7 @@
 					},
 					"frame": {
 						"x": 90,
-						"y": 449,
+						"y": 502,
 						"w": 36,
 						"h": 34
 					}
@@ -571,7 +634,7 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 468,
+						"y": 538,
 						"w": 78,
 						"h": 71
 					}
@@ -592,7 +655,7 @@
 					},
 					"frame": {
 						"x": 81,
-						"y": 485,
+						"y": 538,
 						"w": 45,
 						"h": 39
 					}
@@ -613,30 +676,9 @@
 					},
 					"frame": {
 						"x": 81,
-						"y": 526,
+						"y": 579,
 						"w": 34,
 						"h": 35
-					}
-				},
-				{
-					"filename": "ui_warn",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 6,
-						"h": 23
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 6,
-						"h": 23
-					},
-					"frame": {
-						"x": 117,
-						"y": 526,
-						"w": 6,
-						"h": 23
 					}
 				},
 				{
@@ -655,7 +697,7 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 541,
+						"y": 611,
 						"w": 62,
 						"h": 58
 					}
@@ -676,7 +718,7 @@
 					},
 					"frame": {
 						"x": 65,
-						"y": 563,
+						"y": 616,
 						"w": 58,
 						"h": 46
 					}
@@ -697,7 +739,7 @@
 					},
 					"frame": {
 						"x": 65,
-						"y": 563,
+						"y": 616,
 						"w": 58,
 						"h": 46
 					}
@@ -717,8 +759,8 @@
 						"h": 51
 					},
 					"frame": {
-						"x": 1,
-						"y": 601,
+						"x": 65,
+						"y": 664,
 						"w": 57,
 						"h": 51
 					}
@@ -738,31 +780,10 @@
 						"h": 34
 					},
 					"frame": {
-						"x": 60,
-						"y": 611,
+						"x": 1,
+						"y": 671,
 						"w": 33,
 						"h": 34
-					}
-				},
-				{
-					"filename": "tree_large1",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 19,
-						"h": 19
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 19,
-						"h": 19
-					},
-					"frame": {
-						"x": 95,
-						"y": 611,
-						"w": 19,
-						"h": 19
 					}
 				}
 			]
@@ -771,6 +792,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:64ef70fadb67bfa7109ceb4b52247275:b72ab308af21142a58fb0f21f0a62e2a:a759b6bbc8381ac9c472b28f589ad0d6$"
+		"smartupdate": "$TexturePacker:SmartUpdate:519ca6b5217885d1a7820553bca67df9:f0b82a8ef797abcaa57be3f1905f9270:a759b6bbc8381ac9c472b28f589ad0d6$"
 	}
 }
