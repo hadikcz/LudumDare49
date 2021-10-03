@@ -21,11 +21,11 @@ export default class PipeVisual extends Line {
         this.setDepth(Depths.PIPES);
     }
 
-    destroy (fromScene?: boolean) {
-        super.destroy(fromScene);
+    destroy (onlyInput: boolean = false) {
+        super.destroy(true);
 
-        this.inputSocket.disconnect();
-        this.outputSocket.disconnect();
+        this.inputSocket.disconnect(onlyInput);
+        this.outputSocket.disconnect(onlyInput);
 
     }
 }

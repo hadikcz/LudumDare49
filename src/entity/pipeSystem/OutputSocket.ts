@@ -7,5 +7,5 @@ export interface OutputSocket {
     setOutputObject(object: InputSocket, pipe: PipeVisual): void;
     getOutputPower(): number | null;
     getPosition(): Vector2;
-    disconnect(): void;
+    disconnect(onlyInput: boolean): void;
 }

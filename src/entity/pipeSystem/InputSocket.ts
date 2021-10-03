@@ -8,5 +8,5 @@ export interface InputSocket {
     getRequiredHeat(): number;
     sendHeat(heatValue: number): void;
     getPosition(): Vector2;
-    disconnect(): void;
+    disconnect(onlyInput: boolean): void;
 }

@@ -35,15 +35,19 @@ export default class PipeSystem {
     updateHeat (): void {
         console.log('HEAT: tick heat system');
 
-        // @ts-ignore
-        for (let object of this.worldEnvironment.heaterGroup.getChildren()) {
-            let heatingPlant = object as any as HeatingPlant;
-            heatingPlant.updateHeat();
-        }
+        try {
+            // @ts-ignore
+            for (let object of this.worldEnvironment.heaterGroup.getChildren()) {
+                let heatingPlant = object as any as HeatingPlant;
+                heatingPlant.updateHeat();
+            }
 
-        for (let object of this.worldEnvironment.buildingsGroup.getChildren()) {
-            let building = object as any as ConsumerBuilding;
-            building.updateHeat();
+            for (let object of this.worldEnvironment.buildingsGroup.getChildren()) {
+                let building = object as any as ConsumerBuilding;
+                building.updateHeat();
+            }
+        } catch (e) {
+            console.error(e);
         }
     }
 

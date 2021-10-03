@@ -14,6 +14,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     private inputSocket: OutputSocket|null = null;
     private staticOutputPipe: PipeVisual|null = null;
     private staticOutput: InputSocket|null = null;
+    private inputPipe: PipeVisual|null = null;
     private overlay: Phaser.GameObjects.Sprite;
     private image: Phaser.GameObjects.Image;
 
@@ -31,13 +32,17 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.add(this.overlay);
 
         this.overlay.on('pointerdown', () => {
-            // if (this.scene.pipeSystem.isDisconnectMode()) {
-            //     this.pipeVisual?.destroy();
-            // }
+            if (this.scene.pipeSystem.isDisconnectMode()) {
+                console.log('HEAT: splitter destroy');
+                this.variableOutputPipe?.destroy();
+                this.staticOutputPipe?.destroy();
+                this.inputPipe?.destroy();
+                return;
+            }
             if (this.scene.pipeSystem.isConnectingMode()) {
                 this.scene.pipeSystem.completeConnecting(this);
-            }
 
+            }
             if (this.staticOutputPipe && this.variableOutput) {
                 this.scene.ui.showSocketOccupied();
             } else {
@@ -63,12 +68,18 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         }
     }
 
-    disconnect (): void {
-        this.variableOutput = null;
-        this.variableOutputPipe = null;
-        this.staticOutput = null;
-        this.staticOutputPipe = null;
-        this.inputSocket = null;
+    disconnect (onlyInput: boolean = false): void {
+        setTimeout(() => {
+
+            this.inputSocket = null;
+            this.inputPipe = null;
+            if (!onlyInput) {
+                this.variableOutput = null;
+                this.variableOutputPipe = null;
+                this.staticOutput = null;
+                this.staticOutputPipe = null;
+            }
+        }, 800);
     }
 
     getInputSocket (): OutputSocket | null {
@@ -112,6 +123,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
 
     setInputSocket (object: OutputSocket, pipe: PipeVisual): void {
         this.inputSocket = object;
+        this.inputPipe = pipe;
     }
 
     setStaticOutputObject (object: InputSocket, pipe: PipeVisual): void {
