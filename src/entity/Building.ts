@@ -6,7 +6,6 @@ import ArrayHelpers from 'helpers/ArrayHelpers';
 import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
 import SmokeSource from 'config/SmokeSource';
-import ChanceHelpers from 'helpers/ChanceHelpers';
 
 export default class Building extends Container {
 
@@ -23,6 +22,7 @@ export default class Building extends Container {
     private smokeSources: Vector2[] = [];
     private buildingImage: Phaser.GameObjects.Sprite;
     private shadow: Phaser.GameObjects.Sprite;
+    protected steamInterval!: NodeJS.Timeout;
 
     constructor (scene: GameScene, x: number, y: number, image: string) {
         super(scene, x, y, []);
@@ -76,10 +76,6 @@ export default class Building extends Container {
         }
 
         this.handleSmoke();
-
-        if (ChanceHelpers.percentage(20)) {
-            this.handleSteam();
-        }
     }
 
     getFrameName (): string {
@@ -122,10 +118,10 @@ export default class Building extends Container {
         }, 250);
     }
 
-    private handleSteam (): void {
+    protected handleSteam (): void {
         if (this.isIndustrial()) return;
 
-        setInterval(() => {
+        this.steamInterval = setInterval(() => {
             if (!this.active) return;
             this.scene.effectManager.launchSmoke(
                 this.x,
@@ -135,6 +131,10 @@ export default class Building extends Container {
                 5
             );
         }, 250);
+    }
+
+    protected stopSteam (): void {
+        clearInterval(this.steamInterval);
     }
 
     private isIndustrial (): boolean {

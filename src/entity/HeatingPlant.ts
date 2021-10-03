@@ -61,7 +61,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
     }
 
     getOutputPower (): number {
-        return 100;
+        return 3;
     }
 
     getPosition (): Phaser.Math.Vector2 {

@@ -30,8 +30,8 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         this.heatText = this.scene.add.text(this.x + modifyTextX, this.y + modifyTextY, '', style)
             .setScale(0.2)
             .setStroke('#7c6e1b', 30)
-            .setDepth(Depths.UI)
-            .setVisible(false);
+            .setDepth(Depths.UI);
+        // .setVisible(false);
 
         this.overlay = this.scene.add.sprite(0, 0, 'assets', image + '_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
@@ -48,13 +48,13 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         });
 
         this.overlay.on('pointerover', () => {
-            this.heatText.setVisible(true);
+            // this.heatText.setVisible(true);
             if (!this.scene.pipeSystem.isConnectingMode()) return;
             this.overlay.setAlpha(1);
         });
         //
         this.overlay.on('pointerout', () => {
-            this.heatText.setVisible(false);
+            // this.heatText.setVisible(false);
             this.overlay.setAlpha(0.00001);
         });
     }
@@ -65,6 +65,13 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
             console.log('Building is freezing');
         } else if (this.heatDeposit > this.highLimit) {
             console.log('house is too hot');
+            if (this.steamInterval === undefined) {
+                this.handleSteam();
+            }
+        } else {
+            if (this.steamInterval !== undefined) {
+                this.stopSteam();
+            }
         }
         this.heatDeposit--;
 
