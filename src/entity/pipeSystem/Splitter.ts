@@ -43,7 +43,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.add(this.settingsIcon);
 
         this.settingsIcon.on('pointerdown', () => {
-            let value = prompt('Define how much will pass thru on static output. Rest of income heat will be send into variable output.\n Green input\n blue static ouput (number which you pick here)\n red different between static output and input (rest of heat).', '1');
+            let value = prompt('Define how much will pass thru on static output. Rest of income heat will be send into variable output.\n Green input\n blue static ouput (number which you pick here)\n red different between static output and input (rest of heat).\n Current static output: ' +this.staticPass, '1');
             if (!value) return;
 
             let parsed = parseInt(value);
@@ -207,28 +207,41 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     }
 
     sendHeat (heatValue: number): void {
+        console.log('sentHeat ' + this.staticPass + ' icnome heat ' + heatValue);
         let staticHeat = 0;
 
         if (heatValue <= this.staticPass) {
-            staticHeat = Math.abs(heatValue);
+            staticHeat = heatValue;
         } else {
-            staticHeat = heatValue - this.staticPass;
+            staticHeat = this.staticPass;
         }
 
-        let variableHeat = Math.abs(heatValue - staticHeat);
+        let variableHeat = heatValue - this.staticPass;
+        if (variableHeat < 0) {
+            variableHeat = 0;
+        }
+        //
+        // if (heatValue <= this.staticPass) {
+        //     console.log('overlap');
+        //     staticHeat = Math.abs(heatValue);
+        // } else {
+        //     staticHeat = heatValue - this.staticPass;
+        // }
+        //
+        // let variableHeat = Math.abs(heatValue - staticHeat);
 
 
         if (this.staticOutput) {
-            this.staticOutput.sendHeat(variableHeat); // swap because it work swap not normally
+            this.staticOutput.sendHeat(staticHeat); // swap because it work swap not normally
         }
         if (this.variableOutput) {
-            this.variableOutput.sendHeat(staticHeat);
+            this.variableOutput.sendHeat(variableHeat);
         }
         // process heat by split
         console.log('HEAT: splitter -> ' + heatValue);
 
-        this.staticOutputText.setText(variableHeat.toString());
-        this.variableOutputText.setText(staticHeat.toString());
+        this.staticOutputText.setText(staticHeat.toString());
+        this.variableOutputText.setText(variableHeat.toString());
         this.inputText.setText(heatValue.toString());
     }
 
