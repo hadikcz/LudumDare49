@@ -35,6 +35,8 @@ export default class ProgressBarUI extends Phaser.GameObjects.Container {
             this.add(this.text);
         }
         this.setDepth(this.config.depth);
+
+        this.setAngle(180);
     }
 
     preUpdate (): void {
@@ -89,8 +91,8 @@ export default class ProgressBarUI extends Phaser.GameObjects.Container {
             percent = 0;
         }
         let newScale = {
-            x: percent / 100,
-            y: 1
+            x: 1,
+            y: percent / 100
         };
 
         if (delay) {
@@ -114,6 +116,11 @@ export default class ProgressBarUI extends Phaser.GameObjects.Container {
         if (this.text) {
             this.text.setText(text);
         }
+    }
+
+    setTint (tint: number): void {
+        this.barImage.setTint(tint);
+        this.bgImage.setTint(tint);
     }
 
     private checkDefaultConfigValues (): void {
@@ -148,6 +155,10 @@ export default class ProgressBarUI extends Phaser.GameObjects.Container {
         } else {
             throw 'No bg texture given';
         }
+
+        if (this.config.bgImage !== undefined) {
+            this.bgImage.setAlpha(this.config.bgImage);
+        }
         this.bgImage.setOrigin(0);
         this.add(this.bgImage);
     }
@@ -169,7 +180,7 @@ export default class ProgressBarUI extends Phaser.GameObjects.Container {
         this.add(this.barImage);
     }
 
-    private setDefaultValues(): void {
+    private setDefaultValues (): void {
         if (this.config.barX === undefined)
             this.config.barX = 0;
         if (this.config.barY === undefined)
