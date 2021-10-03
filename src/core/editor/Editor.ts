@@ -5,15 +5,24 @@ import Image = Phaser.GameObjects.Image;
 import GameObject = Phaser.GameObjects.GameObject;
 import EditorUI from "core/editor/EditorUI";
 import world from 'core/editor/world.json';
+import Building from "entity/Building";
 declare let __DEV__: any;
 
 export default class Editor {
 
-
-    public static readonly LOAD_FROM_LOCAL_STORAGE = true;
+    public static readonly LOAD_FROM_LOCAL_STORAGE = false;
     public static readonly ALLOWED_OBJECTS = [
         'road_vertical',
-        'factory1'
+        'factory1',
+        'factory2',
+        'factory3',
+        'heating_plant',
+        'house',
+        'house_large',
+        'tree1',
+        'tree2',
+        'tree_group',
+        'tree_large1'
     ];
 
     private scene: GameScene;
@@ -80,8 +89,6 @@ export default class Editor {
                     object.originX,
                     object.originY
                 );
-                if (this.isEnabled)
-                    this.scene.input.setDraggable(generatedObject.setInteractive());
 
                 layerObject.group.add(generatedObject);
             }
@@ -100,6 +107,14 @@ export default class Editor {
                 type: layer.type,
                 // @ts-ignore
                 objects: layer.group.getChildren().map((object: Image): any => {
+                    let frameName;
+                    try {
+                        // @ts-ignore
+                        frameName = object.getFrameName();
+                    } catch (e) {
+                        frameName = object.frame.name;
+                    }
+
                     return {
                         x: object.x,
                         y: object.y,
@@ -108,7 +123,7 @@ export default class Editor {
                         scaleY: object.scaleY,
                         originX: object.originX,
                         originY: object.originY,
-                        indexName: object.frame.name
+                        indexName: frameName
                     };
                 })
             });
@@ -246,13 +261,22 @@ export default class Editor {
     }
 
     private createObject(layer: string, depth: number, index: string, x: number, y: number, angle: number = 0, scaleX: number = 1, scaleY: number = 1, originX: number = 0.5, originY: number = 0.5): GameObject {
-        const object = this.scene.add.image(x, y, 'assets', index)
-            .setScale(scaleX, scaleY)
-            .setOrigin(originX, originY)
-            .setAngle(angle)
-            .setDepth(depth);
+        let object;
 
-        this.scene.input.setDraggable(object.setInteractive());
+        if (layer === 'buildings' || layer === 'factories') {
+        // if (false) {
+            object = new Building(this.scene, x, y, index);
+        } else {
+            object = this.scene.add.image(x, y, 'assets', index)
+                .setScale(scaleX, scaleY)
+                .setOrigin(originX, originY)
+                .setAngle(angle)
+                .setDepth(depth);
+
+            if (this.isEnabled) {
+                this.scene.input.setDraggable(object.setInteractive());
+            }
+        }
         return object;
     }
 }

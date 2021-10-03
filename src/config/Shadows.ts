@@ -11,6 +11,14 @@ export default {
         x: 4,
         y: 5
     },
+    factory3: {
+        x: 20,
+        y: 5
+    },
+    factory3_shadow_top: {
+        x: 15,
+        y: 19
+    },
     // eslint-disable-next-line @typescript-eslint/camelcase
     heating_plant: {
         x: 26,

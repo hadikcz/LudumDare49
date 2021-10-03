@@ -25,7 +25,7 @@ export default class WorldEnvironment {
         this.prepareRiverLayer();
 
         new Grid(this.scene);
-        new Building(this.scene, 600, 600, 'heating_plant');
+        // new Building(this.scene, 600, 600, 'heating_plant');
         new TreeSpawner(this.scene, this);
 
         this.editor = new Editor(this.scene);

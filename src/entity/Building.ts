@@ -7,17 +7,20 @@ import GameConfig from "config/GameConfig";
 export default class Building extends Container {
 
     protected scene: GameScene;
+    private frameName: string;
+
     constructor (scene: GameScene, x: number, y: number, image: string) {
         super(scene, x, y, []);
         scene.add.existing(this);
 
         this.scene = scene;
+        this.frameName = image;
         this.setDepth(Depths.BUILDINGS);
 
 
         let useTopShadow = false;
         let shadowFrame = '';
-        if (image === 'factory1') {
+        if (image === 'factory1' || image === 'factory3') {
             useTopShadow = true;
             shadowFrame = image + '_shadow_bottom';
         } else {
@@ -56,6 +59,9 @@ export default class Building extends Container {
                 .setAlpha(GameConfig.shadowAlpha);
             this.add(shadow);
         }
+    }
 
+    getFrameName(): string {
+        return this.frameName;
     }
 }

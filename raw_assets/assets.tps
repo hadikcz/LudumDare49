@@ -208,6 +208,7 @@
                 <false/>
             </struct>
             <key type="filename">export/factory1_shadow_top.png</key>
+            <key type="filename">export/factory3_shadow_top.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -243,6 +244,32 @@
                 <rect>27,15,53,29</rect>
                 <key>scale9Paddings</key>
                 <rect>27,15,53,29</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">export/factory3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>14,13,29,25</rect>
+                <key>scale9Paddings</key>
+                <rect>14,13,29,25</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">export/factory3_shadow_bottom.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,15,32,29</rect>
+                <key>scale9Paddings</key>
+                <rect>16,15,32,29</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
