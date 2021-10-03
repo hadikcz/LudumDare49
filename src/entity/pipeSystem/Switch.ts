@@ -16,6 +16,10 @@ export default class Switch extends Container implements OutputSocket, InputSock
     private inputPipe: PipeVisual|null = null;
     private image: Phaser.GameObjects.Image;
     private overlay: Phaser.GameObjects.Sprite;
+    private powerIcon: Phaser.GameObjects.Image;
+
+    private powerOn = true;
+    private inputText: Phaser.GameObjects.Text;
 
     constructor (scene: GameScene, x, y) {
         super(scene, x, y, []);
@@ -57,6 +61,32 @@ export default class Switch extends Container implements OutputSocket, InputSock
         this.overlay.on('pointerout', () => {
             this.overlay.setAlpha(0.0001);
         });
+
+
+        this.powerIcon = this.scene.add.image(0, -20, 'assets', 'ui_power_on')
+            .setDepth(Depths.UI);
+        this.powerIcon.setInteractive({ useHandCursor: true });
+        this.add(this.powerIcon);
+
+        this.powerIcon.on('pointerdown', () => {
+            this.powerOn = !this.powerOn;
+
+            if (this.powerOn) {
+                this.powerIcon.setFrame('ui_power_on');
+            } else {
+                this.powerIcon.setFrame('ui_power_off');
+            }
+        });
+
+        const style3 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#04ff00', align: 'center' };
+        this.inputText = this.scene.add.text(
+            this.x - 2,
+            this.y + 11,
+            '0',
+            style3
+        )
+            .setScale(0.3)
+            .setDepth(Depths.UI);
     }
 
     disconnect (onlyInput: boolean): void {
@@ -86,9 +116,12 @@ export default class Switch extends Container implements OutputSocket, InputSock
     }
 
     sendHeat (heatValue: number): void {
+        if (!this.powerOn) return;
         if (this.outputSocket) {
             this.outputSocket.sendHeat(heatValue);
         }
+
+        this.inputText.setText(heatValue.toString());
     }
 
     setInputSocket (object: OutputSocket, pipe: PipeVisual): void {
