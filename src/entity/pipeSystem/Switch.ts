@@ -3,6 +3,7 @@ import { InputSocket } from 'entity/pipeSystem/InputSocket';
 import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
+import GameConfig from 'config/GameConfig';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import { Depths } from 'enums/Depths';
 
@@ -20,6 +21,7 @@ export default class Switch extends Container implements OutputSocket, InputSock
 
     private powerOn = true;
     private inputText: Phaser.GameObjects.Text;
+    private heatUpdateColdown!: NodeJS.Timeout;
 
     constructor (scene: GameScene, x, y) {
         super(scene, x, y, []);
@@ -116,12 +118,20 @@ export default class Switch extends Container implements OutputSocket, InputSock
     }
 
     sendHeat (heatValue: number): void {
+        clearTimeout(this.heatUpdateColdown);
         if (!this.powerOn) return;
         if (this.outputSocket) {
             this.outputSocket.sendHeat(heatValue);
         }
 
         this.inputText.setText(heatValue.toString());
+        this.heatUpdateColdown = setTimeout(() => {
+            this.heatValuesZero();
+        }, GameConfig.heatCycle * 1.5);
+    }
+
+    private heatValuesZero (): void {
+        this.inputText.setText('0');
     }
 
     setInputSocket (object: OutputSocket, pipe: PipeVisual): void {

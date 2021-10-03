@@ -5,6 +5,7 @@ import Container = Phaser.GameObjects.Container;
 import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import Vector2 = Phaser.Math.Vector2;
+import GameConfig from 'config/GameConfig';
 import { Depths } from 'enums/Depths';
 
 export default class Splitter extends Container implements InputSocket, DoubleOutputSocket, OutputSocket {
@@ -25,6 +26,8 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     private inputText: Phaser.GameObjects.Text;
     private plusButton: Phaser.GameObjects.Image;
     private minusButton: Phaser.GameObjects.Image;
+    private lastVariableOutput = 0;
+    private heatUpdateColdown!: NodeJS.Timeout;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
@@ -43,7 +46,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.add(this.settingsIcon);
 
         this.settingsIcon.on('pointerdown', () => {
-            let value = prompt('Define how much will pass thru on static output. Rest of income heat will be send into variable output.\n Green input\n blue static ouput (number which you pick here)\n red different between static output and input (rest of heat).\n Current static output: ' +this.staticPass, '1');
+            let value = prompt('Define how much will pass thru on static output. Rest of income heat will be send into variable output.\n Green input\n blue static ouput (number which you pick here)\n red different between static output and input (rest of heat).\n Current static output: ' +this.staticPass + '\nCurrent variable output: ' + this.lastVariableOutput, '1');
             if (!value) return;
 
             let parsed = parseInt(value);
@@ -173,9 +176,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
                 this.staticOutput = null;
                 this.staticOutputPipe = null;
             }
-            this.staticOutputText.setText('0');
-            this.variableOutputText.setText('0');
-            this.inputText.setText('0');
+            this.heatValuesZero();
         }, 800);
     }
 
@@ -207,6 +208,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     }
 
     sendHeat (heatValue: number): void {
+        clearTimeout(this.heatUpdateColdown);
         console.log('sentHeat ' + this.staticPass + ' icnome heat ' + heatValue);
         let staticHeat = 0;
 
@@ -242,7 +244,20 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
 
         this.staticOutputText.setText(staticHeat.toString());
         this.variableOutputText.setText(variableHeat.toString());
+        this.lastVariableOutput = variableHeat;
         this.inputText.setText(heatValue.toString());
+
+        this.heatUpdateColdown = setTimeout(() => {
+            this.heatValuesZero();
+        }, GameConfig.heatCycle * 1.5);
+    }
+
+    private heatValuesZero (): void {
+        this.staticOutputText.setText('0');
+        this.variableOutputText.setText('0');
+        this.inputText.setText('0');
+        this.lastVariableOutput = 0;
+
     }
 
     setInputSocket (object: OutputSocket, pipe: PipeVisual): void {

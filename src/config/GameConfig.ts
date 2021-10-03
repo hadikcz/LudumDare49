@@ -5,6 +5,7 @@ export default {
     PhaserBasicSettings: phaserBasicSettings,
     UI: ui,
     shadowAlpha: 0.25,
+    heatCycle: 1000,
     World: {
         size: {
             width: 1360,

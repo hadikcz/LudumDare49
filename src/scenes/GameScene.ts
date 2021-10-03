@@ -1,3 +1,4 @@
+import GameConfig from 'config/GameConfig';
 import Builder from 'core/Builder';
 import MusicPlayer from 'core/MusicPlayer';
 import PipeSystem from 'core/PipeSystem';
@@ -42,7 +43,7 @@ export default class GameScene extends Phaser.Scene {
         this.musicPlayer = new MusicPlayer(this);
 
         this.time.addEvent({
-            delay: 1000,
+            delay: GameConfig.heatCycle,
             callbackScope: this,
             repeat: Infinity,
             callback: () => {
