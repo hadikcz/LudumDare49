@@ -74,12 +74,14 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         if (!this.staticOutput) {
             this.staticOutput = object;
             this.staticOutputPipe = pipe;
+            pipe.setStrokeStyle(2, 0x417093);
             return;
         }
 
         if (!this.variableOutput) {
             this.variableOutput = object;
             this.variableOutputPipe = pipe;
+            pipe.setStrokeStyle(2, 0x8d6363);
         }
     }
 
