@@ -4,7 +4,7 @@
 			"image": "assets.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 732,
+				"w": 736,
 				"h": 126
 			},
 			"scale": 1,
@@ -472,6 +472,153 @@
 					}
 				},
 				{
+					"filename": "combiner",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 17,
+						"h": 17
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 17,
+						"h": 17
+					},
+					"frame": {
+						"x": 718,
+						"y": 1,
+						"w": 17,
+						"h": 17
+					}
+				},
+				{
+					"filename": "pipe_limiter_horizontal",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 17,
+						"h": 17
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 17,
+						"h": 17
+					},
+					"frame": {
+						"x": 718,
+						"y": 20,
+						"w": 17,
+						"h": 17
+					}
+				},
+				{
+					"filename": "pipe_limiter_vertical",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 17,
+						"h": 17
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 17,
+						"h": 17
+					},
+					"frame": {
+						"x": 718,
+						"y": 39,
+						"w": 17,
+						"h": 17
+					}
+				},
+				{
+					"filename": "splitter",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 17,
+						"h": 17
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 17,
+						"h": 17
+					},
+					"frame": {
+						"x": 718,
+						"y": 58,
+						"w": 17,
+						"h": 17
+					}
+				},
+				{
+					"filename": "splitter_overlay",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 17,
+						"h": 17
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 17,
+						"h": 17
+					},
+					"frame": {
+						"x": 718,
+						"y": 77,
+						"w": 17,
+						"h": 17
+					}
+				},
+				{
+					"filename": "ui_progressbar_small",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 7,
+						"h": 29
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 7,
+						"h": 29
+					},
+					"frame": {
+						"x": 718,
+						"y": 96,
+						"w": 7,
+						"h": 29
+					}
+				},
+				{
+					"filename": "ui_progressbar_small_inner",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 7,
+						"h": 29
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 7,
+						"h": 26
+					},
+					"frame": {
+						"x": 727,
+						"y": 96,
+						"w": 7,
+						"h": 26
+					}
+				},
+				{
 					"filename": "house",
 					"rotated": false,
 					"trimmed": false,
@@ -490,27 +637,6 @@
 						"y": 64,
 						"w": 36,
 						"h": 34
-					}
-				},
-				{
-					"filename": "tree1",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 12,
-						"h": 12
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 12,
-						"h": 12
-					},
-					"frame": {
-						"x": 718,
-						"y": 1,
-						"w": 12,
-						"h": 12
 					}
 				},
 				{
@@ -535,6 +661,90 @@
 					}
 				},
 				{
+					"filename": "ui_snowflake",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 33,
+						"h": 34
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 33,
+						"h": 34
+					},
+					"frame": {
+						"x": 642,
+						"y": 1,
+						"w": 33,
+						"h": 34
+					}
+				},
+				{
+					"filename": "tree_large1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 19,
+						"h": 19
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 19,
+						"h": 19
+					},
+					"frame": {
+						"x": 642,
+						"y": 37,
+						"w": 19,
+						"h": 19
+					}
+				},
+				{
+					"filename": "tree2_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 18,
+						"h": 17
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 18,
+						"h": 17
+					},
+					"frame": {
+						"x": 663,
+						"y": 37,
+						"w": 18,
+						"h": 17
+					}
+				},
+				{
+					"filename": "tree1_shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 683,
+						"y": 37,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
 					"filename": "ui_minus",
 					"rotated": false,
 					"trimmed": false,
@@ -549,8 +759,8 @@
 						"h": 14
 					},
 					"frame": {
-						"x": 717,
-						"y": 15,
+						"x": 701,
+						"y": 37,
 						"w": 14,
 						"h": 14
 					}
@@ -570,31 +780,10 @@
 						"h": 14
 					},
 					"frame": {
-						"x": 717,
-						"y": 31,
+						"x": 701,
+						"y": 53,
 						"w": 14,
 						"h": 14
-					}
-				},
-				{
-					"filename": "tree2",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 12,
-						"h": 12
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 12,
-						"h": 12
-					},
-					"frame": {
-						"x": 718,
-						"y": 47,
-						"w": 12,
-						"h": 12
 					}
 				},
 				{
@@ -612,31 +801,10 @@
 						"h": 14
 					},
 					"frame": {
-						"x": 642,
-						"y": 47,
+						"x": 683,
+						"y": 55,
 						"w": 14,
 						"h": 14
-					}
-				},
-				{
-					"filename": "tree_large1",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 19,
-						"h": 19
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 19,
-						"h": 19
-					},
-					"frame": {
-						"x": 658,
-						"y": 1,
-						"w": 19,
-						"h": 19
 					}
 				},
 				{
@@ -654,157 +822,52 @@
 						"h": 14
 					},
 					"frame": {
-						"x": 642,
-						"y": 1,
+						"x": 699,
+						"y": 69,
 						"w": 14,
 						"h": 14
 					}
 				},
 				{
-					"filename": "tree2_shadow",
+					"filename": "tree1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 18,
-						"h": 17
+						"w": 12,
+						"h": 12
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 18,
-						"h": 17
-					},
-					"frame": {
-						"x": 658,
-						"y": 22,
-						"w": 18,
-						"h": 17
-					}
-				},
-				{
-					"filename": "ui_progressbar_small_inner",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 7,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 1,
-						"w": 7,
-						"h": 26
-					},
-					"frame": {
-						"x": 642,
-						"y": 17,
-						"w": 7,
-						"h": 26
-					}
-				},
-				{
-					"filename": "ui_snowflake",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 33,
-						"h": 34
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 33,
-						"h": 34
+						"w": 12,
+						"h": 12
 					},
 					"frame": {
 						"x": 679,
-						"y": 37,
-						"w": 33,
-						"h": 34
+						"y": 85,
+						"w": 12,
+						"h": 12
 					}
 				},
 				{
-					"filename": "pipe_limiter_horizontal",
+					"filename": "tree2",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 17,
-						"h": 17
+						"w": 12,
+						"h": 12
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 17,
-						"h": 17
-					},
-					"frame": {
-						"x": 714,
-						"y": 61,
-						"w": 17,
-						"h": 17
-					}
-				},
-				{
-					"filename": "pipe_limiter_vertical",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 17,
-						"h": 17
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 17,
-						"h": 17
-					},
-					"frame": {
-						"x": 658,
-						"y": 41,
-						"w": 17,
-						"h": 17
-					}
-				},
-				{
-					"filename": "tree1_shadow",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 16,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 16,
-						"h": 16
+						"w": 12,
+						"h": 12
 					},
 					"frame": {
 						"x": 679,
-						"y": 80,
-						"w": 16,
-						"h": 16
-					}
-				},
-				{
-					"filename": "ui_progressbar_small",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 7,
-						"h": 29
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 7,
-						"h": 29
-					},
-					"frame": {
-						"x": 718,
-						"y": 80,
-						"w": 7,
-						"h": 29
+						"y": 71,
+						"w": 12,
+						"h": 12
 					}
 				}
 			]
@@ -813,6 +876,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:5ecafa321e27e08bcdabb5f8d76e3168:ee6f1b87bfe7c8619af2f3f6767c85d9:a759b6bbc8381ac9c472b28f589ad0d6$"
+		"smartupdate": "$TexturePacker:SmartUpdate:0e1c772a215a796de63c52e1a17db4fa:092c42c9d72aed6c98d871da837aa460:a759b6bbc8381ac9c472b28f589ad0d6$"
 	}
 }
