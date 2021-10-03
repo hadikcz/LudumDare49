@@ -5,7 +5,6 @@ import WorldEnvironment from 'core/WorldEnvironment';
 import Building from 'entity/Building';
 import { Depths } from 'enums/Depths';
 import TransformHelpers from 'helpers/TransformHelpers';
-import GameObject = Phaser.GameObjects.GameObject;
 import Image = Phaser.GameObjects.Image;
 
 declare let __DEV__: any;
@@ -25,6 +24,7 @@ export default class Zone {
 
     private radius = Zone.BEGIN_RADIUS;
     private worldEnvironment: WorldEnvironment;
+    private interval: NodeJS.Timeout;
 
     constructor (scene: GameScene, worldEnvironment: WorldEnvironment) {
         this.scene = scene;
@@ -44,12 +44,17 @@ export default class Zone {
 
 
         this.updateBuildingsInRadius();
-        setInterval(() => {
+        this.interval = setInterval(() => {
             this.radius += 5;
             // this.radius += 10;
             this.zoneCircle.setRadius(this.radius);
 
             this.updateBuildingsInRadius();
+
+            if (this.radius >= 900) {
+                clearInterval(this.interval);
+                this.zoneCircle.destroy(true);
+            }
         }, 100);
     }
 
