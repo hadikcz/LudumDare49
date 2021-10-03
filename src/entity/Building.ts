@@ -6,6 +6,7 @@ import GameConfig from "config/GameConfig";
 import ArrayHelpers from "helpers/ArrayHelpers";
 import Vector2 = Phaser.Math.Vector2;
 import SmokeSource from "config/SmokeSource";
+import ChanceHelpers from "helpers/ChanceHelpers";
 
 export default class Building extends Container {
 
@@ -73,6 +74,10 @@ export default class Building extends Container {
         }
 
         this.handleSmoke();
+
+        if (ChanceHelpers.percentage(20)) {
+            this.handleSteam();
+        }
     }
 
     getFrameName(): string {
@@ -101,6 +106,20 @@ export default class Building extends Container {
                     false
                 );
             }
+        }, 250);
+    }
+
+    private handleSteam(): void {
+        if (this.isIndustrial()) return;
+
+        setInterval(() => {
+            this.scene.effectManager.launchSmoke(
+                this.x,
+                this.y,
+                false,
+                true,
+                5
+            );
         }, 250);
     }
 

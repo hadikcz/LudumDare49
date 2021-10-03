@@ -42,7 +42,7 @@ export default class EffectManager {
         return effect;
     }
 
-    launchSmoke (x, y, black = false, randomizePosition = false) {
+    launchSmoke (x, y, black = false, randomizePosition = false, randomize = 0) {
         let group = this.smokeEffectGroup;
         /** @type {SmokeEffect} */
         let effect = group.getFirstDead();
@@ -50,7 +50,7 @@ export default class EffectManager {
             effect = new SmokeEffect(this.scene);
             group.add(effect);
         }
-        effect.launch(x, y, black, randomizePosition);
+        effect.launch(x, y, black, randomizePosition, randomize);
         return effect;
     }
 

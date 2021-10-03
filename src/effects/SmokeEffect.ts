@@ -14,11 +14,11 @@ export default class SmokeEffect extends Phaser.GameObjects.Image {
         // this.setBlendMode(BlendModes.LIGHTER);
     }
 
-    launch (x, y, black = false, randomizePosition = false) {
+    launch (x, y, black = false, randomizePosition = false, randomize = 0) {
         if (randomizePosition) {
             this.setPosition(
-                x + Phaser.Math.RND.integerInRange(-20, 20),
-                y + Phaser.Math.RND.integerInRange(-20, 20)
+                x + Phaser.Math.RND.integerInRange(-randomize, randomize),
+                y + Phaser.Math.RND.integerInRange(-randomize, randomize)
             );
         } else {
             this.setPosition(x, y);
