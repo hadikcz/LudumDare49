@@ -1,12 +1,12 @@
 import Container = Phaser.GameObjects.Container;
-import GameScene from "scenes/GameScene";
-import {Depths} from "enums/Depths";
-import Shadows from "config/Shadows";
-import GameConfig from "config/GameConfig";
-import ArrayHelpers from "helpers/ArrayHelpers";
+import GameConfig from 'config/GameConfig';
+import Shadows from 'config/Shadows';
+import { Depths } from 'enums/Depths';
+import ArrayHelpers from 'helpers/ArrayHelpers';
+import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
-import SmokeSource from "config/SmokeSource";
-import ChanceHelpers from "helpers/ChanceHelpers";
+import SmokeSource from 'config/SmokeSource';
+import ChanceHelpers from 'helpers/ChanceHelpers';
 
 export default class Building extends Container {
 
@@ -21,6 +21,8 @@ export default class Building extends Container {
     private frameName: string;
 
     private smokeSources: Vector2[] = [];
+    private buildingImage: Phaser.GameObjects.Sprite;
+    private shadow: Phaser.GameObjects.Sprite;
 
     constructor (scene: GameScene, x: number, y: number, image: string) {
         super(scene, x, y, []);
@@ -49,14 +51,14 @@ export default class Building extends Container {
             };
         }
 
-        let shadow = this.scene.add.sprite(0 + shadowCoords.x, 0 + shadowCoords.y, 'assets', shadowFrame)
+        this.shadow = this.scene.add.sprite(0 + shadowCoords.x, 0 + shadowCoords.y, 'assets', shadowFrame)
             .setDepth(Depths.SHADOW_UNDER)
             .setAlpha(GameConfig.shadowAlpha);
-        this.add(shadow);
+        this.add(this.shadow);
 
-        let buildingImage = this.scene.add.sprite(0, 0, 'assets', image)
+        this.buildingImage = this.scene.add.sprite(0, 0, 'assets', image)
             .setDepth(Depths.BUILDINGS);
-        this.add(buildingImage);
+        this.add(this.buildingImage);
 
         if (useTopShadow) {
             let shadowCoordsTop = Shadows[image + '_shadow_top'];
@@ -80,12 +82,22 @@ export default class Building extends Container {
         }
     }
 
-    getFrameName(): string {
+    getFrameName (): string {
         return this.frameName;
     }
 
+    disable (): void {
+        this.setVisible(false);
+        this.setActive(false);
+    }
 
-    private handleSmoke(): void {
+    enable (): void {
+        this.setVisible(true);
+        this.setActive(true);
+    }
+
+
+    private handleSmoke (): void {
         if (!this.isIndustrial()) return;
 
         if (this.smokeSources.length === 0) {
@@ -98,6 +110,7 @@ export default class Building extends Container {
         }
 
         setInterval(() => {
+            if (!this.active) return;
             for (let smokeSource of this.smokeSources) {
                 this.scene.effectManager.launchSmoke(
                     this.x + smokeSource.x,
@@ -109,10 +122,11 @@ export default class Building extends Container {
         }, 250);
     }
 
-    private handleSteam(): void {
+    private handleSteam (): void {
         if (this.isIndustrial()) return;
 
         setInterval(() => {
+            if (!this.active) return;
             this.scene.effectManager.launchSmoke(
                 this.x,
                 this.y,
@@ -123,7 +137,7 @@ export default class Building extends Container {
         }, 250);
     }
 
-    private isIndustrial(): boolean {
+    private isIndustrial (): boolean {
         return ArrayHelpers.inArray(Building.INDUSTRIAL, this.frameName);
     }
 }

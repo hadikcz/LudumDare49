@@ -5,6 +5,7 @@ import GameScene from 'scenes/GameScene';
 import TiledObject = Phaser.Types.Tilemaps.TiledObject;
 import Editor from 'core/editor/Editor';
 import Zone from 'core/Zone';
+import Group = Phaser.GameObjects.Group;
 
 export default class WorldEnvironment {
 
@@ -14,6 +15,10 @@ export default class WorldEnvironment {
 
     private editor: Editor;
     private zone: Zone;
+
+    public readonly buildingsGroup: Group;
+    public readonly factoriesGroup: Group;
+    public readonly roadsGroup: Group;
 
     constructor (scene: GameScene) {
         this.scene = scene;
@@ -26,13 +31,16 @@ export default class WorldEnvironment {
         this.prepareRiverLayer();
 
         new Grid(this.scene);
-        // new Building(this.scene, 600, 600, 'heating_plant');
         new TreeSpawner(this.scene, this);
 
         this.editor = new Editor(this.scene);
-        this.zone = new Zone(this.scene);
 
-        // this.scene.add.image(100, 109, 'assets', 'road_vertical').setDepth(Depths.ROAD);
+        this.buildingsGroup = this.editor.getLayerGroupByName('buildings');
+        this.factoriesGroup = this.editor.getLayerGroupByName('factories');
+        this.roadsGroup = this.editor.getLayerGroupByName('roads');
+
+        this.zone = new Zone(this.scene, this);
+
     }
 
     isInRiver (x: number, y: number): boolean {

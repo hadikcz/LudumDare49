@@ -1,11 +1,11 @@
-import GameScene from "scenes/GameScene";
-import {Layer} from "core/editor/Layer";
+import { Layer } from 'core/editor/Layer';
+import GameScene from 'scenes/GameScene';
 import Group = Phaser.GameObjects.Group;
 import Image = Phaser.GameObjects.Image;
 import GameObject = Phaser.GameObjects.GameObject;
-import EditorUI from "core/editor/EditorUI";
+import EditorUI from 'core/editor/EditorUI';
 import world from 'core/editor/world.json';
-import Building from "entity/Building";
+import Building from 'entity/Building';
 declare let __DEV__: any;
 
 export default class Editor {
@@ -26,7 +26,7 @@ export default class Editor {
     ];
 
     private scene: GameScene;
-    public layers: { name: string;  depth: number; type: 'images' | 'points'; group: Group}[] = [];
+    public layers: { name: string; depth: number; type: 'images' | 'points'; group: Group}[] = [];
     private isEnabled: boolean = false;
 
     public lastPickedItem!: GameObject;
@@ -34,7 +34,7 @@ export default class Editor {
 
     private editorUI!: EditorUI;
 
-    constructor(scene: GameScene) {
+    constructor (scene: GameScene) {
         this.scene = scene;
 
         this.isEnabled = __DEV__;
@@ -47,13 +47,13 @@ export default class Editor {
 
     }
 
-    update(): void {
+    update (): void {
         if (this.editorUI !== undefined) {
             this.editorUI.update();
         }
     }
 
-    public load(): void {
+    public load (): void {
         let data;
         if (Editor.LOAD_FROM_LOCAL_STORAGE) {
             const rawData = localStorage.getItem('editor');
@@ -97,7 +97,7 @@ export default class Editor {
         }
     }
 
-    public save(): void {
+    public save (): void {
         console.log(this);
         let saveData: Layer[] = [];
         for (let layer of this.layers) {
@@ -134,7 +134,7 @@ export default class Editor {
         console.info('editor saved into local storage');
     }
 
-    public placeObject(): void {
+    public placeObject (): void {
         if (this.pickedLayer === undefined) {
             console.error('editor layer not picked');
             return;
@@ -157,7 +157,7 @@ export default class Editor {
         this.editorUI.redraw();
     }
 
-    public deleteObject(): void {
+    public deleteObject (): void {
         if (this.lastPickedItem === undefined) {
             console.error('can not delete object, becuase no selected');
             return;
@@ -169,7 +169,7 @@ export default class Editor {
         this.editorUI.redraw();
     }
 
-    public duplicateObject(): void {
+    public duplicateObject (): void {
         if (this.lastPickedItem === undefined) {
             console.error('can not delete object, becuase no selected');
             return;
@@ -198,7 +198,7 @@ export default class Editor {
         this.editorUI.redraw();
     }
 
-    public createLayer(name: string, depth: number): void {
+    public createLayer (name: string, depth: number): void {
         this.layers.push({
             name: name,
             depth: depth,
@@ -209,14 +209,13 @@ export default class Editor {
         this.editorUI.redraw();
     }
 
-    public getAllLayersNames(): string[]
-    {
+    public getAllLayersNames (): string[] {
         return this.layers.map((layer) => {
             return layer.name;
         });
     }
 
-    public deleteLayer(): void {
+    public deleteLayer (): void {
         const name = prompt('name of layer to delete');
         if (!name) {
             console.error('name of layer not given');
@@ -243,7 +242,19 @@ export default class Editor {
         this.editorUI.redraw();
     }
 
-    private enableEdit(): void {
+    public getLayerGroupByName (name: string): Group {
+        const foundLayer = this.layers.find((layer) => {
+            return name === layer.name;
+        });
+
+        if (foundLayer === undefined || !foundLayer) {
+            throw new Error(`layer ${name} not found`);
+        }
+
+        return foundLayer.group;
+    }
+
+    private enableEdit (): void {
         this.scene.input.on('pointerdown', () => {
             console.log('click');
         });
@@ -260,7 +271,7 @@ export default class Editor {
         });
     }
 
-    private createObject(layer: string, depth: number, index: string, x: number, y: number, angle: number = 0, scaleX: number = 1, scaleY: number = 1, originX: number = 0.5, originY: number = 0.5): GameObject {
+    private createObject (layer: string, depth: number, index: string, x: number, y: number, angle: number = 0, scaleX: number = 1, scaleY: number = 1, originX: number = 0.5, originY: number = 0.5): GameObject {
         let object;
 
         if (layer === 'buildings' || layer === 'factories') {
