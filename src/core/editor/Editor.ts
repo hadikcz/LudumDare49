@@ -67,16 +67,23 @@ export default class Editor {
             };
 
             for (let object of layer.objects) {
-                const generatdObject = this.scene.add.image(object.x, object.y, 'assets', object.indexName)
-                    .setAngle(object.angle)
-                    .setDepth(layer.depth)
-                    .setScale(object.scaleX, object.scaleY)
-                    .setOrigin(object.originX, object.originY);
 
+                const generatedObject = this.createObject(
+                    layer.name,
+                    layer.depth,
+                    object.indexName,
+                    object.x,
+                    object.y,
+                    object.angle,
+                    object.scaleX,
+                    object.scaleY,
+                    object.originX,
+                    object.originY
+                );
                 if (this.isEnabled)
-                    this.scene.input.setDraggable(generatdObject.setInteractive());
+                    this.scene.input.setDraggable(generatedObject.setInteractive());
 
-                layerObject.group.add(generatdObject);
+                layerObject.group.add(generatedObject);
             }
 
             this.layers.push(layerObject);
@@ -130,7 +137,7 @@ export default class Editor {
         const image = this.editorUI.placeObjectType;
         console.info('editor place object ' + image + ' into layer ' + this.pickedLayer);
 
-        let object = this.createObject(image, 100, 100);
+        let object = this.createObject(this.pickedLayer,foundLayer.depth, image, 100, 100);
         foundLayer.group.add(object);
         this.editorUI.redraw();
     }
@@ -171,7 +178,7 @@ export default class Editor {
         console.info(`editor duplicate object ${image} into layer ${this.pickedLayer} on ${image.x},${image.y}`);
 
         // @ts-ignore
-        let object = this.createObject(image, this.lastPickedItem.x, this.lastPickedItem.y, this.lastPickedItem.angle, this.lastPickedItem.scaleX, this.lastPickedItem.scaleY, this.lastPickedItem.originX, this.lastPickedItem.originY);
+        let object = this.createObject(this.pickedLayer, foundLayer.depth, image, this.lastPickedItem.x, this.lastPickedItem.y, this.lastPickedItem.angle, this.lastPickedItem.scaleX, this.lastPickedItem.scaleY, this.lastPickedItem.originX, this.lastPickedItem.originY);
         foundLayer.group.add(object);
         this.editorUI.redraw();
     }
@@ -238,11 +245,12 @@ export default class Editor {
         });
     }
 
-    private createObject(index: string, x: number, y: number, angle: number = 0, scaleX: number = 1, scaleY: number = 1, originX: number = 0.5, originY: number = 0.5): GameObject {
+    private createObject(layer: string, depth: number, index: string, x: number, y: number, angle: number = 0, scaleX: number = 1, scaleY: number = 1, originX: number = 0.5, originY: number = 0.5): GameObject {
         const object = this.scene.add.image(x, y, 'assets', index)
             .setScale(scaleX, scaleY)
             .setOrigin(originX, originY)
-            .setAngle(angle);
+            .setAngle(angle)
+            .setDepth(depth);
 
         this.scene.input.setDraggable(object.setInteractive());
         return object;
