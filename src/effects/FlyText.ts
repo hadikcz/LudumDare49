@@ -1,13 +1,13 @@
 import Phaser from 'phaser';
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
-import {Depths} from "enums/Depths";
-import EffectManager from "effects/EffectManager";
+import EffectManager from 'effects/EffectManager';
+import { Depths } from 'enums/Depths';
 
 export default class FlyText extends Phaser.GameObjects.Text {
     constructor (scene) {
         super(scene, EffectManager.DEFAULT_POSITION[0], EffectManager.DEFAULT_POSITION[1], '', {
             fontFamily: 'arcadeclassic, Arial',
-            fontSize: 64,
+            fontSize: 48,
             color: '#ffd500'
         } as unknown as TextStyle);
 
@@ -35,7 +35,7 @@ export default class FlyText extends Phaser.GameObjects.Text {
 
         let range = 20;
         let tweenX = Phaser.Math.RND.realInRange(-range, range);
-        let tweenY = -250;
+        let tweenY = -50;
         let duration = Phaser.Math.RND.integerInRange(3000, 4000);
 
         this.scene.tweens.add({

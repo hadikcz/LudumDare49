@@ -92,6 +92,7 @@ export default class UI {
             $('.pause-icon').attr('class', 'pause-icon mr15 pause');
         } else {
             this.dayNightUI.update();
+            $('#moneyAmount').html(this.scene.money);
             $('.paused').hide();
             $('#play-icon').hide();
             $('#pause-icon').show();

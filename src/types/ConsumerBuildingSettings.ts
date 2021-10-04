@@ -12,4 +12,5 @@ interface ConsumerBuildingSettings {
         lowLimit: number;
         highLimit: number;
     };
+    happyProduceMoney: number;
 }

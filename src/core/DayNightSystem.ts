@@ -7,7 +7,7 @@ export default class DayNightSystem {
 
     private static readonly NIGHT_STARTS = 23;
     private static readonly NIGHT_ENDS = 4;
-    private static readonly ITERATE_VALUE = 0.1;
+    public static readonly ITERATE_VALUE = 0.1;
 
     private scene: GameScene;
     private currentTime: number = 5;
@@ -47,7 +47,6 @@ export default class DayNightSystem {
     private _update (): void {
         if (this.scene.pause.isPaused()) return;
         this.currentTime += DayNightSystem.ITERATE_VALUE;
-        console.log(this.currentTime);
 
         // night starts
         // becuase iteration can not be exact but some small 0.000001 can be added

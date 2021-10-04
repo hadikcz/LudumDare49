@@ -25,6 +25,7 @@ export default class GameScene extends Phaser.Scene {
     public pause!: PauseSystem;
     public destroyer!: Destroyer;
     public dayNightSystem!: DayNightSystem;
+    public money = 100;
 
     constructor () {
         super({ key: 'GameScene' });

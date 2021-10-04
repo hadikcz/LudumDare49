@@ -59,6 +59,24 @@ a {text-decoration: none;}
 }
 
 
+.money {
+    top: 80px;
+    right: 0px;
+    width: 90px;
+    height: auto;
+    background: rgba(0,0,0, 0.5);
+    position: absolute;
+    padding: 5px;
+    color: yellow;
+}
+.money .inside {
+    float: right;
+}
+.money .moneyAmount {
+    color: yellow;
+    font-size: 23px;
+}
+
 .actionInfo {
     padding: 5px;
     height: auto;
@@ -76,7 +94,7 @@ a {text-decoration: none;}
 
 .actionMenu {
     position: absolute;
-    top: 100px;
+    top: 130px;
     right: 0;
     width: 90px;
     height: 100px;

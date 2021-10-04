@@ -12,7 +12,8 @@
       "require": 1,
       "lowLimit": -10,
       "highLimit": 10
-    }
+    },
+    "happyProduceMoney": 1
   },
   "house_large": {
     "bar": {
@@ -27,7 +28,8 @@
       "require": 5,
       "lowLimit": -100,
       "highLimit": 100
-    }
+    },
+    "happyProduceMoney": 5
   },
   "factory1": {
     "bar": {
@@ -42,7 +44,8 @@
       "require": 5,
       "lowLimit": -100,
       "highLimit": 100
-    }
+    },
+    "happyProduceMoney": 5
   },
   "factory2": {
     "bar": {
@@ -54,10 +57,11 @@
       "y": 27
     },
     "heat": {
-      "require": 5,
-      "lowLimit": -100,
-      "highLimit": 100
-    }
+      "require": 7,
+      "lowLimit": -150,
+      "highLimit": 150
+    },
+    "happyProduceMoney": 7
   },
   "factory3": {
     "bar": {
@@ -69,9 +73,10 @@
       "y": 27
     },
     "heat": {
-      "require": 5,
+      "require": 4,
       "lowLimit": -100,
       "highLimit": 100
-    }
+    },
+    "happyProduceMoney": 4
   }
 }

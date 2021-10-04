@@ -9,6 +9,8 @@ import { Depths } from 'enums/Depths';
 import ProgressBarUI from 'libs/ProgressBarUI';
 import Image = Phaser.GameObjects.Image;
 
+import NumberHelpers from 'helpers/NumberHelpers';
+
 import consumerBuilding from './consumerBuilding.json';
 
 export default class ConsumerBuilding extends Building implements InputSocket, PipeSystemObject {
@@ -134,6 +136,19 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
             // this.heatText.setVisible(false);
             this.overlay.setAlpha(0.00001);
         });
+
+        setTimeout(() => {
+            this.scene.time.addEvent({
+                delay: 20000,
+                callbackScope: this,
+                repeat: Infinity,
+                callback: () => {
+                    if (!this.active) return;
+                    if (this.scene.pause.isPaused()) return;
+                    this.updateMoney();
+                }
+            });
+        }, NumberHelpers.randomIntInRange(0, 6000));
     }
 
     preUpdate (): void {
@@ -198,6 +213,14 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
 
     disconnect (): void {
         this.inputSocket = null;
+    }
+
+    updateMoney (): void {
+        if (this.getRequiredHeat() === 0) return;
+
+        this.scene.money += this.consumerBuildingCoordsBuilding.happyProduceMoney;
+
+        this.scene.effectManager.launchFlyText(this.x, this.y, this.consumerBuildingCoordsBuilding.happyProduceMoney.toString());
     }
 
     destroy (fromScene?: boolean): void {

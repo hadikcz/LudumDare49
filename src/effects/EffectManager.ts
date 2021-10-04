@@ -1,6 +1,6 @@
-import FlyText from "effects/FlyText";
-import GameScene from "scenes/GameScene";
-import SmokeEffect from "effects/SmokeEffect";
+import FlyText from 'effects/FlyText';
+import SmokeEffect from 'effects/SmokeEffect';
+import GameScene from 'scenes/GameScene';
 
 export default class EffectManager {
 
@@ -16,7 +16,7 @@ export default class EffectManager {
 
         this.flyTextGroup = this.scene.add.group({
             classType: FlyText,
-            maxSize: 20,
+            maxSize: 100,
             runChildUpdate: true
         });
 
