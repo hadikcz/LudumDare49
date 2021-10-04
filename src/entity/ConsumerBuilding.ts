@@ -47,7 +47,7 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#feda09', align: 'center' };
 
         // #region UI
-        this.warnIcon = this.scene.add.image(this.consumerBuildingCoordsBuilding.bar.x - 3, this.consumerBuildingCoordsBuilding.bar.y -17, 'assets', 'ui_warn').setScale(1.2);
+        this.warnIcon = this.scene.add.image(this.consumerBuildingCoordsBuilding.bar.x - 4, this.consumerBuildingCoordsBuilding.bar.y - 42, 'assets', 'ui_warn').setScale(1.2);
         this.warnIcon.setVisible(false);
         this.add(this.warnIcon);
         this.scene.add.tween({
@@ -119,10 +119,15 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         });
     }
 
+    preUpdate (): void {
+        this.heatText.setText(this.heatDeposit.toString());
+        this.calcAndProcessPercent();
+    }
+
     updateHeat (): void {
         if (!this.active) return;
         if (this.heatDeposit < 0) {
-        } else if (this.heatDeposit > this.highLimit) {
+        } else if (this.heatDeposit >= this.highLimit) {
             if (this.steamInterval === undefined) {
                 this.handleSteam();
             }
@@ -136,9 +141,6 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         } else {
             this.heatDeposit -= this.getRequiredHeat();
         }
-
-        this.heatText.setText(this.heatDeposit.toString());
-        this.calcAndProcessPercent();
     }
 
     getInputSocket (): OutputSocket | null {
@@ -150,9 +152,10 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
     }
 
     sendHeat (heatValue: number): void {
-        console.log('HEAT: building recieve heat ' + heatValue);
-        if (this.heatDeposit + heatValue > this.highLimit) {
+        if (this.heatDeposit + heatValue >= this.highLimit) {
+            console.log(this.highLimit);
             this.heatDeposit = this.highLimit;
+            return;
         }
         this.heatDeposit += heatValue;
     }

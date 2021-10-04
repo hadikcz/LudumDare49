@@ -34,7 +34,7 @@ export default class Zone {
             this.visibleCircle = false;
         } else {
             // dev - full city
-            this.radius = 1000;
+            // this.radius = 1000;
             // this.radius = 200;
         }
 
