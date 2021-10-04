@@ -46,8 +46,6 @@ export default class PipeSystem {
             const worldX = this.scene.input.activePointer.worldX;
             const worldY = this.scene.input.activePointer.worldY;
 
-            console.log(`click on ${worldX} ${worldY}`);
-
             const line = this.scene.add.line(0, 0, this.lastPos.x, this.lastPos.y, worldX, worldY, 0x6f6f8d, 1)
                 .setDepth(Depths.PIPES)
                 .setOrigin(0)
@@ -224,7 +222,6 @@ export default class PipeSystem {
 
     private createPipeCursor (): void {
         if (!this.selectedOutputSocket) return;
-        console.log('create pipe');
         const startPos = this.selectedOutputSocket.getPosition();
         this.pipeVisual = this.scene.add.line(0, 0, startPos.x, startPos.y, this.scene.input.activePointer.worldX, this.scene.input.activePointer.worldY, 0x6f6f8d, 1)
             .setLineWidth(2);

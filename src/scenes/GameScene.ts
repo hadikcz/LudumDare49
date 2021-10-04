@@ -12,6 +12,7 @@ import DatGui from 'ui/DatGui';
 import UI from 'ui/UI';
 
 declare let window: any;
+declare let __DEV__: any;
 
 export default class GameScene extends Phaser.Scene {
 
@@ -62,6 +63,10 @@ export default class GameScene extends Phaser.Scene {
                 this.pipeSystem.updateHeat();
             }
         });
+
+        if (__DEV__) {
+            this.money = 1000;
+        }
     }
 
     update (): void {

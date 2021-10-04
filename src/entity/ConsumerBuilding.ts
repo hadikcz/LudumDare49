@@ -107,7 +107,6 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
                 this.pipeVisual?.destroy();
             }
             if (this.scene.pipeSystem.isConnectingMode()) {
-                console.log('connect');
                 this.scene.pipeSystem.completeConnecting(this);
             }
 

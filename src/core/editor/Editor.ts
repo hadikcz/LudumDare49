@@ -261,10 +261,6 @@ export default class Editor {
     }
 
     private enableEdit (): void {
-        this.scene.input.on('pointerdown', () => {
-            console.log('click');
-        });
-
         this.scene.input.on('drag', (pointer, obj, dragX, dragY) => {
             console.log('drag!');
             obj.setPosition(dragX, dragY);

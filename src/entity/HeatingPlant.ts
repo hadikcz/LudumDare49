@@ -178,7 +178,6 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         });
 
         this.overlay.on('pointerover', () => {
-            console.log('pointerover');
             this.overlay.setAlpha(1);
             this.titleText.setVisible(true);
         });

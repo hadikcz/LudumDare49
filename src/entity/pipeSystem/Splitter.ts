@@ -114,8 +114,9 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.overlay.on('pointerdown', () => {
             const disconnect = (): void => {
                 console.log('HEAT: splitter destroy');
-                this.variableOutputPipe?.destroy();
-                this.staticOutputPipe?.destroy();
+                this.variableOutputPipe?.destroy(true);
+                this.staticOutputPipe?.destroy(true);
+                console.log(this.inputPipe);
                 this.inputPipe?.destroy();
             };
 
@@ -267,7 +268,6 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     sendHeat (heatValue: number): void {
         this.processSendHeatForSteamer(heatValue);
         clearTimeout(this.heatUpdateColdown);
-        console.log('sentHeat ' + this.staticPass + ' icnome heat ' + heatValue);
         let staticHeat = 0;
 
         if (heatValue <= this.staticPass) {
