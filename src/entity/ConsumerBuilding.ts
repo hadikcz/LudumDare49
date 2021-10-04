@@ -123,9 +123,9 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
             // this.heatText.setVisible(true);
             if (this.visible) {
                 this.heatText.setVisible(true);
+                this.overlay.setAlpha(1);
             }
             if (!this.scene.pipeSystem.isConnectingMode()) return;
-            this.overlay.setAlpha(1);
         });
         //
         this.overlay.on('pointerout', () => {
