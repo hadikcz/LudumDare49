@@ -27,7 +27,7 @@ export default class Editor {
     ];
 
     private isEnabled: boolean = true;
-
+    private enableMoveWithBuilding = false;
 
     private scene: GameScene;
     public layers: { name: string; depth: number; type: 'images' | 'points'; group: Group}[] = [];
@@ -42,6 +42,7 @@ export default class Editor {
 
         if (!__DEV__) {
             this.isEnabled = false;
+            this.enableMoveWithBuilding = false;
         }
         this.load();
         // this.isEnabled = false;
@@ -279,7 +280,9 @@ export default class Editor {
     private createObject (layer: string, depth: number, index: string, x: number, y: number, angle: number = 0, scaleX: number = 1, scaleY: number = 1, originX: number = 0.5, originY: number = 0.5): GameObject {
         let object;
 
-        // layer = 'DEBUG_LAYER->ALLWILLBE_IMAGE';
+        if (this.enableMoveWithBuilding) {
+            layer = 'DEBUG_LAYER->ALLWILLBE_IMAGE';
+        }
         if (layer === 'heater') {
             object = new HeatingPlant(this.scene, x, y);
         } else if (layer === 'buildings' || layer === 'factories') {
