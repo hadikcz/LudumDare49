@@ -201,3 +201,16 @@ a {text-decoration: none;}
     display: inline-block;
     font-size: 37px
 }
+
+.helpButton {
+    bottom: 10px;
+    right: 10px;
+    height: auto;
+    position: absolute;
+}
+
+.helpButton svg {
+    pointer-events: all;
+    color: #8bc2ec;
+    cursor: pointer;
+}

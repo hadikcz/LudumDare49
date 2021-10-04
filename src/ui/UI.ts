@@ -1,4 +1,6 @@
+import GameConfig from 'config/GameConfig';
 import { Building } from 'enums/Building';
+import { Depths } from 'enums/Depths';
 import { SocketType } from 'enums/SocketType';
 import $ from 'jquery';
 import GameScene from 'scenes/GameScene';
@@ -8,14 +10,32 @@ export default class UI {
 
     private scene: GameScene;
     private dayNightUI: DayNightUI;
+    private helpScreen: Phaser.GameObjects.Image;
+    private helpBlackScreenAlpha: Phaser.GameObjects.Rectangle;
 
     constructor (scene: GameScene) {
         this.scene = scene;
 
         this.dayNightUI = new DayNightUI(this.scene);
 
+        this.helpBlackScreenAlpha = this.scene.add.rectangle(0, 0, GameConfig.World.size.width, GameConfig.World.size.height, 0x000000, 0.55)
+            .setDepth(Depths.HELP)
+            .setOrigin(0)
+            .setVisible(false);
+        this.helpScreen = this.scene.add.image(GameConfig.World.size.width / 2., GameConfig.World.size.height / 2, 'help_screen')
+            .setDepth(Depths.HELP)
+            .setVisible(false);
+
         $('#cancelSocket').on('click', () => {
             this.scene.pipeSystem.cancelConnecting();
+        });
+
+        $('.helpButton').on('click', () => {
+            if (this.helpBlackScreenAlpha.visible) {
+                this.hideHelp() ;
+            } else {
+                this.showHelp();
+            }
         });
 
         $('#cancelBuilding').on('click', () => {
@@ -83,7 +103,7 @@ export default class UI {
             this.scene.pause.pause();
         });
 
-        $('.ui').show();
+        this.show();
     }
 
     update () {
@@ -103,9 +123,11 @@ export default class UI {
     }
 
     show (): void {
+        $('.ingame-ui').show();
     }
 
     hide (): void {
+        $('.ingame-ui').hide();
     }
 
     showWin (): void {
@@ -181,5 +203,19 @@ export default class UI {
         setTimeout(() => {
             $('.socketOccupied').slideUp();
         }, 3000);
+    }
+
+    showHelp (): void {
+        this.helpBlackScreenAlpha.setVisible(true);
+        this.helpScreen.setVisible(true);
+        this.hide();
+        this.scene.pause.pause();
+    }
+
+    hideHelp (): void {
+        this.helpBlackScreenAlpha.setVisible(false);
+        this.helpScreen.setVisible(false);
+        this.show();
+        this.scene.pause.unpause();
     }
 }

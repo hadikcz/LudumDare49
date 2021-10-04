@@ -14,5 +14,6 @@ export enum Depths {
     FLY_TEXT,
     BUILD_ICON,
     UI1,
-    UI
+    UI,
+    HELP
 }
