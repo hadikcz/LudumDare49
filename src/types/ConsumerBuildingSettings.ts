@@ -9,5 +9,7 @@ interface ConsumerBuildingSettings {
     };
     heat: {
         require: number;
+        lowLimit: number;
+        highLimit: number;
     };
 }

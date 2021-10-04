@@ -39,8 +39,10 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
             this.consumerBuildingCoordsBuilding = consumerBuilding['house'] as any as ConsumerBuildingSettings;
         }
 
-        this.lowLimit = this.getRequiredHeat() * -10;
-        this.highLimit = this.getRequiredHeat() * 10;
+        // this.highLimit = this.getRequiredHeat() * 10;
+        // this.lowLimit = this.getRequiredHeat() * -10;
+        this.lowLimit = this.consumerBuildingCoordsBuilding.heat.lowLimit;
+        this.highLimit = this.consumerBuildingCoordsBuilding.heat.highLimit;
 
         const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#feda09', align: 'center' };
 
@@ -132,7 +134,7 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         if (this.heatDeposit <=this.lowLimit) {
             this.heatDeposit = this.lowLimit;
         } else {
-            this.heatDeposit--;
+            this.heatDeposit -= this.getRequiredHeat();
         }
 
         this.heatText.setText(this.heatDeposit.toString());
@@ -187,11 +189,11 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         this.healthbar.setPercent(percent);
 
         let color;
-        if (percent < 10) {
+        if (percent < 20) {
             color = this.colors.cold;
             this.warnIcon.setVisible(false);
             this.snowflakeIcon.setVisible(true);
-        } else if (percent >=10 && percent < 90) {
+        } else if (percent >=20 && percent < 80) {
             color = this.colors.ok;
             this.snowflakeIcon.setVisible(false);
             this.warnIcon.setVisible(false);
