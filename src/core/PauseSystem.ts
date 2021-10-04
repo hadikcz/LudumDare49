@@ -1,16 +1,19 @@
 import GameScene from 'scenes/GameScene';
 
+
+declare let __DEV__: any;
 export default class PauseSystem {
 
     private paused = false;
 
     constructor (scene: GameScene) {
-
-        // const spacebar = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        // spacebar.onDown((): void => {
-        //     console.log('prewss spacebar');
-        // });
         scene.input.keyboard.on('keydown_SPACE', this.toggle.bind(this), this);
+
+        let shouldStartupWithPauseGame = !__DEV__;
+        shouldStartupWithPauseGame = true;
+        if (shouldStartupWithPauseGame) {
+            this.pause();
+        }
     }
 
     isPaused (): boolean {
