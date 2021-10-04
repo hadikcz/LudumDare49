@@ -29,8 +29,6 @@ export default class PipeSystem {
 
         const startPos = this.selectedOutputSocket.getPosition();
         this.pipeVisual.setTo(startPos.x, startPos.y, this.scene.input.activePointer.worldX, this.scene.input.activePointer.worldY);
-
-
     }
 
     updateHeat (): void {

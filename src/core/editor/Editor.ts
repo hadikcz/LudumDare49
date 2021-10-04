@@ -11,7 +11,7 @@ declare let __DEV__: any;
 
 export default class Editor {
 
-    public static readonly LOAD_FROM_LOCAL_STORAGE = true;
+    public static readonly LOAD_FROM_LOCAL_STORAGE = false;
     public static readonly ALLOWED_OBJECTS = [
         'road_vertical',
         'factory1',

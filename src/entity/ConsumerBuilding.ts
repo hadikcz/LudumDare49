@@ -113,6 +113,7 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
     }
 
     updateHeat (): void {
+        if (!this.active) return;
         if (this.heatDeposit < 0) {
         } else if (this.heatDeposit > this.highLimit) {
             if (this.steamInterval === undefined) {
@@ -196,6 +197,13 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         }
 
         this.healthbar.setTint(color);
+    }
+
+    setVisible (value: boolean): this {
+        this.healthbar.setVisible(value);
+        this.heatText.setVisible(value);
+
+        return super.setVisible(value);
     }
 
 }
