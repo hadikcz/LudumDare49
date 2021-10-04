@@ -8,6 +8,7 @@ import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import { Depths } from 'enums/Depths';
 import ProgressBarUI from 'libs/ProgressBarUI';
 import Image = Phaser.GameObjects.Image;
+
 import consumerBuilding from './consumerBuilding.json';
 
 export default class ConsumerBuilding extends Building implements InputSocket, PipeSystemObject {
@@ -138,6 +139,10 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
     preUpdate (): void {
         this.heatText.setText(this.heatDeposit.toString());
         this.calcAndProcessPercent();
+
+        if (this.active) {
+            this.processCollideWithNearBuilding();
+        }
     }
 
     updateHeat (): void {
@@ -232,6 +237,38 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         this.healthbar.setVisible(value);
 
         return super.setVisible(value);
+    }
+
+    private processCollideWithNearBuilding (): void {
+        const cleanFunction = (object: Image) => {
+            if (object === undefined) return;
+            if (!object.active) return;
+
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.getImageBounds(),
+                // @ts-ignore
+                object.getImageBounds()
+            )) {
+                this.destroy(true);
+            }
+        };
+
+        try {
+            for (let child of this.scene.worldEnvironment.heaterGroup.getChildren()) {
+                cleanFunction(child as any as Image);
+            }
+            for (let child of this.scene.worldEnvironment.combiners.getChildren()) {
+                cleanFunction(child as any as Image);
+            }
+            for (let child of this.scene.worldEnvironment.switches.getChildren()) {
+                cleanFunction(child as any as Image);
+            }
+            for (let child of this.scene.worldEnvironment.splitters.getChildren()) {
+                cleanFunction(child as any as Image);
+            }
+        } catch (e) {
+
+        }
     }
 
 }

@@ -10,7 +10,7 @@ export default class PauseSystem {
         scene.input.keyboard.on('keydown_SPACE', this.toggle.bind(this), this);
 
         let shouldStartupWithPauseGame = !__DEV__;
-        shouldStartupWithPauseGame = true;
+        // shouldStartupWithPauseGame = true;
         if (shouldStartupWithPauseGame) {
             this.pause();
         }

@@ -34,7 +34,7 @@ export default class Zone {
             this.visibleCircle = false;
         } else {
             // dev - full city
-            this.radius = 1000;
+            // this.radius = 1000;
             // this.radius = 200;
         }
 
@@ -52,7 +52,7 @@ export default class Zone {
             if (this.scene.pause.isPaused()) return;
 
             this.radius += 0.01; // real
-            // this.radius += 2.5; // dev - test
+            this.radius += 2.5; // dev - test
             this.zoneCircle.setRadius(this.radius);
 
             this.updateBuildingsInRadius();
