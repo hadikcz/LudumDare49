@@ -12,5 +12,6 @@ export enum Depths {
     SMOKE,
     FLY_TEXT,
     BUILD_ICON,
+    UI1,
     UI
 }

@@ -47,9 +47,9 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#feda09', align: 'center' };
 
         // #region UI
-        this.warnIcon = this.scene.add.image(this.consumerBuildingCoordsBuilding.bar.x - 4, this.consumerBuildingCoordsBuilding.bar.y - 42, 'assets', 'ui_warn').setScale(1.2);
+        this.warnIcon = this.scene.add.image(this.x + this.consumerBuildingCoordsBuilding.bar.x - 4, this.y + this.consumerBuildingCoordsBuilding.bar.y - 42, 'assets', 'ui_warn').setScale(1.2);
         this.warnIcon.setVisible(false);
-        this.add(this.warnIcon);
+        this.warnIcon.setDepth(Depths.UI1);
         this.scene.add.tween({
             targets: this.warnIcon,
             scaleX: 0.8,
@@ -58,9 +58,10 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
             yoyo: true,
             repeat: Infinity
         });
-        this.snowflakeIcon = this.scene.add.image(this.consumerBuildingCoordsBuilding.bar.x + 17, 0, 'assets', 'ui_snowflake').setScale(1.1);
+        this.snowflakeIcon = this.scene.add.image(this.x + this.consumerBuildingCoordsBuilding.bar.x + 17, this.y, 'assets', 'ui_snowflake').setScale(1.1);
         this.snowflakeIcon.setVisible(false);
-        this.add(this.snowflakeIcon);
+        this.snowflakeIcon.setDepth(Depths.UI1);
+
         this.scene.add.tween({
             targets: this.snowflakeIcon,
             scaleX: 0.9,
@@ -89,7 +90,8 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         this.heatText = this.scene.add.text(this.x + this.consumerBuildingCoordsBuilding.heatText.x, this.y + this.consumerBuildingCoordsBuilding.heatText.y, '', style)
             .setScale(0.2)
             .setStroke('#7c6e1b', 30)
-            .setDepth(Depths.UI);
+            .setDepth(Depths.UI)
+            .setVisible(false);
 
         // #endregion
 
@@ -119,11 +121,15 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
 
         this.overlay.on('pointerover', () => {
             // this.heatText.setVisible(true);
+            if (this.visible) {
+                this.heatText.setVisible(true);
+            }
             if (!this.scene.pipeSystem.isConnectingMode()) return;
             this.overlay.setAlpha(1);
         });
         //
         this.overlay.on('pointerout', () => {
+            this.heatText.setVisible(false);
             // this.heatText.setVisible(false);
             this.overlay.setAlpha(0.00001);
         });
@@ -224,7 +230,6 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
 
     setVisible (value: boolean): this {
         this.healthbar.setVisible(value);
-        this.heatText.setVisible(value);
 
         return super.setVisible(value);
     }
