@@ -6,7 +6,6 @@ import GameScene from 'scenes/GameScene';
 import Sprite = Phaser.GameObjects.Sprite;
 import NumberHelpers from 'helpers/NumberHelpers';
 import Vector2 = Phaser.Math.Vector2;
-import GameObject = Phaser.GameObjects.GameObject;
 import TransformHelpers from 'helpers/TransformHelpers';
 import Image = Phaser.GameObjects.Image;
 
