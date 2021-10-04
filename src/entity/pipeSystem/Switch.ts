@@ -5,6 +5,7 @@ import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
 import GameConfig from 'config/GameConfig';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
+import Steamer from 'entity/Steamer';
 import { Depths } from 'enums/Depths';
 
 export default class Switch extends Container implements OutputSocket, InputSocket {
@@ -22,6 +23,8 @@ export default class Switch extends Container implements OutputSocket, InputSock
     private powerOn = true;
     private inputText: Phaser.GameObjects.Text;
     private heatUpdateColdown!: NodeJS.Timeout;
+
+    private steamer!: Steamer;
 
     constructor (scene: GameScene, x, y) {
         super(scene, x, y, []);
@@ -89,11 +92,14 @@ export default class Switch extends Container implements OutputSocket, InputSock
         )
             .setScale(0.3)
             .setDepth(Depths.UI);
+
+        this.steamer = new Steamer(this.scene, this.x, this.y);
     }
 
     disconnect (onlyInput: boolean): void {
         setTimeout(() => {
 
+            this.steamer.stop();
             this.inputSocket = null;
             this.inputPipe = null;
             if (!onlyInput) {
@@ -129,6 +135,8 @@ export default class Switch extends Container implements OutputSocket, InputSock
 
     sendHeat (heatValue: number): void {
         clearTimeout(this.heatUpdateColdown);
+
+        this.processSendHeatForSteamer(heatValue);
         if (!this.powerOn) return;
         if (this.outputSocket) {
             this.outputSocket.sendHeat(heatValue);
@@ -154,5 +162,21 @@ export default class Switch extends Container implements OutputSocket, InputSock
         this.outputPipe = pipe;
         // '#b1b508'
         pipe.setStrokeStyle(2, 0xb1b508);
+    }
+
+    private processSendHeatForSteamer (heatValue: number): void {
+        if (heatValue <= 0) return;
+
+        console.log([
+            this.powerOn,
+            !this.powerOn || this.outputSocket === null,
+            this.outputSocket
+        ]);
+        if (!this.powerOn || this.outputSocket === null) {
+            this.steamer.start();
+        } else {
+            this.steamer.stop();
+        }
+
     }
 }
