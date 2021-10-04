@@ -18,8 +18,19 @@ export default class UI {
             this.scene.builder.cancelBuilding();
         });
 
+        $('#cancelDestroy').on('click', () => {
+            this.scene.destroyer.cancelBuilding();
+        });
+
+
         $('#disconnect').on('click', () => {
+            if (this.scene.builder.isBuildMode() || this.scene.destroyer.isDestroyMode()) return;
             this.scene.pipeSystem.startDisconnectMode();
+        });
+
+        $('#destroy').on('click', () => {
+            if (this.scene.builder.isBuildMode() || this.scene.pipeSystem.isDisconnectMode()) return;
+            this.scene.destroyer.startDestroy();
         });
 
         $('#cancelDisconnect').on('click', () => {
@@ -27,18 +38,22 @@ export default class UI {
         });
 
         $('#buildSplitter').on('click', () => {
+            if (this.scene.builder.isBuildMode() || this.scene.pipeSystem.isDisconnectMode() || this.scene.destroyer.isDestroyMode()) return;
             this.scene.builder.startBuild(Building.SPLITTER);
         });
 
         $('#buildCombiner').on('click', () => {
+            if (this.scene.builder.isBuildMode() || this.scene.pipeSystem.isDisconnectMode() || this.scene.destroyer.isDestroyMode()) return;
             this.scene.builder.startBuild(Building.COMBINER);
         });
 
         $('#buildSwitch').on('click', () => {
+            if (this.scene.builder.isBuildMode() || this.scene.pipeSystem.isDisconnectMode() || this.scene.destroyer.isDestroyMode()) return;
             this.scene.builder.startBuild(Building.SWITCH);
         });
 
         $('#buildHeatingPlant').on('click', () => {
+            if (this.scene.builder.isBuildMode() || this.scene.pipeSystem.isDisconnectMode() || this.scene.destroyer.isDestroyMode()) return;
             this.scene.builder.startBuild(Building.HEATING_PLANT);
         });
 
@@ -127,6 +142,16 @@ export default class UI {
     hideBuildMode (): void {
         $('.actionInfo').hide();
         $('.buildingInfo').hide();
+    }
+
+    showDestroyMode (): void {
+        $('.actionInfo').show();
+        $('.destroyInfo').show();
+    }
+
+    hideDestroyMode (): void {
+        $('.actionInfo').hide();
+        $('.destroyInfo').hide();
     }
 
     showSocketOccupied (): void {

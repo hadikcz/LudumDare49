@@ -1,5 +1,6 @@
 import GameConfig from 'config/GameConfig';
 import Builder from 'core/Builder';
+import Destroyer from 'core/Destroyer';
 import MusicPlayer from 'core/MusicPlayer';
 import PauseSystem from 'core/PauseSystem';
 import PipeSystem from 'core/PipeSystem';
@@ -21,6 +22,7 @@ export default class GameScene extends Phaser.Scene {
     public pipeSystem!: PipeSystem;
     public builder!: Builder;
     public pause!: PauseSystem;
+    public destroyer!: Destroyer;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -41,6 +43,7 @@ export default class GameScene extends Phaser.Scene {
         window.worldEnvironment = this.worldEnvironment;
 
         this.builder = new Builder(this, this.worldEnvironment);
+        this.destroyer = new Destroyer(this, this.worldEnvironment);
         this.pipeSystem = new PipeSystem(this, this.worldEnvironment);
 
         this.ui = new UI(this);
