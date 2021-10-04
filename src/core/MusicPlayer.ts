@@ -15,12 +15,14 @@ export default class MusicPlayer {
         this.music['music1'] = this.scene.sound.add('music1');
         this.music['music2'] = this.scene.sound.add('music2');
         this.music['music3'] = this.scene.sound.add('music3');
+        this.music['music4'] = this.scene.sound.add('music4');
+        this.music['music5'] = this.scene.sound.add('music5');
 
         this.playRandomMusicExpectCurrent();
     }
 
     playRandomMusicExpectCurrent (): void {
-        let musicList = [1,2,3];
+        let musicList = [1,2,3,4,5];
         let indexOf = musicList.indexOf(this.currentMusic);
         musicList.splice(indexOf, 1);
 
