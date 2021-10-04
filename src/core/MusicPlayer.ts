@@ -27,6 +27,7 @@ export default class MusicPlayer {
         musicList.splice(indexOf, 1);
 
         this.currentMusic = ArrayHelpers.getRandomFromArray(musicList);
+        console.log('playing ' + this.currentMusic);
         const musicToPlay = this.music['music' + this.currentMusic];
 
         musicToPlay.play({

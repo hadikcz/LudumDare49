@@ -43,7 +43,7 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
         this.image = this.scene.add.image(0, 0, 'assets', 'balancer');
         this.add(this.image);
 
-        const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#4c83b1', align: 'center' };
+        const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#ff9900', align: 'center' };
 
         this.firstOutputText = this.scene.add.text(
             this.x + 15,
@@ -52,17 +52,17 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
             style
         )
             .setScale(0.3)
-            .setStroke('#235862', 15)
+            .setStroke('#865306', 15)
             .setDepth(Depths.UI);
 
-        const style2 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#e93737', align: 'center' };
+        const style2 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#ff9900', align: 'center' };
         this.secondOutputText = this.scene.add.text(
             this.x + -25,
             this.y -13,
             '0',
             style2
         )
-            .setStroke('#771d1d', 15)
+            .setStroke('#865306', 15)
             .setScale(0.3)
             .setDepth(Depths.UI);
 
@@ -159,14 +159,14 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
         if (target === BalancerTarget.FRIST) {
             this.firstOutput = object;
             this.firstOutputPipe = pipe;
-            pipe.setStrokeStyle(2, 0x417093);
+            pipe.setStrokeStyle(2, 0xff9900);
             return;
         }
 
         if (target === BalancerTarget.SECOND) {
             this.secondOutput = object;
             this.secondOutputPipe = pipe;
-            pipe.setStrokeStyle(2, 0xae3030);
+            pipe.setStrokeStyle(2, 0xff9900);
             return;
         }
 

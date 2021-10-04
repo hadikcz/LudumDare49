@@ -239,22 +239,32 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         let end = this.highLimit;
 
 
-        let happy = false;
         let percent = ((this.heatDeposit + Math.abs(start)) / (Math.abs(start) + end)) * 100;
         this.healthbar.setPercent(percent);
 
         let color;
         if (percent < 20) {
             color = this.colors.cold;
-            this.warnIcon.setVisible(false);
-            this.snowflakeIcon.setVisible(true);
+            // this.warnIcon.setVisible(false);
+            // this.snowflakeIcon.setVisible(true);
         } else if (percent >=20 && percent < 80) {
             color = this.colors.ok;
-            this.snowflakeIcon.setVisible(false);
-            this.warnIcon.setVisible(false);
-            happy = true;
+            // this.snowflakeIcon.setVisible(false);
+            // this.warnIcon.setVisible(false);
         } else {
             color = this.colors.hot;
+        }
+
+        // icons
+        let happy = false;
+        if (percent < 2) {
+            this.warnIcon.setVisible(false);
+            this.snowflakeIcon.setVisible(true);
+        } else if (percent >=2 && percent < 98) {
+            happy = true;
+            this.snowflakeIcon.setVisible(false);
+            this.warnIcon.setVisible(false);
+        } else {
             this.snowflakeIcon.setVisible(false);
             this.warnIcon.setVisible(true);
         }
