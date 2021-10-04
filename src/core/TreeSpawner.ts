@@ -30,7 +30,7 @@ export default class TreeSpawner {
     }
 
     private create (): void {
-        for (let i = 0; i < 80; i++) {
+        for (let i = 0; i < 200; i++) {
             let spawnPoint = this.generateSpawnPoint();
             let treeIndex = this.generateTreeSpriteIndex();
 
