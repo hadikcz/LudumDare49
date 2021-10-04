@@ -208,8 +208,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
         this.outputSocket = object;
         this.outputSocketPipe = pipe;
 
-        // '#1f8888'
-        pipe.setStrokeStyle(2, 0x1F8888);
+        pipe.setStrokeStyle(2, 0x6ee700);
     }
 
     destroy (fromScene?: boolean): void {

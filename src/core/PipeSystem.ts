@@ -27,6 +27,7 @@ export default class PipeSystem {
 
     private showAll = true;
     private firedHideAll = false;
+    private isConnectCoolledDown = true;
 
     constructor (scene: GameScene, worldEnvironment: WorldEnvironment) {
         this.scene = scene;
@@ -70,6 +71,7 @@ export default class PipeSystem {
     }
 
     startConnecting (output: OutputSocket, splitterBalancerTarget: SplitterTarget|BalancerTarget|null = null): void {
+        if (!this.isConnectCoolledDown) return;
         if (this.isDisconnectMode()) return;
         if (this.selectedOutputSocket !== null) {
             console.error('HEAT: Cant select another output socket, because one is already using');
@@ -125,6 +127,10 @@ export default class PipeSystem {
         this.scene.ui.hideSocket();
 
         this.pipeVisual?.setVisible(false);
+        this.isConnectCoolledDown = false;
+        setTimeout(() => {
+            this.isConnectCoolledDown = true;
+        }, 100);
     }
 
     cancelConnecting (): void {

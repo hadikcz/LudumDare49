@@ -6,6 +6,7 @@ import TiledObject = Phaser.Types.Tilemaps.TiledObject;
 import Editor from 'core/editor/Editor';
 import Zone from 'core/Zone';
 import Group = Phaser.GameObjects.Group;
+import Splitter from 'entity/pipeSystem/Splitter';
 
 export default class WorldEnvironment {
 
@@ -52,8 +53,8 @@ export default class WorldEnvironment {
 
         this.zone = new Zone(this.scene, this);
 
-        // let testSplitter = new Splitter(this.scene, 500, 500);
-        // this.splitters.add(testSplitter);
+        let testSplitter = new Splitter(this.scene, 500, 500);
+        this.splitters.add(testSplitter);
         //
         // let testSwitch = new Switch(this.scene, 500, 600);
         // this.switches.add(testSwitch);
