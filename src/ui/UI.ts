@@ -37,9 +37,28 @@ export default class UI {
         $('#buildHeatingPlant').on('click', () => {
             this.scene.builder.startBuild(Building.HEATING_PLANT);
         });
+
+        // pause
+        $('#play-icon').on('click', () => {
+            this.scene.pause.unpause();
+        });
+        $('#pause-icon').on('click', () => {
+            this.scene.pause.pause();
+        });
     }
 
     update () {
+        if (this.scene.pause.isPaused()) {
+            $('.paused').show();
+            $('#play-icon').show();
+            $('#pause-icon').hide();
+            $('.pause-icon').attr('class', 'pause-icon mr15 pause');
+        } else {
+            $('.paused').hide();
+            $('#play-icon').hide();
+            $('#pause-icon').show();
+            $('.pause-icon').attr('class', 'pause-icon mr15 play');
+        }
     }
 
     show (): void {

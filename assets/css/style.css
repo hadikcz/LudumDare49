@@ -107,3 +107,77 @@ a {text-decoration: none;}
     z-index: 1000;
     pointer-events: all
 }
+
+.paused {
+    width: 300px;
+    position: absolute;
+    top: 650px;
+    left: 50%;
+    transform: translateX(-50%);
+    /*width: 90px;*/
+    /*height: 100px;*/
+    padding: 5px;
+    text-align: center;
+}
+
+.paused .text {
+    color: red;
+    font-size: 40px;
+}
+
+.paused .info {
+    color: white;
+    font-size: 20px;
+}
+
+.main-bar {
+    top: 10px;
+    right: 0px;
+    width: 278px;
+    height: 38px;
+    background: rgba(0,0,0, 0.5);
+    position: absolute;
+    padding: 5px;
+}
+
+.main-bar .mr15 {
+    margin-right: 15px;
+}
+
+.main-bar .pause-icon {
+    display: inline-block;
+    width: 32px;
+    pointer-events: all;
+    cursor: pointer;
+    margin-left: 15px;
+}
+.main-bar .pause-icon i {
+    cursor: pointer;
+}
+.main-bar .pause-icon.play svg {
+    color: #d44e52;
+}
+.main-bar .pause-icon.pause svg {
+    color: #597531;
+}
+
+.main-bar .time-wrapper {
+    display: inline-block;
+}
+.main-bar .time-wrapper div {
+    display: inline-block;
+    font-size: 37px
+}
+.main-bar .time-wrapper svg {
+    color: #ec8a4b
+}
+.main-bar .calendar-wrapper {
+    display: inline-block;
+}
+.main-bar .calendar-wrapper svg {
+    color: #8bd0ba;
+}
+.main-bar .calendar-wrapper div {
+    display: inline-block;
+    font-size: 37px
+}

@@ -1,6 +1,7 @@
 import GameConfig from 'config/GameConfig';
 import Builder from 'core/Builder';
 import MusicPlayer from 'core/MusicPlayer';
+import PauseSystem from 'core/PauseSystem';
 import PipeSystem from 'core/PipeSystem';
 import WorldEnvironment from 'core/WorldEnvironment';
 import EffectManager from 'effects/EffectManager';
@@ -19,6 +20,7 @@ export default class GameScene extends Phaser.Scene {
     private musicPlayer!: MusicPlayer;
     public pipeSystem!: PipeSystem;
     public builder!: Builder;
+    public pause!: PauseSystem;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -30,6 +32,8 @@ export default class GameScene extends Phaser.Scene {
         this.cameras.main.setZoom(1);
 
         this.datGui = new DatGui(this);
+
+        this.pause = new PauseSystem(this);
 
         this.effectManager = new EffectManager(this);
 
@@ -47,6 +51,7 @@ export default class GameScene extends Phaser.Scene {
             callbackScope: this,
             repeat: Infinity,
             callback: () => {
+                if (this.pause.isPaused()) return;
                 this.pipeSystem.updateHeat();
             }
         });
@@ -54,8 +59,8 @@ export default class GameScene extends Phaser.Scene {
 
     update (): void {
         this.ui.update();
+        this.builder.update();
         this.worldEnvironment.update();
         this.pipeSystem.update();
-        this.builder.update();
     }
 }

@@ -48,7 +48,9 @@ export default class Zone {
 
         this.updateBuildingsInRadius();
         this.interval = setInterval(() => {
-            this.radius += 0.01; // dev - test
+            if (this.scene.pause.isPaused()) return;
+
+            this.radius += 0.01; // real
             // this.radius += 2.5; // dev - test
             this.zoneCircle.setRadius(this.radius);
 
