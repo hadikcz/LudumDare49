@@ -84,12 +84,13 @@ export default class Switch extends Container implements OutputSocket, InputSock
 
         const style3 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#04ff00', align: 'center' };
         this.inputText = this.scene.add.text(
-            this.x - 2,
+            this.x - 5,
             this.y + 11,
             '0',
             style3
         )
             .setScale(0.3)
+            .setStroke('#1d671c', 15)
             .setDepth(Depths.UI);
 
         this.steamer = new Steamer(this.scene, this.x, this.y);

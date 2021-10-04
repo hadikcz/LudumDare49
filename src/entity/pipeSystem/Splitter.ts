@@ -58,7 +58,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             this.staticPass = parsed;
         });
 
-        const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#417093', align: 'center' };
+        const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#4c83b1', align: 'center' };
 
         this.staticOutputText = this.scene.add.text(
             this.x + 15,
@@ -67,15 +67,17 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             style
         )
             .setScale(0.3)
+            .setStroke('#235862', 15)
             .setDepth(Depths.UI);
 
-        const style2 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#ae3030', align: 'center' };
+        const style2 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#e93737', align: 'center' };
         this.variableOutputText = this.scene.add.text(
             this.x + -25,
             this.y -13,
             '0',
             style2
         )
+            .setStroke('#771d1d', 15)
             .setScale(0.3)
             .setDepth(Depths.UI);
 
@@ -87,6 +89,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             style3
         )
             .setScale(0.3)
+            .setStroke('#1d671c', 15)
             .setDepth(Depths.UI);
 
         this.overlay = this.scene.add.sprite(0, 0, 'assets', 'splitter_overlay').setAlpha(0.00001);
