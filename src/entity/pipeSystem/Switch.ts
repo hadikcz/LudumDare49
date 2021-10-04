@@ -68,10 +68,9 @@ export default class Switch extends Container implements OutputSocket, InputSock
         });
 
 
-        this.powerIcon = this.scene.add.image(0, -20, 'assets', 'ui_power_on')
+        this.powerIcon = this.scene.add.image(this.x + 0, this.y -20, 'assets', 'ui_power_on')
             .setDepth(Depths.UI);
         this.powerIcon.setInteractive({ useHandCursor: true });
-        this.add(this.powerIcon);
 
         this.powerIcon.on('pointerdown', () => {
             this.powerOn = !this.powerOn;

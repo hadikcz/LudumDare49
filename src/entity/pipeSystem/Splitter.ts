@@ -44,10 +44,10 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.image = this.scene.add.image(0, 0, 'assets', 'splitter');
         this.add(this.image);
 
-        this.settingsIcon = this.scene.add.image(0, -20, 'assets', 'ui_settings')
+        this.settingsIcon = this.scene.add.image(this.x + 0, this.y -20, 'assets', 'ui_settings')
             .setDepth(Depths.UI);
         this.settingsIcon.setInteractive({ useHandCursor: true });
-        this.add(this.settingsIcon);
+        // this.add(this.settingsIcon);
 
         this.settingsIcon.on('pointerdown', () => {
             let value = prompt('SPLITTER\n\nDefine how much will pass thru on static output. Rest of income heat will be send into variable output.\n Green input\n blue static ouput (number which you pick here)\n red different between static output and input (rest of heat).\n Current static output: ' +this.staticPass + '\nCurrent variable output: ' + this.lastVariableOutput, '1');
