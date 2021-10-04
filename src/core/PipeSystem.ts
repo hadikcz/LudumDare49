@@ -8,6 +8,7 @@ import ConsumerBuilding from 'entity/ConsumerBuilding';
 import Combiner from 'entity/pipeSystem/Combiner';
 import { InputSocket } from 'entity/pipeSystem/InputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
+import { SplitterTarget } from 'enums/SplitterTarget';
 
 export default class PipeSystem {
 
@@ -18,6 +19,7 @@ export default class PipeSystem {
 
     private pipeVisual: Line | null = null;
     private pipesVisuals: PipeVisual[] = [];
+    private splitterTarget: SplitterTarget|null = null;
 
     constructor (scene: GameScene, worldEnvironment: WorldEnvironment) {
         this.scene = scene;
@@ -58,7 +60,7 @@ export default class PipeSystem {
         }
     }
 
-    startConnecting (output: OutputSocket): void {
+    startConnecting (output: OutputSocket, splitterTarget: SplitterTarget|null = null): void {
         if (this.isDisconnectMode()) return;
         if (this.selectedOutputSocket !== null) {
             console.error('HEAT: Cant select another output socket, because one is already using');
@@ -66,6 +68,7 @@ export default class PipeSystem {
         }
 
         this.selectedOutputSocket = output;
+        this.splitterTarget = splitterTarget;
         this.scene.ui.showSocket(SocketType.INPUT);
 
         this.createPipeCursor();
@@ -94,7 +97,8 @@ export default class PipeSystem {
             inputPos.x,
             inputPos.y,
             input,
-            this.selectedOutputSocket
+            this.selectedOutputSocket,
+            this.splitterTarget
         );
         pipe.on('destroy', () => {
             const indexOf = this.pipesVisuals.indexOf(pipe);
@@ -107,6 +111,7 @@ export default class PipeSystem {
         input.setInputSocket(this.selectedOutputSocket, pipe);
 
         this.selectedOutputSocket = null;
+        this.splitterTarget = null;
 
         this.scene.ui.hideSocket();
 
@@ -120,6 +125,7 @@ export default class PipeSystem {
         }
 
         this.selectedOutputSocket = null;
+        this.splitterTarget = null;
         this.pipeVisual?.destroy(true);
         this.scene.ui.hideSocket();
     }

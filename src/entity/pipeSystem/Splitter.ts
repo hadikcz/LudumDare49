@@ -1,13 +1,14 @@
+import GameConfig from 'config/GameConfig';
 import { DoubleOutputSocket } from 'entity/pipeSystem/DoubleOutputSocket';
 import { InputSocket } from 'entity/pipeSystem/InputSocket';
-import GameScene from 'scenes/GameScene';
-import Container = Phaser.GameObjects.Container;
 import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
-import Vector2 = Phaser.Math.Vector2;
-import GameConfig from 'config/GameConfig';
 import Steamer from 'entity/Steamer';
 import { Depths } from 'enums/Depths';
+import { SplitterTarget } from 'enums/SplitterTarget';
+import GameScene from 'scenes/GameScene';
+import Container = Phaser.GameObjects.Container;
+import Vector2 = Phaser.Math.Vector2;
 
 export default class Splitter extends Container implements InputSocket, DoubleOutputSocket, OutputSocket {
 
@@ -108,10 +109,12 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
                 this.scene.pipeSystem.completeConnecting(this);
 
             }
-            if (this.staticOutputPipe && this.variableOutput) {
+            const splitterTarget = this.getFreeSplitterTargetSocket();
+            // if (this.staticOutput && this.variableOutput) {
+            if (splitterTarget === null) {
                 this.scene.ui.showSocketOccupied();
             } else {
-                this.scene.pipeSystem.startConnecting(this);
+                this.scene.pipeSystem.startConnecting(this, splitterTarget);
             }
         });
 
@@ -172,15 +175,28 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         }
     }
 
-    disconnect (onlyInput: boolean = false): void {
+    disconnect (onlyInput: boolean = false, splitterTarget: SplitterTarget|null = null): void {
+        console.log('disconnect splitter target ' + splitterTarget);
         setTimeout(() => {
             this.inputSocket = null;
             this.inputPipe = null;
             if (!onlyInput) {
-                this.variableOutput = null;
-                this.variableOutputPipe = null;
-                this.staticOutput = null;
-                this.staticOutputPipe = null;
+                if (splitterTarget === null) {
+                    this.staticOutput = null;
+                    this.staticOutputPipe?.destroy();
+                    this.staticOutputPipe = null;
+                    this.variableOutput = null;
+                    this.variableOutputPipe?.destroy();
+                    this.variableOutputPipe = null;
+                } else if (splitterTarget === SplitterTarget.STATIC) {
+                    this.staticOutput = null;
+                    this.staticOutputPipe?.destroy();
+                    this.staticOutputPipe = null;
+                } else if (splitterTarget === SplitterTarget.VARIABLE) {
+                    this.variableOutput = null;
+                    this.variableOutputPipe?.destroy();
+                    this.variableOutputPipe = null;
+                }
             }
             this.heatValuesZero();
         }, 800);
@@ -278,5 +294,15 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         } else {
             this.steamer.stop();
         }
+    }
+
+    private getFreeSplitterTargetSocket (): SplitterTarget|null {
+        if (this.staticOutput === null) {
+            return SplitterTarget.STATIC;
+        }
+        if (this.variableOutput === null) {
+            return SplitterTarget.VARIABLE;
+        }
+        return null;
     }
 }
