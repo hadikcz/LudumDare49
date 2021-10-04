@@ -5,6 +5,7 @@ import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
+import Steamer from 'entity/Steamer';
 import { Depths } from 'enums/Depths';
 
 export default class Combiner extends Container implements OutputSocket, DoubleInputSocket, InputSocket {
@@ -21,6 +22,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
     private overlay: Phaser.GameObjects.Sprite;
     private sendHeatTimeout!: NodeJS.Timeout;
     private heatCapacitor = 0;
+    private steamer: Steamer;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
@@ -28,6 +30,8 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
         scene.add.existing(this);
         this.scene = scene;
         this.setDepth(Depths.PIPE_BOXES);
+
+        this.steamer = new Steamer(this.scene, this.x, this.y);
 
         this.image = this.scene.add.image(0, 0, 'assets', 'combiner');
         this.add(this.image);
@@ -125,6 +129,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
 
     sendHeat (heatValue: number): void {
         this.heatCapacitor += heatValue;
+        this.processSendHeatForSteamer(heatValue);
     }
 
     updateHeat (): void {
@@ -152,5 +157,15 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
 
         // '#1f8888'
         pipe.setStrokeStyle(2, 0x1F8888);
+    }
+
+    private processSendHeatForSteamer (heatValue: number): void {
+        if (heatValue <= 0) return;
+
+        if (!this.outputSocket) {
+            this.steamer.start();
+        } else {
+            this.steamer.stop();
+        }
     }
 }
