@@ -137,13 +137,27 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         // this.progressBar.hide();
 
         this.overlay.on('pointerdown', () => {
-            if (this.scene.pipeSystem.isDisconnectMode()) {
+            const disconnect = (): void => {
                 this.pipeVisual?.destroy(true);
+            };
+
+            if (this.scene.pipeSystem.isDisconnectMode()) {
+                disconnect();
             } else {
                 if (this.outputSocketBuilding) {
                     this.scene.ui.showSocketOccupied();
                 } else {
                     this.scene.pipeSystem.startConnecting(this);
+                }
+            }
+
+            if (this.scene.destroyer.isDestroyMode()) {
+                if (confirm('Are you really want to destroy heating plant?!!')) {
+                    disconnect();
+                    // this.disconnect(false);
+                    setTimeout(() => {
+                        this.destroy();
+                    }, 300);
                 }
             }
         });
@@ -232,6 +246,9 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         this.plusButton10.destroy();
         this.minusButton.destroy();
         this.minusButton10.destroy();
+        this.nasobitel.destroy();
+        this.steamer.stop();
+        delete this.steamer;
     }
 
     private processSendHeatForSteamer (): void {

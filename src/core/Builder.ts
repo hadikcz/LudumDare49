@@ -66,6 +66,8 @@ export default class Builder {
 
         this.previewImage.setPosition(-100, -100).setVisible(false);
         this.buildMode = null;
+
+        this.scene.ui.hideBuildMode();
     }
 
     cancelBuilding (): void {

@@ -98,23 +98,38 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.add(this.overlay);
 
         this.overlay.on('pointerdown', () => {
-            if (this.scene.pipeSystem.isDisconnectMode()) {
+            const disconnect = (): void => {
                 console.log('HEAT: splitter destroy');
                 this.variableOutputPipe?.destroy();
                 this.staticOutputPipe?.destroy();
                 this.inputPipe?.destroy();
+            };
+
+            if (this.scene.pipeSystem.isDisconnectMode()) {
+                disconnect();
                 return;
             }
+
             if (this.scene.pipeSystem.isConnectingMode()) {
                 this.scene.pipeSystem.completeConnecting(this);
 
             }
+
             const splitterTarget = this.getFreeSplitterTargetSocket();
-            // if (this.staticOutput && this.variableOutput) {
             if (splitterTarget === null) {
                 this.scene.ui.showSocketOccupied();
             } else {
                 this.scene.pipeSystem.startConnecting(this, splitterTarget);
+            }
+
+            if (this.scene.destroyer.isDestroyMode()) {
+                if (confirm('Are you really want to destroy splitter?')) {
+                    disconnect();
+                    this.disconnect();
+                    setTimeout(() => {
+                        this.destroy();
+                    }, 300);
+                }
             }
         });
 
@@ -284,6 +299,19 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     setVariableOutputObject (object: InputSocket, pipe: PipeVisual): void {
         this.variableOutput = object;
         this.variableOutputPipe = pipe;
+    }
+
+    destroy (fromScene?: boolean): void {
+        super.destroy(fromScene);
+
+        this.steamer.stop();
+        delete this.steamer;
+        this.variableOutputText.destroy();
+        this.staticOutputText.destroy();
+        this.inputText.destroy();
+        this.settingsIcon.destroy();
+        this.plusButton.destroy();
+        this.minusButton.destroy();
     }
 
     private processSendHeatForSteamer (heatValue: number): void {

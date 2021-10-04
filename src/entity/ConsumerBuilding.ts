@@ -105,6 +105,16 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
                 console.log('connect');
                 this.scene.pipeSystem.completeConnecting(this);
             }
+
+            if (this.scene.destroyer.isDestroyMode()) {
+                if (confirm('Are you really want to destroy ' + this.frameName + '?')) {
+                    this.pipeVisual?.destroy();
+                    this.disconnect();
+                    setTimeout(() => {
+                        this.destroy();
+                    }, 300);
+                }
+            }
         });
 
         this.overlay.on('pointerover', () => {
@@ -176,11 +186,14 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         this.inputSocket = null;
     }
 
-    destroy (fromScene?: boolean) {
+    destroy (fromScene?: boolean): void {
         super.destroy(fromScene);
         this.heatText.destroy();
         this.overlay.destroy();
         this.healthbar.destroy();
+        this.warnIcon.destroy();
+        this.snowflakeIcon.destroy();
+        this.stopSteam();
     }
 
     private calcAndProcessPercent (): void {

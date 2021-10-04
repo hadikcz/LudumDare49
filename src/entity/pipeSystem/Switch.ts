@@ -42,10 +42,15 @@ export default class Switch extends Container implements OutputSocket, InputSock
         this.add(this.overlay);
 
         this.overlay.on('pointerdown', () => {
-            if (this.scene.pipeSystem.isDisconnectMode()) {
+
+            const disconnect = (): void => {
                 console.log('HEAT: switch destroy');
                 this.outputPipe?.destroy();
                 this.inputPipe?.destroy();
+            };
+
+            if (this.scene.pipeSystem.isDisconnectMode()) {
+                disconnect();
                 return;
             }
             if (this.scene.pipeSystem.isConnectingMode()) {
@@ -56,6 +61,16 @@ export default class Switch extends Container implements OutputSocket, InputSock
                 this.scene.ui.showSocketOccupied();
             } else {
                 this.scene.pipeSystem.startConnecting(this);
+            }
+
+            if (this.scene.destroyer.isDestroyMode()) {
+                if (confirm('Are you really want to destroy switch?')) {
+                    disconnect();
+                    this.disconnect(false);
+                    setTimeout(() => {
+                        this.destroy();
+                    }, 300);
+                }
             }
         });
 
@@ -162,6 +177,15 @@ export default class Switch extends Container implements OutputSocket, InputSock
         this.outputPipe = pipe;
         // '#b1b508'
         pipe.setStrokeStyle(2, 0xb1b508);
+    }
+
+    destroy (fromScene?: boolean): void {
+        super.destroy(fromScene);
+
+        this.powerIcon.destroy();
+        this.inputText.destroy();
+        this.steamer.stop();
+        delete this.steamer;
     }
 
     private processSendHeatForSteamer (heatValue: number): void {

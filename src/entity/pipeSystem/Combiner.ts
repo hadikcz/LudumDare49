@@ -41,10 +41,14 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
         this.add(this.overlay);
 
         this.overlay.on('pointerdown', () => {
-            if (this.scene.pipeSystem.isDisconnectMode()) {
+            const disconnect = (): void => {
                 this.inputSocketFirstPipe?.destroy();
                 this.inputSocketSecondPipe?.destroy();
                 this.outputSocketPipe?.destroy();
+            };
+
+            if (this.scene.pipeSystem.isDisconnectMode()) {
+                disconnect();
                 return;
             }
             if (this.scene.pipeSystem.isConnectingMode()) {
@@ -58,6 +62,16 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
                     this.scene.pipeSystem.startConnecting(this);
                 } else {
                     this.scene.ui.showSocketOccupied();
+                }
+            }
+
+            if (this.scene.destroyer.isDestroyMode()) {
+                if (confirm('Are you really want to destroy combiner?')) {
+                    disconnect();
+                    // this.disconnect(false);
+                    setTimeout(() => {
+                        this.destroy();
+                    }, 300);
                 }
             }
         });
@@ -162,6 +176,12 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
 
         // '#1f8888'
         pipe.setStrokeStyle(2, 0x1F8888);
+    }
+
+    destroy (fromScene?: boolean): void {
+        super.destroy(fromScene);
+        this.steamer.stop();
+        delete this.steamer;
     }
 
     private processSendHeatForSteamer (heatValue: number): void {

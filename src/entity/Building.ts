@@ -17,7 +17,7 @@ export default class Building extends Container {
     ]
 
     protected scene: GameScene;
-    private frameName: string;
+    protected frameName: string;
 
     private smokeSources: Vector2[] = [];
     private buildingImage: Phaser.GameObjects.Sprite;
