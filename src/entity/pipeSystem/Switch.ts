@@ -73,6 +73,17 @@ export default class Switch extends Container implements OutputSocket, InputSock
                 this.inputPipe?.destroy();
             };
 
+            if (this.scene.destroyer.isDestroyMode()) {
+                if (confirm('Are you really want to destroy switch?')) {
+                    disconnect();
+                    this.disconnect(false);
+                    setTimeout(() => {
+                        this.destroy();
+                    }, 300);
+                }
+                return;
+            }
+
             if (this.scene.pipeSystem.isDisconnectMode()) {
                 disconnect();
                 return;
@@ -85,16 +96,6 @@ export default class Switch extends Container implements OutputSocket, InputSock
                 this.scene.ui.showSocketOccupied();
             } else {
                 this.scene.pipeSystem.startConnecting(this);
-            }
-
-            if (this.scene.destroyer.isDestroyMode()) {
-                if (confirm('Are you really want to destroy switch?')) {
-                    disconnect();
-                    this.disconnect(false);
-                    setTimeout(() => {
-                        this.destroy();
-                    }, 300);
-                }
             }
         });
 

@@ -154,15 +154,6 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
                 this.pipeVisual?.destroy(true);
             };
 
-            if (this.scene.pipeSystem.isDisconnectMode()) {
-                disconnect();
-            } else {
-                if (this.outputSocketBuilding) {
-                    this.scene.ui.showSocketOccupied();
-                } else {
-                    this.scene.pipeSystem.startConnecting(this);
-                }
-            }
 
             if (this.scene.destroyer.isDestroyMode()) {
                 if (confirm('Are you really want to destroy heating plant?!!')) {
@@ -171,6 +162,17 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
                     setTimeout(() => {
                         this.destroy();
                     }, 300);
+                }
+                return;
+            }
+
+            if (this.scene.pipeSystem.isDisconnectMode()) {
+                disconnect();
+            } else {
+                if (this.outputSocketBuilding) {
+                    this.scene.ui.showSocketOccupied();
+                } else {
+                    this.scene.pipeSystem.startConnecting(this);
                 }
             }
         });

@@ -75,6 +75,16 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
                 this.outputSocketPipe?.destroy();
             };
 
+            if (this.scene.destroyer.isDestroyMode()) {
+                if (confirm('Are you really want to destroy combiner?')) {
+                    disconnect();
+                    // this.disconnect(false);
+                    setTimeout(() => {
+                        this.destroy();
+                    }, 300);
+                }
+                return;
+            }
             if (this.scene.pipeSystem.isDisconnectMode()) {
                 disconnect();
                 return;
@@ -90,16 +100,6 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
                     this.scene.pipeSystem.startConnecting(this);
                 } else {
                     this.scene.ui.showSocketOccupied();
-                }
-            }
-
-            if (this.scene.destroyer.isDestroyMode()) {
-                if (confirm('Are you really want to destroy combiner?')) {
-                    disconnect();
-                    // this.disconnect(false);
-                    setTimeout(() => {
-                        this.destroy();
-                    }, 300);
                 }
             }
         });

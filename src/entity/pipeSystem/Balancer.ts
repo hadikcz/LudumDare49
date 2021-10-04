@@ -100,6 +100,17 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
                 this.inputPipe?.destroy();
             };
 
+            if (this.scene.destroyer.isDestroyMode()) {
+                if (confirm('Are you really want to destroy balancer?')) {
+                    disconnect();
+                    this.disconnect();
+                    setTimeout(() => {
+                        this.destroy();
+                    }, 300);
+                }
+                return;
+            }
+
             if (this.scene.pipeSystem.isDisconnectMode()) {
                 disconnect();
                 return;
@@ -115,16 +126,6 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
                 this.scene.ui.showSocketOccupied();
             } else {
                 this.scene.pipeSystem.startConnecting(this, balancerTarget);
-            }
-
-            if (this.scene.destroyer.isDestroyMode()) {
-                if (confirm('Are you really want to destroy balancer?')) {
-                    disconnect();
-                    this.disconnect();
-                    setTimeout(() => {
-                        this.destroy();
-                    }, 300);
-                }
             }
         });
 

@@ -119,6 +119,17 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
                 this.inputPipe?.destroy();
             };
 
+            if (this.scene.destroyer.isDestroyMode()) {
+                if (confirm('Are you really want to destroy splitter?')) {
+                    disconnect();
+                    this.disconnect();
+                    setTimeout(() => {
+                        this.destroy();
+                    }, 300);
+                }
+                return;
+            }
+
             if (this.scene.pipeSystem.isDisconnectMode()) {
                 disconnect();
                 return;
@@ -134,16 +145,6 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
                 this.scene.ui.showSocketOccupied();
             } else {
                 this.scene.pipeSystem.startConnecting(this, splitterTarget);
-            }
-
-            if (this.scene.destroyer.isDestroyMode()) {
-                if (confirm('Are you really want to destroy splitter?')) {
-                    disconnect();
-                    this.disconnect();
-                    setTimeout(() => {
-                        this.destroy();
-                    }, 300);
-                }
             }
         });
 
