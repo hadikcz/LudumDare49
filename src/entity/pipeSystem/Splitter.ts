@@ -32,6 +32,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     private lastVariableOutput = 0;
     private heatUpdateColdown!: NodeJS.Timeout;
     private steamer: Steamer;
+    private titleText: Phaser.GameObjects.Text;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
@@ -94,6 +95,18 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             .setStroke('#1d671c', 15)
             .setDepth(Depths.UI);
 
+        const style4 = { fontFamily: 'arcadeclassic, Arial', fontSize: 40, color: '#feda09', align: 'center' };
+        this.titleText = this.scene.add.text(
+            this.x - 25,
+            this.y - 45,
+            'Splitter',
+            style4
+        )
+            .setScale(0.3)
+            .setStroke('#7c6e1b', 15)
+            .setDepth(Depths.UI)
+            .setVisible(false);
+
         this.overlay = this.scene.add.sprite(0, 0, 'assets', 'splitter_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
         this.add(this.overlay);
@@ -138,11 +151,13 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             this.overlay.setAlpha(1);
             this.showAll();
 
+            this.titleText.setVisible(true);
         });
 
         this.overlay.on('pointerout', () => {
             this.overlay.setAlpha(0.0001);
             this.hideAll();
+            this.titleText.setVisible(false);
         });
 
         // plus
@@ -308,6 +323,8 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     destroy (fromScene?: boolean): void {
         super.destroy(fromScene);
 
+
+        this.titleText.destroy();
         this.steamer.stop();
         delete this.steamer;
         this.variableOutputText.destroy();

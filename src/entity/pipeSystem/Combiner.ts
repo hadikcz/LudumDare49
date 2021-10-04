@@ -25,6 +25,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
     private heatCapacitor = 0;
     private steamer: Steamer;
     private outputText: Phaser.GameObjects.Text;
+    private titleText: Phaser.GameObjects.Text;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
@@ -50,6 +51,18 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
             .setScale(0.3)
             .setStroke('#1d671c', 15)
             .setDepth(Depths.UI);
+
+        const style4 = { fontFamily: 'arcadeclassic, Arial', fontSize: 40, color: '#feda09', align: 'center' };
+        this.titleText = this.scene.add.text(
+            this.x - 25,
+            this.y - 30,
+            'Combiner',
+            style4
+        )
+            .setScale(0.3)
+            .setStroke('#7c6e1b', 15)
+            .setDepth(Depths.UI)
+            .setVisible(false);
 
         this.overlay = this.scene.add.sprite(0, 0, 'assets', 'splitter_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
@@ -94,10 +107,12 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
         this.overlay.on('pointerover', () => {
             this.overlay.setAlpha(1);
             this.showAll();
+            this.titleText.setVisible(true);
         });
 
         this.overlay.on('pointerout', () => {
             this.overlay.setAlpha(0.0001);
+            this.titleText.setVisible(false);
             this.hideAll();
         });
     }
@@ -199,6 +214,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
     destroy (fromScene?: boolean): void {
         super.destroy(fromScene);
         this.steamer.stop();
+        this.titleText.destroy();
         this.outputText.destroy();
         delete this.steamer;
     }

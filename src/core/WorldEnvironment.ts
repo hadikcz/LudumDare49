@@ -60,6 +60,9 @@ export default class WorldEnvironment {
         //
         // let testCombiner = new Combiner(this.scene, 700, 600);
         // this.combiners.add(testCombiner);
+        //
+        // let testBalanceer = new Balancer(this.scene, 200, 600);
+        // this.balancers.add(testBalanceer);
     }
 
     update (): void {

@@ -24,6 +24,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
     private minusButton10: Phaser.GameObjects.Image;
     private nasobitel: Phaser.GameObjects.Text;
     private steamer: Steamer;
+    private titleText: Phaser.GameObjects.Text;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, 'heating_plant');
@@ -50,6 +51,18 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         });
         this.healthbar.setTint(0xffcc68);
         this.healthbar.setPercent(0);
+
+        const style4 = { fontFamily: 'arcadeclassic, Arial', fontSize: 40, color: '#feda09', align: 'center' };
+        this.titleText = this.scene.add.text(
+            this.x - 25,
+            this.y - 50,
+            'Heating plant',
+            style4
+        )
+            .setScale(0.3)
+            .setStroke('#7c6e1b', 15)
+            .setDepth(Depths.UI)
+            .setVisible(false);
 
         // plus
         this.plusButton = this.scene.add.image(
@@ -165,10 +178,12 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         this.overlay.on('pointerover', () => {
             console.log('pointerover');
             this.overlay.setAlpha(1);
+            this.titleText.setVisible(true);
         });
         //
         this.overlay.on('pointerout', () => {
             this.overlay.setAlpha(0.00001);
+            this.titleText.setVisible(false);
         });
         // #endregion
     }
@@ -240,6 +255,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
     destroy (fromScene?: boolean): void {
         super.destroy(fromScene);
 
+        this.titleText.destroy();
         this.heatText.destroy();
         this.healthbar.destroy();
         this.plusButton.destroy();

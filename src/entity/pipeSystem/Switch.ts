@@ -26,6 +26,7 @@ export default class Switch extends Container implements OutputSocket, InputSock
     private heatUpdateColdown!: NodeJS.Timeout;
 
     private steamer!: Steamer;
+    private titleText: Phaser.GameObjects.Text;
 
     constructor (scene: GameScene, x, y) {
         super(scene, x, y, []);
@@ -49,12 +50,23 @@ export default class Switch extends Container implements OutputSocket, InputSock
             .setStroke('#1d671c', 15)
             .setDepth(Depths.UI);
 
+        const style4 = { fontFamily: 'arcadeclassic, Arial', fontSize: 40, color: '#feda09', align: 'center' };
+        this.titleText = this.scene.add.text(
+            this.x - 20,
+            this.y - 45,
+            'Switch',
+            style4
+        )
+            .setScale(0.3)
+            .setStroke('#7c6e1b', 15)
+            .setDepth(Depths.UI)
+            .setVisible(false);
+
         this.overlay = this.scene.add.sprite(0, 5, 'assets', 'splitter_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
         this.add(this.overlay);
 
         this.overlay.on('pointerdown', () => {
-
             const disconnect = (): void => {
                 console.log('HEAT: switch destroy');
                 this.outputPipe?.destroy();
@@ -89,11 +101,13 @@ export default class Switch extends Container implements OutputSocket, InputSock
         this.overlay.on('pointerover', () => {
             this.overlay.setAlpha(1);
             this.showAll();
+            this.titleText.setVisible(true);
         });
 
         this.overlay.on('pointerout', () => {
             this.overlay.setAlpha(0.0001);
             this.hideAll();
+            this.titleText.setVisible(false);
         });
 
         this.hideAll();
@@ -186,6 +200,7 @@ export default class Switch extends Container implements OutputSocket, InputSock
 
     destroy (fromScene?: boolean): void {
         super.destroy(fromScene);
+        this.titleText.destroy();
 
         this.powerIcon.destroy();
         this.inputText.destroy();
