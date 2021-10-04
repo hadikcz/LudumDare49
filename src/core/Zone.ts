@@ -6,13 +6,14 @@ import Building from 'entity/Building';
 import { Depths } from 'enums/Depths';
 import TransformHelpers from 'helpers/TransformHelpers';
 import Image = Phaser.GameObjects.Image;
+import NumberHelpers from 'helpers/NumberHelpers';
 
 declare let __DEV__: any;
 export default class Zone {
 
     private static readonly ZONE_CENTER = new Vector2(
-        GameConfig.World.size.width / 2,
-        GameConfig.World.size.height / 2
+        GameConfig.World.size.width / 2 + NumberHelpers.randomIntInRange(-50, 50),
+        GameConfig.World.size.height / 2 + NumberHelpers.randomIntInRange(-50, 50)
     );
 
     private static readonly BEGIN_RADIUS = 80;
