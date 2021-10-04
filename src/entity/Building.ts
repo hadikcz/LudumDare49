@@ -121,6 +121,7 @@ export default class Building extends Container {
 
         this.smokeInterval = setInterval(() => {
             if (!this.active) return;
+            if (this.scene.dayNightSystem.isNight() && this.getFrameName() !== 'heating_plant') return;
             for (let smokeSource of this.smokeSources) {
                 this.scene.effectManager.launchSmoke(
                     this.x + smokeSource.x,
@@ -151,7 +152,7 @@ export default class Building extends Container {
         clearInterval(this.steamInterval);
     }
 
-    private isIndustrial (): boolean {
+    protected isIndustrial (): boolean {
         return ArrayHelpers.inArray(Building.INDUSTRIAL, this.frameName);
     }
 

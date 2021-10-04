@@ -10,6 +10,7 @@ export enum Depths {
     BUILDINGS,
     SHADOW_TOP,
     SMOKE,
+    NIGHT,
     FLY_TEXT,
     BUILD_ICON,
     UI1,

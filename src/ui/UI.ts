@@ -2,13 +2,17 @@ import { Building } from 'enums/Building';
 import { SocketType } from 'enums/SocketType';
 import $ from 'jquery';
 import GameScene from 'scenes/GameScene';
+import DayNightUI from 'ui/DayNightUI';
 
 export default class UI {
 
     private scene: GameScene;
+    private dayNightUI: DayNightUI;
 
     constructor (scene: GameScene) {
         this.scene = scene;
+
+        this.dayNightUI = new DayNightUI(this.scene);
 
         $('#cancelSocket').on('click', () => {
             this.scene.pipeSystem.cancelConnecting();
@@ -87,6 +91,7 @@ export default class UI {
             $('#pause-icon').hide();
             $('.pause-icon').attr('class', 'pause-icon mr15 pause');
         } else {
+            this.dayNightUI.update();
             $('.paused').hide();
             $('#play-icon').hide();
             $('#pause-icon').show();
