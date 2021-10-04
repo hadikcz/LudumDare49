@@ -235,7 +235,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
                 }
             }
             this.heatValuesZero();
-        }, 800);
+        }, 10);
     }
 
     getInputSocket (): OutputSocket | null {
