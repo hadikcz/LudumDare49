@@ -44,6 +44,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
             if (this.scene.pipeSystem.isDisconnectMode()) {
                 this.inputSocketFirstPipe?.destroy();
                 this.inputSocketSecondPipe?.destroy();
+                this.outputSocketPipe?.destroy();
                 return;
             }
             if (this.scene.pipeSystem.isConnectingMode()) {
@@ -53,7 +54,11 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
                     this.scene.pipeSystem.completeConnecting(this);
                 }
             } else {
-                this.scene.pipeSystem.startConnecting(this);
+                if (this.outputSocket === null) {
+                    this.scene.pipeSystem.startConnecting(this);
+                } else {
+                    this.scene.ui.showSocketOccupied();
+                }
             }
         });
 
