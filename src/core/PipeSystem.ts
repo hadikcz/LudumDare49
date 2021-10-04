@@ -44,6 +44,11 @@ export default class PipeSystem {
                 building.updateHeat();
             }
 
+            for (let object of this.worldEnvironment.factoriesGroup.getChildren()) {
+                let building = object as any as ConsumerBuilding;
+                building.updateHeat();
+            }
+
             for (let object of this.worldEnvironment.combiners.getChildren()) {
                 let combiner = object as any as Combiner;
                 combiner.updateHeat();

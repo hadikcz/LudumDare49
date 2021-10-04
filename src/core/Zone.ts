@@ -34,7 +34,8 @@ export default class Zone {
             this.visibleCircle = false;
         } else {
             // dev - full city
-            // this.radius = 1000;
+            this.radius = 1000;
+            // this.radius = 200;
         }
 
         this.zoneCircle = this.scene.add.circle(Zone.ZONE_CENTER.x, Zone.ZONE_CENTER.y, this.radius, 0x00FF00, 0.25 )

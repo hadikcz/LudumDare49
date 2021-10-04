@@ -8,6 +8,7 @@ import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import { Depths } from 'enums/Depths';
 import ProgressBarUI from 'libs/ProgressBarUI';
 import Image = Phaser.GameObjects.Image;
+import consumerBuilding from './consumerBuilding.json';
 
 export default class ConsumerBuilding extends Building implements InputSocket, PipeSystemObject {
 
@@ -28,19 +29,23 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
     };
 
     private snowflakeIcon: Phaser.GameObjects.Image;
+    private consumerBuildingCoordsBuilding: ConsumerBuildingSettings;
 
     constructor (scene: GameScene, x: number, y: number, image: string) {
         super(scene, x, y, image);
+
+        this.consumerBuildingCoordsBuilding = consumerBuilding[image];
+        if (this.consumerBuildingCoordsBuilding === undefined) {
+            this.consumerBuildingCoordsBuilding = consumerBuilding['house'] as any as ConsumerBuildingSettings;
+        }
 
         this.lowLimit = this.getRequiredHeat() * -10;
         this.highLimit = this.getRequiredHeat() * 10;
 
         const style = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#feda09', align: 'center' };
-        const modifyTextX = -15;
-        const modifyTextY = -35;
 
         // #region UI
-        this.warnIcon = this.scene.add.image(25, -30, 'assets', 'ui_warn').setScale(1.2);
+        this.warnIcon = this.scene.add.image(this.consumerBuildingCoordsBuilding.bar.x - 3, this.consumerBuildingCoordsBuilding.bar.y -17, 'assets', 'ui_warn').setScale(1.2);
         this.warnIcon.setVisible(false);
         this.add(this.warnIcon);
         this.scene.add.tween({
@@ -51,7 +56,7 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
             yoyo: true,
             repeat: Infinity
         });
-        this.snowflakeIcon = this.scene.add.image(45, 0, 'assets', 'ui_snowflake').setScale(1.1);
+        this.snowflakeIcon = this.scene.add.image(this.consumerBuildingCoordsBuilding.bar.x + 17, 0, 'assets', 'ui_snowflake').setScale(1.1);
         this.snowflakeIcon.setVisible(false);
         this.add(this.snowflakeIcon);
         this.scene.add.tween({
@@ -64,8 +69,8 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         });
 
         this.healthbar = new ProgressBarUI(this.scene, {
-            x: this.x + 28,
-            y: this.y + 13,
+            x: this.x + this.consumerBuildingCoordsBuilding.bar.x,
+            y: this.y + this.consumerBuildingCoordsBuilding.bar.y,
             angle: 180,
             atlas: 'assets',
             atlasBg: 'ui_progressbar_small',
@@ -79,7 +84,7 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         this.healthbar.setTint(this.colors.ok);
         this.healthbar.setPercent(50);
 
-        this.heatText = this.scene.add.text(this.x + modifyTextX, this.y + modifyTextY, '', style)
+        this.heatText = this.scene.add.text(this.x + this.consumerBuildingCoordsBuilding.heatText.x, this.y + this.consumerBuildingCoordsBuilding.heatText.y, '', style)
             .setScale(0.2)
             .setStroke('#7c6e1b', 30)
             .setDepth(Depths.UI);
@@ -139,7 +144,7 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
     }
 
     getRequiredHeat (): number {
-        return 1;
+        return this.consumerBuildingCoordsBuilding.heat.require;
     }
 
     sendHeat (heatValue: number): void {

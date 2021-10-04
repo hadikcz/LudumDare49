@@ -1,0 +1,67 @@
+{
+  "house": {
+    "bar": {
+      "x": 28,
+      "y": 13
+    },
+    "heatText": {
+      "x": -15,
+      "y": -35
+    },
+    "heat": {
+      "require": 1
+    }
+  },
+  "house_large": {
+    "bar": {
+      "x": 50,
+      "y": 13
+    },
+    "heatText": {
+      "x": -15,
+      "y": -55
+    },
+    "heat": {
+      "require": 5
+    }
+  },
+  "factory1": {
+    "bar": {
+      "x": 20,
+      "y": 13
+    },
+    "heatText": {
+      "x": -15,
+      "y": -45
+    },
+    "heat": {
+      "require": 5
+    }
+  },
+  "factory2": {
+    "bar": {
+      "x": 60,
+      "y": 16
+    },
+    "heatText": {
+      "x": -15,
+      "y": -42
+    },
+    "heat": {
+      "require": 5
+    }
+  },
+  "factory3": {
+    "bar": {
+      "x": 37,
+      "y": 16
+    },
+    "heatText": {
+      "x": -15,
+      "y": -42
+    },
+    "heat": {
+      "require": 5
+    }
+  }
+}
