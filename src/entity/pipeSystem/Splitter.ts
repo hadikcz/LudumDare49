@@ -6,6 +6,7 @@ import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import Vector2 = Phaser.Math.Vector2;
 import GameConfig from 'config/GameConfig';
+import Steamer from 'entity/Steamer';
 import { Depths } from 'enums/Depths';
 
 export default class Splitter extends Container implements InputSocket, DoubleOutputSocket, OutputSocket {
@@ -28,6 +29,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     private minusButton: Phaser.GameObjects.Image;
     private lastVariableOutput = 0;
     private heatUpdateColdown!: NodeJS.Timeout;
+    private steamer: Steamer;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
@@ -36,6 +38,8 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.scene = scene;
 
         this.setDepth(Depths.PIPE_BOXES);
+
+        this.steamer = new Steamer(this.scene, this.x, this.y);
 
         this.image = this.scene.add.image(0, 0, 'assets', 'splitter');
         this.add(this.image);
@@ -207,6 +211,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     }
 
     sendHeat (heatValue: number): void {
+        this.processSendHeatForSteamer(heatValue);
         clearTimeout(this.heatUpdateColdown);
         console.log('sentHeat ' + this.staticPass + ' icnome heat ' + heatValue);
         let staticHeat = 0;
@@ -260,5 +265,15 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     setVariableOutputObject (object: InputSocket, pipe: PipeVisual): void {
         this.variableOutput = object;
         this.variableOutputPipe = pipe;
+    }
+
+    private processSendHeatForSteamer (heatValue: number): void {
+        if (heatValue <= 0) return;
+
+        if (!this.staticOutput && !this.variableOutput) {
+            this.steamer.start();
+        } else {
+            this.steamer.stop();
+        }
     }
 }
