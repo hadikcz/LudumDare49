@@ -5,6 +5,7 @@ import { PipeSystemObject } from 'entity/pipeSystem/PipeSystemObject';
 import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
+import Steamer from 'entity/Steamer';
 import { Depths } from 'enums/Depths';
 import ProgressBarUI from 'libs/ProgressBarUI';
 
@@ -22,6 +23,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
     private plusButton10: Phaser.GameObjects.Image;
     private minusButton10: Phaser.GameObjects.Image;
     private nasobitel: Phaser.GameObjects.Text;
+    private steamer: Steamer;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, 'heating_plant');
@@ -29,6 +31,8 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         this.overlay = this.scene.add.sprite(0, 0, 'assets', 'heating_plant_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
         this.add(this.overlay);
+
+        this.steamer = new Steamer(this.scene, this.x + 25, this.y + 10);
 
         // #region UI
         this.healthbar = new ProgressBarUI(this.scene, {
@@ -152,7 +156,6 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         this.overlay.on('pointerout', () => {
             this.overlay.setAlpha(0.00001);
         });
-
         // #endregion
     }
 
@@ -186,6 +189,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
     }
 
     updateHeat (): void {
+        this.processSendHeatForSteamer();
         const outputObject = this.getOutputObject();
         if (!outputObject) return;
 
@@ -228,6 +232,14 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         this.plusButton10.destroy();
         this.minusButton.destroy();
         this.minusButton10.destroy();
+    }
+
+    private processSendHeatForSteamer (): void {
+        if (this.getOutputPower() > 0 && !this.outputSocketBuilding) {
+            this.steamer.start();
+        } else {
+            this.steamer.stop();
+        }
     }
 
 }

@@ -167,16 +167,10 @@ export default class Switch extends Container implements OutputSocket, InputSock
     private processSendHeatForSteamer (heatValue: number): void {
         if (heatValue <= 0) return;
 
-        console.log([
-            this.powerOn,
-            !this.powerOn || this.outputSocket === null,
-            this.outputSocket
-        ]);
         if (!this.powerOn || this.outputSocket === null) {
             this.steamer.start();
         } else {
             this.steamer.stop();
         }
-
     }
 }
