@@ -1,4 +1,5 @@
 import Line = Phaser.GameObjects.Line;
+import { BalancerTarget } from 'entity/pipeSystem/BalancerTarget';
 import { InputSocket } from 'entity/pipeSystem/InputSocket';
 import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import { Depths } from 'enums/Depths';
@@ -9,13 +10,13 @@ export default class PipeVisual extends Line {
 
     private inputSocket: InputSocket;
     private outputSocket: OutputSocket;
-    private splitterTarget: SplitterTarget|null = null;
+    private splitterBalancerTarget: SplitterTarget|BalancerTarget|null = null;
 
-    constructor (scene: GameScene, x1: number, y1: number, x2: number, y2: number, input: InputSocket, output: OutputSocket, splitterTarget: SplitterTarget|null = null) {
+    constructor (scene: GameScene, x1: number, y1: number, x2: number, y2: number, input: InputSocket, output: OutputSocket, splitterBalancerTarget: SplitterTarget|BalancerTarget|null = null) {
         super(scene, 0, 0, x1, y1, x2, y2, 0x6f6f8d, 1);
         scene.add.existing(this);
 
-        this.splitterTarget = splitterTarget;
+        this.splitterBalancerTarget = splitterBalancerTarget;
         this.setLineWidth(2);
         this.setOrigin(0, 0);
         this.inputSocket = input;
@@ -26,7 +27,7 @@ export default class PipeVisual extends Line {
 
     destroy (onlyInput: boolean = false) {
         this.inputSocket.disconnect(onlyInput);
-        this.outputSocket.disconnect(onlyInput, this.splitterTarget);
+        this.outputSocket.disconnect(onlyInput, this.splitterBalancerTarget);
         super.destroy(true);
     }
 }

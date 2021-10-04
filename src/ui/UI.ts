@@ -51,6 +51,11 @@ export default class UI {
             this.scene.builder.startBuild(Building.SPLITTER);
         });
 
+        $('#buildBalancer').on('click', () => {
+            if (this.scene.builder.isBuildMode() || this.scene.pipeSystem.isDisconnectMode() || this.scene.destroyer.isDestroyMode()) return;
+            this.scene.builder.startBuild(Building.BALANCER);
+        });
+
         $('#buildCombiner').on('click', () => {
             if (this.scene.builder.isBuildMode() || this.scene.pipeSystem.isDisconnectMode() || this.scene.destroyer.isDestroyMode()) return;
             this.scene.builder.startBuild(Building.COMBINER);

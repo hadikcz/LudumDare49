@@ -23,6 +23,7 @@ export default class WorldEnvironment {
     public readonly splitters: Group
     public readonly switches: Group
     public readonly combiners: Group
+    public readonly balancers: Group
     private treeSpawner: TreeSpawner;
 
     constructor (scene: GameScene) {
@@ -47,6 +48,7 @@ export default class WorldEnvironment {
         this.splitters = this.scene.add.group();
         this.switches = this.scene.add.group();
         this.combiners = this.scene.add.group();
+        this.balancers = this.scene.add.group();
 
         this.zone = new Zone(this.scene, this);
 

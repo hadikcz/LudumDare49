@@ -5,6 +5,8 @@ import { SocketType } from 'enums/SocketType';
 import GameScene from 'scenes/GameScene';
 import Line = Phaser.GameObjects.Line;
 import ConsumerBuilding from 'entity/ConsumerBuilding';
+import Balancer from 'entity/pipeSystem/Balancer';
+import { BalancerTarget } from 'entity/pipeSystem/BalancerTarget';
 import Combiner from 'entity/pipeSystem/Combiner';
 import { InputSocket } from 'entity/pipeSystem/InputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
@@ -21,7 +23,7 @@ export default class PipeSystem {
 
     private pipeVisual: Line | null = null;
     private pipesVisuals: PipeVisual[] = [];
-    private splitterTarget: SplitterTarget|null = null;
+    private splitterBalancerTarget: SplitterTarget|BalancerTarget|null = null;
 
     private showAll = false;
     private firedHideAll = false;
@@ -67,7 +69,7 @@ export default class PipeSystem {
         }
     }
 
-    startConnecting (output: OutputSocket, splitterTarget: SplitterTarget|null = null): void {
+    startConnecting (output: OutputSocket, splitterBalancerTarget: SplitterTarget|BalancerTarget|null = null): void {
         if (this.isDisconnectMode()) return;
         if (this.selectedOutputSocket !== null) {
             console.error('HEAT: Cant select another output socket, because one is already using');
@@ -75,7 +77,7 @@ export default class PipeSystem {
         }
 
         this.selectedOutputSocket = output;
-        this.splitterTarget = splitterTarget;
+        this.splitterBalancerTarget = splitterBalancerTarget;
         this.scene.ui.showSocket(SocketType.INPUT);
 
         this.createPipeCursor();
@@ -105,7 +107,7 @@ export default class PipeSystem {
             inputPos.y,
             input,
             this.selectedOutputSocket,
-            this.splitterTarget
+            this.splitterBalancerTarget
         );
         pipe.on('destroy', () => {
             const indexOf = this.pipesVisuals.indexOf(pipe);
@@ -118,7 +120,7 @@ export default class PipeSystem {
         input.setInputSocket(this.selectedOutputSocket, pipe);
 
         this.selectedOutputSocket = null;
-        this.splitterTarget = null;
+        this.splitterBalancerTarget = null;
 
         this.scene.ui.hideSocket();
 
@@ -132,7 +134,7 @@ export default class PipeSystem {
         }
 
         this.selectedOutputSocket = null;
-        this.splitterTarget = null;
+        this.splitterBalancerTarget = null;
         this.pipeVisual?.destroy(true);
         this.scene.ui.hideSocket();
     }
@@ -199,6 +201,14 @@ export default class PipeSystem {
         }
         for (let object of this.worldEnvironment.splitters.getChildren()) {
             let combiner = object as any as Splitter;
+            if (this.isShowAllMode()) {
+                combiner.showAll();
+            } else {
+                combiner.hideAll();
+            }
+        }
+        for (let object of this.worldEnvironment.balancers.getChildren()) {
+            let combiner = object as any as Balancer;
             if (this.isShowAllMode()) {
                 combiner.showAll();
             } else {

@@ -7,6 +7,7 @@ import { Building } from 'enums/Building';
 import { Depths } from 'enums/Depths';
 import GameScene from 'scenes/GameScene';
 import Image = Phaser.GameObjects.Image;
+import Balancer from 'entity/pipeSystem/Balancer';
 
 export default class Builder {
 
@@ -73,6 +74,9 @@ export default class Builder {
         } else if (this.buildMode === Building.HEATING_PLANT) {
             const obj = new HeatingPlant(this.scene, worldX, worldY);
             this.worldEnvironment.heaterGroup.add(obj);
+        } else if (this.buildMode === Building.BALANCER) {
+            const obj = new Balancer(this.scene, worldX, worldY);
+            this.worldEnvironment.balancers.add(obj);
         }
 
         this.previewImage.setPosition(-100, -100).setVisible(false);
@@ -149,6 +153,18 @@ export default class Builder {
         }
 
         for (let object of this.worldEnvironment.switches.getChildren()) {
+            if (!object.active) continue;
+
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getImageBounds()
+            )) {
+                return false;
+            }
+        }
+
+        for (let object of this.worldEnvironment.balancers.getChildren()) {
             if (!object.active) continue;
 
             if (Phaser.Geom.Intersects.RectangleToRectangle(

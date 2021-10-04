@@ -266,6 +266,9 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
             for (let child of this.scene.worldEnvironment.splitters.getChildren()) {
                 cleanFunction(child as any as Image);
             }
+            for (let child of this.scene.worldEnvironment.balancers.getChildren()) {
+                cleanFunction(child as any as Image);
+            }
         } catch (e) {
 
         }
