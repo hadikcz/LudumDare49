@@ -1,13 +1,21 @@
-## [PLAY ON WEB!](https://hadikcz.github.io/ludum_dare49/build/)
+## [PLAY ON WEB!](https://hadikcz.github.io/LudumDare49/build/)
 
-![Image of game](https://raw.githubusercontent.com/hadikcz/ludum_dare49/main/screens/XXXX)
+![Image of game](https://raw.githubusercontent.com/hadikcz/LudumDare49/master/screens/2.jpg)
 
 # About game:
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a aliquam ligula. Nulla efficitur odio sit amet fringilla congue. Mauris eget neque turpis. Proin viverra nulla id semper egestas. Integer feugiat magna eget eleifend tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean dignissim nibh vel dapibus hendrerit. Donec facilisis enim lorem, vel congue orci blandit et.
+Small town, upon the river, has big problem. Electricty is very expensive, so most of citizens and factories, switch to oldschool steam heating and powering.
+And your job is connect your heating plants with all houses and factories, by complex system of pipes, splitters, combiners and switches.
+
+## Game was for compo, but I overshot the scope and not finished in given time. But everythink expect the 3 days work, is same as for compo, so no free assets, not free music. Everythink is 100% created within jam timspan. Thank you for understanding.
+
+## Bugs
+In game you can find some bugs around the pipe system, mostly when you will try destroy or disconnect pipes. I will do my best to try find it and fix it, without changing the anythink in the game.
+# Gameplay
+https://www.youtube.com/watch?v=sF9RXcZIaQo
 
 # How to play ? / Controls
-Arrow up - XX
-Arrow down - XXX
+Only with mouse and clicking
 
+![Controls](https://raw.githubusercontent.com/hadikcz/LudumDare49/master/assets/images/help_screen.png)
 
-![Controls](https://raw.githubusercontent.com/hadikcz/ludum_dare47/main/assets/images/help.jpg)
+![Image of game](https://raw.githubusercontent.com/hadikcz/LudumDare49/master/screens/animation.gif)
