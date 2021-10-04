@@ -191,7 +191,7 @@ export default class Builder {
     private getBuildingPrice (building: Building): number {
         switch (building) {
             case Building.HEATING_PLANT:
-                return 50;
+                return 100;
             case Building.SWITCH:
                 return 1;
             case Building.COMBINER:

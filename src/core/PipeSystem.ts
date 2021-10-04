@@ -13,6 +13,8 @@ import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import Splitter from 'entity/pipeSystem/Splitter';
 import Switch from 'entity/pipeSystem/Switch';
 import { SplitterTarget } from 'enums/SplitterTarget';
+import Vector2 = Phaser.Math.Vector2;
+import { Depths } from 'enums/Depths';
 
 export default class PipeSystem {
 
@@ -29,18 +31,45 @@ export default class PipeSystem {
     private firedHideAll = false;
     private isConnectCoolledDown = true;
 
+    private lastPos: Vector2|null = null;
+    private positions: Vector2[] = [];
+    private pipeVisualMulti: Phaser.GameObjects.Graphics|null = null;
+
+    private previousPathLines: Line[] = [];
+
     constructor (scene: GameScene, worldEnvironment: WorldEnvironment) {
         this.scene = scene;
         this.worldEnvironment = worldEnvironment;
+
+        this.scene.input.on('pointerdown', () => {
+            if (!this.isConnectingMode() || !this.lastPos) return;
+            const worldX = this.scene.input.activePointer.worldX;
+            const worldY = this.scene.input.activePointer.worldY;
+
+            console.log(`click on ${worldX} ${worldY}`);
+
+            const line = this.scene.add.line(0, 0, this.lastPos.x, this.lastPos.y, worldX, worldY, 0x6f6f8d, 1)
+                .setDepth(Depths.PIPES)
+                .setOrigin(0)
+                .setLineWidth(2);
+            this.previousPathLines.push(line);
+
+            this.pipeVisualMulti?.lineTo(worldX, worldY);
+            this.lastPos = new Vector2(worldX, worldY);
+            this.positions.push(this.lastPos);
+
+            this.pipeVisualMulti?.strokePath();
+            this.pipeVisualMulti?.closePath();
+        });
     }
 
     update (): void {
         this.iterateShowAllMode();
 
-        if (!this.selectedOutputSocket || !this.pipeVisual) return;
+        if (!this.selectedOutputSocket || !this.pipeVisual || !this.lastPos) return;
 
         const startPos = this.selectedOutputSocket.getPosition();
-        this.pipeVisual.setTo(startPos.x, startPos.y, this.scene.input.activePointer.worldX, this.scene.input.activePointer.worldY);
+        this.pipeVisual.setTo(this.lastPos.x, this.lastPos.y, this.scene.input.activePointer.worldX, this.scene.input.activePointer.worldY);
     }
 
     updateHeat (): void {
@@ -83,6 +112,7 @@ export default class PipeSystem {
         this.scene.ui.showSocket(SocketType.INPUT);
 
         this.createPipeCursor();
+        // this.createPipeCursorMulti();
     }
 
     completeConnecting (input: InputSocket): void {
@@ -101,16 +131,24 @@ export default class PipeSystem {
         // create visual cable
         const outputPos = this.selectedOutputSocket.getPosition();
         const inputPos = input.getPosition();
+        this.positions.push(inputPos);
         const pipe = new PipeVisual(
             this.scene,
-            outputPos.x,
-            outputPos.y,
-            inputPos.x,
-            inputPos.y,
+            this.positions,
             input,
             this.selectedOutputSocket,
             this.splitterBalancerTarget
         );
+        // const pipe = new PipeVisual(
+        //     this.scene,
+        //     outputPos.x,
+        //     outputPos.y,
+        //     inputPos.x,
+        //     inputPos.y,
+        //     input,
+        //     this.selectedOutputSocket,
+        //     this.splitterBalancerTarget
+        // );
         pipe.on('destroy', () => {
             const indexOf = this.pipesVisuals.indexOf(pipe);
             this.pipesVisuals.splice(indexOf, 1);
@@ -128,6 +166,11 @@ export default class PipeSystem {
 
         this.pipeVisual?.setVisible(false);
         this.isConnectCoolledDown = false;
+        this.positions = [];
+
+        for (let line of this.previousPathLines) {
+            line.destroy();
+        }
         setTimeout(() => {
             this.isConnectCoolledDown = true;
         }, 100);
@@ -143,6 +186,9 @@ export default class PipeSystem {
         this.splitterBalancerTarget = null;
         this.pipeVisual?.destroy(true);
         this.scene.ui.hideSocket();
+        for (let line of this.previousPathLines) {
+            line.destroy();
+        }
     }
 
     isConnectingMode (): boolean {
@@ -182,6 +228,24 @@ export default class PipeSystem {
         const startPos = this.selectedOutputSocket.getPosition();
         this.pipeVisual = this.scene.add.line(0, 0, startPos.x, startPos.y, this.scene.input.activePointer.worldX, this.scene.input.activePointer.worldY, 0x6f6f8d, 1)
             .setLineWidth(2);
+
+        this.lastPos = startPos;
+        this.positions.push(startPos);
+    }
+
+    private createPipeCursorMulti (): void {
+        if (!this.selectedOutputSocket) return;
+
+        const startPos = this.selectedOutputSocket.getPosition();
+        this.pipeVisualMulti = this.scene.add.graphics({ x: 0, y: 0 });
+        this.pipeVisualMulti.lineStyle(2, 0x6f6f8d);
+        this.pipeVisualMulti.beginPath();
+        this.pipeVisualMulti.lineTo(startPos.x, startPos.y);
+        this.pipeVisualMulti.setDepth(Depths.UI);
+
+        this.lastPos = startPos;
+        this.positions.push(startPos);
+
     }
 
     private iterateShowAllMode (): void {
