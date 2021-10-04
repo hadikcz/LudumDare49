@@ -14,6 +14,10 @@ export default class UI {
             this.scene.pipeSystem.cancelConnecting();
         });
 
+        $('#cancelBuilding').on('click', () => {
+            this.scene.builder.cancelBuilding();
+        });
+
         $('#disconnect').on('click', () => {
             this.scene.pipeSystem.startDisconnectMode();
         });
@@ -112,6 +116,17 @@ export default class UI {
     hideDisconnectMode (): void {
         $('.actionInfo').hide();
         $('.disconnectInfo').hide();
+    }
+
+    showBuildMode (building: string): void {
+        $('#buildingName').html(building);
+        $('.actionInfo').show();
+        $('.buildingInfo').show();
+    }
+
+    hideBuildMode (): void {
+        $('.actionInfo').hide();
+        $('.buildingInfo').hide();
     }
 
     showSocketOccupied (): void {

@@ -37,6 +37,7 @@ export default class Builder {
     startBuild (building: Building): void {
         if (this.isBuildMode()) return;
 
+        this.scene.ui.showBuildMode(building.toString());
         this.previewImage.setFrame(building.toString());
         console.log('start build');
         this.buildMode = building;
@@ -65,5 +66,11 @@ export default class Builder {
 
         this.previewImage.setPosition(-100, -100).setVisible(false);
         this.buildMode = null;
+    }
+
+    cancelBuilding (): void {
+        this.previewImage.setPosition(-100, -100).setVisible(false);
+        this.buildMode = null;
+        this.scene.ui.hideBuildMode();
     }
 }
