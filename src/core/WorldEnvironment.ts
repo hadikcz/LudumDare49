@@ -67,6 +67,7 @@ export default class WorldEnvironment {
 
     update (): void {
         this.treeSpawner.update();
+        this.zone.update();
     }
 
     isInRiver (x: number, y: number): boolean {

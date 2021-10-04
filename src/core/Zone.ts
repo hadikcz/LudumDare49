@@ -17,6 +17,8 @@ export default class Zone {
     );
 
     private static readonly BEGIN_RADIUS = 80;
+    private static readonly STANDARD_RADIUS_GROW = 0.025;
+    private static readonly FASTFORWARD_RADIUS_GROW = 2.5;
     private visibleCircle = false;
 
     private scene: GameScene;
@@ -26,6 +28,7 @@ export default class Zone {
     private radius = Zone.BEGIN_RADIUS;
     private worldEnvironment: WorldEnvironment;
     private interval: NodeJS.Timeout;
+    private radiusGrowRate: number;
 
     constructor (scene: GameScene, worldEnvironment: WorldEnvironment) {
         this.scene = scene;
@@ -48,11 +51,12 @@ export default class Zone {
         }
 
 
+        this.radiusGrowRate = Zone.STANDARD_RADIUS_GROW;
         this.updateBuildingsInRadius();
         this.interval = setInterval(() => {
             if (this.scene.pause.isPaused()) return;
 
-            this.radius += 0.025; // real
+            this.radius += this.radiusGrowRate; // real
             // this.radius += 2.5; // dev - test
             // this.radius += 1.5; // dev - test
             this.zoneCircle.setRadius(this.radius);
@@ -64,6 +68,14 @@ export default class Zone {
                 this.zoneCircle.destroy(true);
             }
         }, 100);
+    }
+
+    update (): void {
+        if (this.scene.pause.isFastForward()) {
+            this.radiusGrowRate = Zone.FASTFORWARD_RADIUS_GROW;
+        } else {
+            this.radiusGrowRate = Zone.STANDARD_RADIUS_GROW;
+        }
     }
 
     private updateBuildingsInRadius (): void {

@@ -150,6 +150,21 @@ a {text-decoration: none;}
     font-size: 20px;
 }
 
+.speed-bar {
+    top: 57.5px;
+    right: 200px;
+    width: auto;
+    height: auto;
+    background: rgba(0,0,0, 0.5);
+    position: absolute;
+    padding: 5px;
+}
+.speed-bar svg {
+    cursor: pointer;
+    pointer-events: all;
+}
+
+
 .main-bar {
     top: 10px;
     right: 0px;

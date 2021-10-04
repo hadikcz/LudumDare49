@@ -20,12 +20,14 @@ export default class DayNightSystem {
 
         this.dayNightApplier = new DayNightApplier(this.scene);
 
-        this.scene.time.addEvent({
-            delay: 500,
-            loop: true,
-            callbackScope: this,
-            callback: this._update
-        });
+        // this.scene.time.addEvent({
+        //     delay: 500,
+        //     loop: true,
+        //     callbackScope: this,
+        //     callback: this._update
+        // });
+
+        this._update();
     }
 
     getTime (): number {
@@ -45,26 +47,35 @@ export default class DayNightSystem {
     }
 
     private _update (): void {
-        if (this.scene.pause.isPaused()) return;
-        this.currentTime += DayNightSystem.ITERATE_VALUE;
+        if (!this.scene.pause.isPaused()) {
+            this.currentTime += DayNightSystem.ITERATE_VALUE;
 
-        // night starts
-        // becuase iteration can not be exact but some small 0.000001 can be added
-        if (this.currentTime > DayNightSystem.NIGHT_STARTS - DayNightSystem.ITERATE_VALUE / 2 && this.currentTime < DayNightSystem.NIGHT_STARTS + DayNightSystem.ITERATE_VALUE / 2) {
-            this.scene.events.emit(Events.NIGHT_STARTED);
-            console.log('night started');
-            this.night = true;
-        } else if (this.currentTime > DayNightSystem.NIGHT_ENDS - DayNightSystem.ITERATE_VALUE / 2 && this.currentTime < DayNightSystem.NIGHT_ENDS + DayNightSystem.ITERATE_VALUE / 2) {
-            this.scene.events.emit(Events.DAY_STARTED);
-            this.night = false;
+            // night starts
+            // becuase iteration can not be exact but some small 0.000001 can be added
+            if (this.currentTime > DayNightSystem.NIGHT_STARTS - DayNightSystem.ITERATE_VALUE / 2 && this.currentTime < DayNightSystem.NIGHT_STARTS + DayNightSystem.ITERATE_VALUE / 2) {
+                this.scene.events.emit(Events.NIGHT_STARTED);
+                console.log('night started');
+                this.night = true;
+            } else if (this.currentTime > DayNightSystem.NIGHT_ENDS - DayNightSystem.ITERATE_VALUE / 2 && this.currentTime < DayNightSystem.NIGHT_ENDS + DayNightSystem.ITERATE_VALUE / 2) {
+                this.scene.events.emit(Events.DAY_STARTED);
+                this.night = false;
+            }
+
+            this.currentTime = parseFloat(this.currentTime.toFixed(1));
+            if (this.currentTime > 24) {
+                this.currentTime = 0;
+                this.day++;
+                this.scene.events.emit('changeDay', this.day);
+                console.log('new day');
+            }
         }
 
-        this.currentTime = parseFloat(this.currentTime.toFixed(1));
-        if (this.currentTime > 24) {
-            this.currentTime = 0;
-            this.day++;
-            this.scene.events.emit('changeDay', this.day);
-            console.log('new day');
-        }
+        const delay = this.scene.pause.isFastForward() ? 1 : 500;
+
+        this.scene.time.addEvent({
+            delay: delay,
+            callbackScope: this,
+            callback: this._update
+        });
     }
 }

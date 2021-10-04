@@ -96,11 +96,15 @@ export default class UI {
         });
 
         // pause
-        $('#play-icon').on('click', () => {
+        $('.playAction').on('click', () => {
             this.scene.pause.unpause();
         });
-        $('#pause-icon').on('click', () => {
+        $('.pauseAction').on('click', () => {
             this.scene.pause.pause();
+
+        });
+        $('.forwardAction').on('click', () => {
+            this.scene.pause.runFastForward();
         });
 
         this.show();
