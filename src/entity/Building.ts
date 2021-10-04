@@ -6,6 +6,7 @@ import ArrayHelpers from 'helpers/ArrayHelpers';
 import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
 import SmokeSource from 'config/SmokeSource';
+import Rectangle = Phaser.Geom.Rectangle;
 
 export default class Building extends Container {
 
@@ -92,6 +93,10 @@ export default class Building extends Container {
     enable (): void {
         this.setVisible(true);
         this.setActive(true);
+    }
+
+    getImageBounds (): Rectangle {
+        return this.buildingImage.getBounds();
     }
 
 

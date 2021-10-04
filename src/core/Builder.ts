@@ -5,7 +5,6 @@ import Splitter from 'entity/pipeSystem/Splitter';
 import Switch from 'entity/pipeSystem/Switch';
 import { Building } from 'enums/Building';
 import { Depths } from 'enums/Depths';
-import TransformHelpers from 'helpers/TransformHelpers';
 import GameScene from 'scenes/GameScene';
 import Image = Phaser.GameObjects.Image;
 
@@ -16,6 +15,7 @@ export default class Builder {
 
     private buildMode: Building|null = null;
     private previewImage: Image;
+    private canPlace: boolean = false;
 
     constructor (scene: GameScene, worldEnvironment: WorldEnvironment) {
         this.scene = scene;
@@ -31,16 +31,16 @@ export default class Builder {
 
     update (): void {
         if (this.buildMode !== null) {
-            const size = this.getBuildingSize(this.buildMode);
-            const canPlace = this.canPlace(this.scene.input.activePointer.worldX, this.scene.input.activePointer.worldY, size);
+            this.canPlace = this.canPlaceIntersectionCheck();
             this.previewImage.setPosition(this.scene.input.activePointer.worldX, this.scene.input.activePointer.worldY).setVisible(true);
-            // this.previewImage.
 
-            if (canPlace) {
+            if (this.canPlace) {
                 this.previewImage.setTint(0x00FF00);
             } else {
                 this.previewImage.setTint(0xFF0000);
             }
+        } else {
+            this.canPlace = false;
         }
     }
 
@@ -59,6 +59,7 @@ export default class Builder {
 
     finishBuilding (worldX: number, worldY: number): void {
         if (!this.isBuildMode()) return;
+        if (!this.canPlace) return;
 
         if (this.buildMode === Building.SPLITTER) {
             const obj = new Splitter(this.scene, worldX, worldY);
@@ -86,87 +87,79 @@ export default class Builder {
         this.scene.ui.hideBuildMode();
     }
 
-    private canPlace (x, y, size): boolean {
-        let nearestValue = Infinity;
-
+    private canPlaceIntersectionCheck (): boolean {
         for (let object of this.worldEnvironment.heaterGroup.getChildren()) {
             if (!object.active) continue;
-            // @ts-ignore
-            let distance = TransformHelpers.getDistanceBetween(x, y, object.x, object.y) - 30;
-            if (distance < nearestValue) {
-                nearestValue = distance;
+
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getImageBounds()
+            )) {
+                return false;
             }
         }
 
         for (let object of this.worldEnvironment.buildingsGroup.getChildren()) {
             if (!object.active) continue;
-            // @ts-ignore
-            let distance = TransformHelpers.getDistanceBetween(x, y, object.x, object.y);
-            if (distance < nearestValue) {
-                nearestValue = distance;
+
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getImageBounds()
+            )) {
+                return false;
             }
         }
 
         for (let object of this.worldEnvironment.factoriesGroup.getChildren()) {
             if (!object.active) continue;
-            // @ts-ignore
-            let distance = TransformHelpers.getDistanceBetween(x, y, object.x, object.y);
-            if (distance < nearestValue) {
-                nearestValue = distance;
+
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getImageBounds()
+            )) {
+                return false;
             }
         }
 
         for (let object of this.worldEnvironment.combiners.getChildren()) {
             if (!object.active) continue;
-            // @ts-ignore
-            let distance = TransformHelpers.getDistanceBetween(x, y, object.x, object.y);
-            if (distance < nearestValue) {
-                nearestValue = distance;
+
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getImageBounds()
+            )) {
+                return false;
             }
         }
 
         for (let object of this.worldEnvironment.splitters.getChildren()) {
             if (!object.active) continue;
-            // @ts-ignore
-            let distance = TransformHelpers.getDistanceBetween(x, y, object.x, object.y);
-            if (distance < nearestValue) {
-                nearestValue = distance;
+
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getImageBounds()
+            )) {
+                return false;
             }
         }
 
         for (let object of this.worldEnvironment.switches.getChildren()) {
             if (!object.active) continue;
-            // @ts-ignore
-            let distance = TransformHelpers.getDistanceBetween(x, y, object.x, object.y);
-            if (distance < nearestValue) {
-                nearestValue = distance;
+
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getImageBounds()
+            )) {
+                return false;
             }
         }
-        console.log(nearestValue);
-        return nearestValue > size; // because placing object and object around
-    }
 
-    private getBuildingSize (building: Building): number {
-        switch (building) {
-            case Building.HEATING_PLANT:
-                return 100;
-            case Building.COMBINER:
-            case Building.SWITCH:
-            case Building.SPLITTER:
-                return 32;
-            default:
-                return 32;
-        }
-    }
-
-    private getSizeOfBuildingByFrameName (frameName: string): number {
-        const frame = this.scene.textures.getFrame('assets', frameName);
-        if (!frame) {
-            console.error('frame not found ' + frameName);
-            return 32;
-        }
-        let size = (frame.width + frame.height) / 2;
-
-        return size;
+        return true;
     }
 }
