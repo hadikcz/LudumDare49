@@ -107,6 +107,9 @@ export default class UI {
             this.scene.pause.runFastForward();
         });
 
+        $('#hideBuilding').on('click', () => {
+            this.scene.worldEnvironment.tooggleBuildingVisibility();
+        });
         this.show();
     }
 

@@ -6,6 +6,7 @@ import TiledObject = Phaser.Types.Tilemaps.TiledObject;
 import Editor from 'core/editor/Editor';
 import Zone from 'core/Zone';
 import Group = Phaser.GameObjects.Group;
+import ConsumerBuilding from 'entity/ConsumerBuilding';
 import Splitter from 'entity/pipeSystem/Splitter';
 
 export default class WorldEnvironment {
@@ -26,6 +27,8 @@ export default class WorldEnvironment {
     public readonly combiners: Group
     public readonly balancers: Group
     private treeSpawner: TreeSpawner;
+
+    private visibleBuilding = true;
 
     constructor (scene: GameScene) {
         this.scene = scene;
@@ -79,6 +82,27 @@ export default class WorldEnvironment {
         }
 
         return false;
+    }
+
+    tooggleBuildingVisibility (): void {
+        this.visibleBuilding = !this.visibleBuilding;
+        for (let object of this.buildingsGroup.getChildren()) {
+            let building = object as any as ConsumerBuilding;
+            if (this.visibleBuilding) {
+                building.setAlpha(0.1);
+            } else {
+                building.setAlpha(1);
+            }
+        }
+
+        for (let object of this.factoriesGroup.getChildren()) {
+            let building = object as any as ConsumerBuilding;
+            if (this.visibleBuilding) {
+                building.setAlpha(0.1);
+            } else {
+                building.setAlpha(1);
+            }
+        }
     }
 
     private prepareRiverLayer (): void {
