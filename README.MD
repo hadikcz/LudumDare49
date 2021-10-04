@@ -1,6 +1,11 @@
 ## [PLAY ON WEB!](https://hadikcz.github.io/LudumDare49/build/)
 
+# Controls bellow
+
 ![Image of game](https://raw.githubusercontent.com/hadikcz/LudumDare49/master/screens/2.jpg)
+
+
+![Image of game](https://raw.githubusercontent.com/hadikcz/LudumDare49/master/screens/animation.gif)
 
 # About game:
 Small town, upon the river, has big problem. Electricty is very expensive, so most of citizens and factories, switch to oldschool steam heating and powering.
@@ -17,5 +22,3 @@ https://www.youtube.com/watch?v=sF9RXcZIaQo
 Only with mouse and clicking
 
 ![Controls](https://raw.githubusercontent.com/hadikcz/LudumDare49/master/assets/images/help_screen.png)
-
-![Image of game](https://raw.githubusercontent.com/hadikcz/LudumDare49/master/screens/animation.gif)
