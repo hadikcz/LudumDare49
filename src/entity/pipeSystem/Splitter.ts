@@ -341,7 +341,6 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.variableOutputText.setVisible(true);
         this.staticOutputText.setVisible(true);
         this.inputText.setVisible(true);
-        console.log('show all splitter');
     }
 
     hideAll (): void {

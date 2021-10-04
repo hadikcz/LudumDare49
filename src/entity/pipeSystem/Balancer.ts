@@ -275,7 +275,6 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
         this.firstOutputText.setVisible(true);
         this.secondOutputText.setVisible(true);
         this.inputText.setVisible(true);
-        console.log('show all balancer');
     }
 
     hideAll (): void {
