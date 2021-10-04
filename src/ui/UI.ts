@@ -53,10 +53,10 @@ export default class UI {
         });
         $('#showAll').on('click', () => {
             if (this.scene.pipeSystem.isShowAllMode()) {
-                $('#showAll').html('Show all numbers');
+                $('.showAllInside').html('<i class="fas fa-eye"></i>');
                 this.scene.pipeSystem.stopShowAllMode();
             } else {
-                $('#showAll').html('Hide all numbers');
+                $('.showAllInside').html('<i class="fas fa-eye-slash"></i>');
                 this.scene.pipeSystem.startShowAllMode();
             }
         });
