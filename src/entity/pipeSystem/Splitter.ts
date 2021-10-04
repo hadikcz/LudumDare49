@@ -219,18 +219,18 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             if (!onlyInput) {
                 if (splitterTarget === null) {
                     this.staticOutput = null;
-                    this.staticOutputPipe?.destroy();
+                    this.staticOutputPipe?.destroy(true);
                     this.staticOutputPipe = null;
                     this.variableOutput = null;
-                    this.variableOutputPipe?.destroy();
+                    this.variableOutputPipe?.destroy(true);
                     this.variableOutputPipe = null;
                 } else if (splitterTarget === SplitterTarget.STATIC) {
                     this.staticOutput = null;
-                    this.staticOutputPipe?.destroy();
+                    this.staticOutputPipe?.destroy(true);
                     this.staticOutputPipe = null;
                 } else if (splitterTarget === SplitterTarget.VARIABLE) {
                     this.variableOutput = null;
-                    this.variableOutputPipe?.destroy();
+                    this.variableOutputPipe?.destroy(true);
                     this.variableOutputPipe = null;
                 }
             }

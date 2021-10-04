@@ -95,8 +95,8 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
 
         this.overlay.on('pointerdown', () => {
             const disconnect = (): void => {
-                this.firstOutputPipe?.destroy();
-                this.secondOutputPipe?.destroy();
+                this.firstOutputPipe?.destroy(true);
+                this.secondOutputPipe?.destroy(true);
                 this.inputPipe?.destroy();
             };
 
@@ -184,23 +184,23 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
             if (!onlyInput) {
                 if (balancerTarget === null) {
                     this.firstOutput = null;
-                    this.firstOutputPipe?.destroy();
+                    this.firstOutputPipe?.destroy(true);
                     this.firstOutputPipe = null;
                     this.secondOutput = null;
-                    this.secondOutputPipe?.destroy();
+                    this.secondOutputPipe?.destroy(true);
                     this.secondOutputPipe = null;
                 } else if (balancerTarget === BalancerTarget.FRIST) {
                     this.firstOutput = null;
-                    this.firstOutputPipe?.destroy();
+                    this.firstOutputPipe?.destroy(true);
                     this.firstOutputPipe = null;
                 } else if (balancerTarget === BalancerTarget.SECOND) {
                     this.secondOutput = null;
-                    this.secondOutputPipe?.destroy();
+                    this.secondOutputPipe?.destroy(true);
                     this.secondOutputPipe = null;
                 }
             }
             this.heatValuesZero();
-        }, 800);
+        }, 10);
     }
 
     getInputSocket (): OutputSocket | null {

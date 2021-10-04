@@ -49,7 +49,9 @@ export default class PipeVisual extends Container {
 
     destroy (onlyInput: boolean = false): void {
         this.inputSocket.disconnect(onlyInput);
-        this.outputSocket.disconnect(onlyInput, this.splitterBalancerTarget);
+        if (!onlyInput) {
+            this.outputSocket.disconnect(onlyInput, this.splitterBalancerTarget);
+        }
 
         for (let line of this.lines) {
             line.destroy();

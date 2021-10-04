@@ -7,6 +7,7 @@ import Editor from 'core/editor/Editor';
 import Zone from 'core/Zone';
 import Group = Phaser.GameObjects.Group;
 import ConsumerBuilding from 'entity/ConsumerBuilding';
+import Balancer from 'entity/pipeSystem/Balancer';
 import Splitter from 'entity/pipeSystem/Splitter';
 
 export default class WorldEnvironment {
@@ -66,9 +67,12 @@ export default class WorldEnvironment {
         //
         // let testCombiner = new Combiner(this.scene, 700, 600);
         // this.combiners.add(testCombiner);
-        //
-        // let testBalanceer = new Balancer(this.scene, 200, 600);
-        // this.balancers.add(testBalanceer);
+
+        let testBalanceer = new Balancer(this.scene, 200, 600);
+        this.balancers.add(testBalanceer);
+
+        let testBalanceer2 = new Balancer(this.scene, 200, 300);
+        this.balancers.add(testBalanceer2);
     }
 
     update (): void {
