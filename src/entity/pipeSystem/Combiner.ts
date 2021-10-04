@@ -7,6 +7,7 @@ import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
 import Steamer from 'entity/Steamer';
 import { Depths } from 'enums/Depths';
+import Rectangle = Phaser.Geom.Rectangle;
 
 export default class Combiner extends Container implements OutputSocket, DoubleInputSocket, InputSocket {
 
@@ -23,6 +24,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
     private sendHeatTimeout!: NodeJS.Timeout;
     private heatCapacitor = 0;
     private steamer: Steamer;
+    private outputText: Phaser.GameObjects.Text;
 
     constructor (scene: GameScene, x: number, y: number) {
         super(scene, x, y, []);
@@ -35,6 +37,19 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
 
         this.image = this.scene.add.image(0, 0, 'assets', 'combiner');
         this.add(this.image);
+
+
+
+        const style3 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#04ff00', align: 'center' };
+        this.outputText = this.scene.add.text(
+            this.x - 5,
+            this.y + 11,
+            '0',
+            style3
+        )
+            .setScale(0.3)
+            .setStroke('#1d671c', 15)
+            .setDepth(Depths.UI);
 
         this.overlay = this.scene.add.sprite(0, 0, 'assets', 'splitter_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
@@ -78,10 +93,12 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
 
         this.overlay.on('pointerover', () => {
             this.overlay.setAlpha(1);
+            this.showAll();
         });
 
         this.overlay.on('pointerout', () => {
             this.overlay.setAlpha(0.0001);
+            this.hideAll();
         });
     }
 
@@ -153,6 +170,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
 
     updateHeat (): void {
         this.outputSocket?.sendHeat(this.heatCapacitor);
+        this.outputText.setText(this.heatCapacitor.toString());
         this.heatCapacitor = 0;
     }
 
@@ -181,7 +199,20 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
     destroy (fromScene?: boolean): void {
         super.destroy(fromScene);
         this.steamer.stop();
+        this.outputText.destroy();
         delete this.steamer;
+    }
+
+    showAll (): void {
+        this.outputText.setVisible(true);
+    }
+
+    hideAll (): void {
+        this.outputText.setVisible(false);
+    }
+
+    getImageBounds (): Rectangle {
+        return this.image.getBounds();
     }
 
     private processSendHeatForSteamer (heatValue: number): void {

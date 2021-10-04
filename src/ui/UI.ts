@@ -27,6 +27,15 @@ export default class UI {
             if (this.scene.builder.isBuildMode() || this.scene.destroyer.isDestroyMode()) return;
             this.scene.pipeSystem.startDisconnectMode();
         });
+        $('#showAll').on('click', () => {
+            if (this.scene.pipeSystem.isShowAllMode()) {
+                $('#showAll').html('Show all numbers');
+                this.scene.pipeSystem.stopShowAllMode();
+            } else {
+                $('#showAll').html('Hide all numbers');
+                this.scene.pipeSystem.startShowAllMode();
+            }
+        });
 
         $('#destroy').on('click', () => {
             if (this.scene.builder.isBuildMode() || this.scene.pipeSystem.isDisconnectMode()) return;

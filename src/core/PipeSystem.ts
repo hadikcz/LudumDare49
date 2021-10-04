@@ -8,6 +8,8 @@ import ConsumerBuilding from 'entity/ConsumerBuilding';
 import Combiner from 'entity/pipeSystem/Combiner';
 import { InputSocket } from 'entity/pipeSystem/InputSocket';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
+import Splitter from 'entity/pipeSystem/Splitter';
+import Switch from 'entity/pipeSystem/Switch';
 import { SplitterTarget } from 'enums/SplitterTarget';
 
 export default class PipeSystem {
@@ -21,12 +23,17 @@ export default class PipeSystem {
     private pipesVisuals: PipeVisual[] = [];
     private splitterTarget: SplitterTarget|null = null;
 
+    private showAll = false;
+    private firedHideAll = false;
+
     constructor (scene: GameScene, worldEnvironment: WorldEnvironment) {
         this.scene = scene;
         this.worldEnvironment = worldEnvironment;
     }
 
     update (): void {
+        this.iterateShowAllMode();
+
         if (!this.selectedOutputSocket || !this.pipeVisual) return;
 
         const startPos = this.selectedOutputSocket.getPosition();
@@ -148,11 +155,55 @@ export default class PipeSystem {
         return this.disconnectMode;
     }
 
+    startShowAllMode (): void {
+        this.showAll = true;
+        this.firedHideAll = false;
+    }
+
+    stopShowAllMode (): void {
+        this.showAll = false;
+    }
+
+    isShowAllMode (): boolean {
+        return this.showAll;
+    }
+
     private createPipeCursor (): void {
         if (!this.selectedOutputSocket) return;
         console.log('create pipe');
         const startPos = this.selectedOutputSocket.getPosition();
         this.pipeVisual = this.scene.add.line(0, 0, startPos.x, startPos.y, this.scene.input.activePointer.worldX, this.scene.input.activePointer.worldY, 0x6f6f8d, 1)
             .setLineWidth(2);
+    }
+
+    private iterateShowAllMode (): void {
+        if (!this.isShowAllMode() && this.firedHideAll) return;
+        if (!this.isShowAllMode()) {
+            this.firedHideAll = true;
+        }
+        for (let object of this.worldEnvironment.combiners.getChildren()) {
+            let combiner = object as any as Combiner;
+            if (this.isShowAllMode()) {
+                combiner.showAll();
+            } else {
+                combiner.hideAll();
+            }
+        }
+        for (let object of this.worldEnvironment.switches.getChildren()) {
+            let combiner = object as any as Switch;
+            if (this.isShowAllMode()) {
+                combiner.showAll();
+            } else {
+                combiner.hideAll();
+            }
+        }
+        for (let object of this.worldEnvironment.splitters.getChildren()) {
+            let combiner = object as any as Splitter;
+            if (this.isShowAllMode()) {
+                combiner.showAll();
+            } else {
+                combiner.hideAll();
+            }
+        }
     }
 }

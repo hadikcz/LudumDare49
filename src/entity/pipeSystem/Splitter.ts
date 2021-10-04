@@ -9,6 +9,7 @@ import { SplitterTarget } from 'enums/SplitterTarget';
 import GameScene from 'scenes/GameScene';
 import Container = Phaser.GameObjects.Container;
 import Vector2 = Phaser.Math.Vector2;
+import Rectangle = Phaser.Geom.Rectangle;
 
 export default class Splitter extends Container implements InputSocket, DoubleOutputSocket, OutputSocket {
 
@@ -135,10 +136,13 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
 
         this.overlay.on('pointerover', () => {
             this.overlay.setAlpha(1);
+            this.showAll();
+
         });
 
         this.overlay.on('pointerout', () => {
             this.overlay.setAlpha(0.0001);
+            this.hideAll();
         });
 
         // plus
@@ -312,6 +316,23 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.settingsIcon.destroy();
         this.plusButton.destroy();
         this.minusButton.destroy();
+    }
+
+    showAll (): void {
+        this.variableOutputText.setVisible(true);
+        this.staticOutputText.setVisible(true);
+        this.inputText.setVisible(true);
+        console.log('show all splitter');
+    }
+
+    hideAll (): void {
+        this.variableOutputText.setVisible(false);
+        this.staticOutputText.setVisible(false);
+        this.inputText.setVisible(false);
+    }
+
+    getImageBounds (): Rectangle {
+        return this.image.getBounds();
     }
 
     private processSendHeatForSteamer (heatValue: number): void {

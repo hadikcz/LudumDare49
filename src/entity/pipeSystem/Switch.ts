@@ -7,6 +7,7 @@ import GameConfig from 'config/GameConfig';
 import PipeVisual from 'entity/pipeSystem/PipeVisual';
 import Steamer from 'entity/Steamer';
 import { Depths } from 'enums/Depths';
+import Rectangle = Phaser.Geom.Rectangle;
 
 export default class Switch extends Container implements OutputSocket, InputSocket {
 
@@ -36,6 +37,17 @@ export default class Switch extends Container implements OutputSocket, InputSock
 
         this.image = this.scene.add.image(0, 0, 'assets', 'switch');
         this.add(this.image);
+
+        const style3 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#04ff00', align: 'center' };
+        this.inputText = this.scene.add.text(
+            this.x - 5,
+            this.y + 11,
+            '0',
+            style3
+        )
+            .setScale(0.3)
+            .setStroke('#1d671c', 15)
+            .setDepth(Depths.UI);
 
         this.overlay = this.scene.add.sprite(0, 5, 'assets', 'splitter_overlay').setAlpha(0.00001);
         this.overlay.setInteractive({ useHandCursor: true });
@@ -76,11 +88,15 @@ export default class Switch extends Container implements OutputSocket, InputSock
 
         this.overlay.on('pointerover', () => {
             this.overlay.setAlpha(1);
+            this.showAll();
         });
 
         this.overlay.on('pointerout', () => {
             this.overlay.setAlpha(0.0001);
+            this.hideAll();
         });
+
+        this.hideAll();
 
 
         this.powerIcon = this.scene.add.image(this.x + 0, this.y -20, 'assets', 'ui_power_on')
@@ -96,17 +112,6 @@ export default class Switch extends Container implements OutputSocket, InputSock
                 this.powerIcon.setFrame('ui_power_off');
             }
         });
-
-        const style3 = { fontFamily: 'arcadeclassic, Arial', fontSize: 65, color: '#04ff00', align: 'center' };
-        this.inputText = this.scene.add.text(
-            this.x - 5,
-            this.y + 11,
-            '0',
-            style3
-        )
-            .setScale(0.3)
-            .setStroke('#1d671c', 15)
-            .setDepth(Depths.UI);
 
         this.steamer = new Steamer(this.scene, this.x, this.y);
     }
@@ -186,6 +191,18 @@ export default class Switch extends Container implements OutputSocket, InputSock
         this.inputText.destroy();
         this.steamer.stop();
         delete this.steamer;
+    }
+
+    showAll (): void {
+        this.inputText.setVisible(true);
+    }
+
+    hideAll (): void {
+        this.inputText.setVisible(false);
+    }
+
+    getImageBounds (): Rectangle {
+        return this.image.getBounds();
     }
 
     private processSendHeatForSteamer (heatValue: number): void {
