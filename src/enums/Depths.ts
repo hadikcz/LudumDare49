@@ -15,5 +15,6 @@ export enum Depths {
     BUILD_ICON,
     UI1,
     UI,
+    UI_HEAT_TEXT,
     HELP
 }

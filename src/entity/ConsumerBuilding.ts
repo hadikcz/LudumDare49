@@ -93,7 +93,7 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         this.heatText = this.scene.add.text(this.x + this.consumerBuildingCoordsBuilding.heatText.x, this.y + this.consumerBuildingCoordsBuilding.heatText.y, '', style)
             .setScale(0.2)
             .setStroke('#7c6e1b', 30)
-            .setDepth(Depths.UI)
+            .setDepth(Depths.UI_HEAT_TEXT)
             .setVisible(false);
 
         // #endregion
