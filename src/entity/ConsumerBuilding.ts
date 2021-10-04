@@ -217,6 +217,7 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
 
     updateMoney (): void {
         if (this.getRequiredHeat() === 0) return;
+        if (!this.calcAndProcessPercent()) return;
 
         this.scene.money += this.consumerBuildingCoordsBuilding.happyProduceMoney;
 
@@ -233,11 +234,12 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         this.stopSteam();
     }
 
-    private calcAndProcessPercent (): void {
+    private calcAndProcessPercent (): boolean {
         let start = this.lowLimit;
         let end = this.highLimit;
 
 
+        let happy = false;
         let percent = ((this.heatDeposit + Math.abs(start)) / (Math.abs(start) + end)) * 100;
         this.healthbar.setPercent(percent);
 
@@ -250,6 +252,7 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
             color = this.colors.ok;
             this.snowflakeIcon.setVisible(false);
             this.warnIcon.setVisible(false);
+            happy = true;
         } else {
             color = this.colors.hot;
             this.snowflakeIcon.setVisible(false);
@@ -257,6 +260,8 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
         }
 
         this.healthbar.setTint(color);
+
+        return happy;
     }
 
     setVisible (value: boolean): this {
