@@ -257,10 +257,10 @@ export default class ConsumerBuilding extends Building implements InputSocket, P
 
         // icons
         let happy = false;
-        if (percent < 2) {
+        if (percent < 5) {
             this.warnIcon.setVisible(false);
             this.snowflakeIcon.setVisible(true);
-        } else if (percent >=2 && percent < 98) {
+        } else if (percent >=5 && percent < 95) {
             happy = true;
             this.snowflakeIcon.setVisible(false);
             this.warnIcon.setVisible(false);
