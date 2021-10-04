@@ -190,7 +190,8 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
     }
 
     private heatValuesZero (): void {
-        // this.inputText.setText('0');
+        if (this.scene.pause.isPaused()) return;
+        this.outputText.setText('0');
     }
 
     setInputSocketFirst (object: OutputSocket, pipe: PipeVisual): void {

@@ -51,7 +51,7 @@ export default class Zone {
         this.interval = setInterval(() => {
             if (this.scene.pause.isPaused()) return;
 
-            this.radius += 0.01; // real
+            this.radius += 0.025; // real
             // this.radius += 2.5; // dev - test
             // this.radius += 1.5; // dev - test
             this.zoneCircle.setRadius(this.radius);

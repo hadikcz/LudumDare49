@@ -247,6 +247,7 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
     }
 
     private heatValuesZero (): void {
+        if (this.scene.pause.isPaused()) return;
         this.firstOutputText.setText('0');
         this.secondOutputText.setText('0');
         this.inputText.setText('0');

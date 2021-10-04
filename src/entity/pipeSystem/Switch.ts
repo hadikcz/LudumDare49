@@ -183,6 +183,7 @@ export default class Switch extends Container implements OutputSocket, InputSock
     }
 
     private heatValuesZero (): void {
+        if (this.scene.pause.isPaused()) return;
         this.inputText.setText('0');
     }
 

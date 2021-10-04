@@ -48,6 +48,11 @@ export default class Builder {
     startBuild (building: Building): void {
         if (this.isBuildMode()) return;
 
+        const requiredPrice = this.getBuildingPrice(building);
+        if (this.scene.money < requiredPrice) {
+            return;
+        }
+
         this.scene.ui.showBuildMode(building.toString());
         this.previewImage.setFrame(building.toString());
         console.log('start build');
@@ -78,6 +83,10 @@ export default class Builder {
             const obj = new Balancer(this.scene, worldX, worldY);
             this.worldEnvironment.balancers.add(obj);
         }
+
+        // @ts-ignore
+        const price = this.getBuildingPrice(this.buildMode);
+        this.scene.money -= price;
 
         this.previewImage.setPosition(-100, -100).setVisible(false);
         this.buildMode = null;
@@ -177,5 +186,20 @@ export default class Builder {
         }
 
         return true;
+    }
+
+    private getBuildingPrice (building: Building): number {
+        switch (building) {
+            case Building.HEATING_PLANT:
+                return 50;
+            case Building.SWITCH:
+                return 1;
+            case Building.COMBINER:
+                return 3;
+            case Building.BALANCER:
+                return 2;
+            case Building.SPLITTER:
+                return 8;
+        }
     }
 }

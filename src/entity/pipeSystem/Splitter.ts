@@ -299,6 +299,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     }
 
     private heatValuesZero (): void {
+        if (this.scene.pause.isPaused()) return;
         this.staticOutputText.setText('0');
         this.variableOutputText.setText('0');
         this.inputText.setText('0');

@@ -110,6 +110,8 @@ a {text-decoration: none;}
     padding: 5px;
     pointer-events: all;
     cursor: pointer;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 .socketOccupied {
