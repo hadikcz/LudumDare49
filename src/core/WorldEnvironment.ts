@@ -6,7 +6,7 @@ import TiledObject = Phaser.Types.Tilemaps.TiledObject;
 import Editor from 'core/editor/Editor';
 import Zone from 'core/Zone';
 import Group = Phaser.GameObjects.Group;
-import ConsumerBuilding from 'entity/ConsumerBuilding';
+import ConsumerBuildingX from 'entity/ConsumerBuildingX';
 
 export default class WorldEnvironment {
 
@@ -91,7 +91,7 @@ export default class WorldEnvironment {
     tooggleBuildingVisibility (): void {
         this.visibleBuilding = !this.visibleBuilding;
         for (let object of this.buildingsGroup.getChildren()) {
-            let building = object as any as ConsumerBuilding;
+            let building = object as any as ConsumerBuildingX;
             if (this.visibleBuilding) {
                 building.setAlpha(0.1);
             } else {
@@ -100,7 +100,7 @@ export default class WorldEnvironment {
         }
 
         for (let object of this.factoriesGroup.getChildren()) {
-            let building = object as any as ConsumerBuilding;
+            let building = object as any as ConsumerBuildingX;
             if (this.visibleBuilding) {
                 building.setAlpha(0.1);
             } else {

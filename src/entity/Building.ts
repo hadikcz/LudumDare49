@@ -17,7 +17,7 @@ export default class Building extends Container {
         'heating_plant',
     ]
 
-    protected scene: GameScene;
+    public scene: GameScene;
     protected frameName: string;
 
     private smokeSources: Vector2[] = [];

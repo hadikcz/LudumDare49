@@ -11,7 +11,7 @@ import Image = Phaser.GameObjects.Image;
 
 export default class Tree extends Container {
 
-    protected scene: GameScene;
+    public scene: GameScene;
     private shadow!: Sprite;
 
     constructor (scene: GameScene, x: number, y: number, image: string) {

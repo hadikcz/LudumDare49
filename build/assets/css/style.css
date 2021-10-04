@@ -1,0 +1,265 @@
+@font-face {
+    font-family: "arcadeclassic";
+    src: url('../fonts/arcadeclassic.ttf') format("truetype");
+}
+
+html,
+body {
+    color: #FFF;
+    /*background: #5c7a56;*/
+    background: #34452f;
+    word-spacing: 9px;
+    /*background: #767474;*/
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -o-crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: pixelated;
+    font-family: 'arcadeclassic', Arial;
+
+    /* Disable selection after double click */
+    user-select: none; /* standard syntax */
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}
+
+body.black-bg {
+    background-color: #000 !important;
+}
+
+a {text-decoration: none;}
+
+#content {
+    position: absolute;
+    z-index: 0;
+    pointer-events: all;
+    /*top: 50%;*/
+    /*transform: translate(0px, -50%);*/
+}
+#datGui {
+    top: 0;
+    position: absolute;
+    z-index: 100;
+}
+
+.ui {
+    width: 1360px;
+    height: 768px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    pointer-events: none;
+    /*background: #1bb7b7;*/
+}
+
+
+.money {
+    top: 80px;
+    right: 0px;
+    width: 90px;
+    height: auto;
+    background: rgba(0,0,0, 0.5);
+    position: absolute;
+    padding: 5px;
+    color: yellow;
+}
+.money .inside {
+    float: right;
+}
+.money .moneyAmount {
+    color: yellow;
+    font-size: 23px;
+}
+
+.actionInfo {
+    padding: 5px;
+    height: auto;
+    background: rgba(0,0,0, 0.5);
+    left: 50%;
+    top: 100px;
+    position: absolute;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 20px;
+    z-index: 1000;
+    pointer-events: all
+}
+
+
+.actionMenu {
+    position: absolute;
+    top: 130px;
+    right: 0;
+    width: autopx;
+    height: auto;
+    background: rgba(0,0,0, 0.5);
+    padding: 5px;
+}
+
+.actionMenu .actionButton{
+    text-align: center;
+    width: auto;
+    height: auto;
+    color: white;
+    background: black;
+    padding: 5px;
+    pointer-events: all;
+    cursor: pointer;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.socketOccupied {
+    padding: 5px;
+    height: auto;
+    background: rgba(0,0,0, 0.5);
+    left: 50%;
+    top: 300px;
+    position: absolute;
+    transform: translateX(-50%);
+    color: red;
+    font-size: 20px;
+    z-index: 1000;
+    pointer-events: all
+}
+
+.paused {
+    width: 300px;
+    position: absolute;
+    top: 650px;
+    left: 50%;
+    transform: translateX(-50%);
+    /*width: 90px;*/
+    /*height: 100px;*/
+    padding: 5px;
+    text-align: center;
+}
+
+.paused .text {
+    color: red;
+    font-size: 40px;
+}
+
+.paused .info {
+    color: white;
+    font-size: 20px;
+}
+
+.speed-bar {
+    top: 57.5px;
+    right: 200px;
+    width: auto;
+    height: auto;
+    background: rgba(0,0,0, 0.5);
+    position: absolute;
+    padding: 5px;
+}
+.speed-bar svg {
+    cursor: pointer;
+    pointer-events: all;
+}
+
+
+.main-bar {
+    top: 10px;
+    right: 0px;
+    width: 278px;
+    height: 38px;
+    background: rgba(0,0,0, 0.5);
+    position: absolute;
+    padding: 5px;
+}
+
+.main-bar .mr15 {
+    margin-right: 15px;
+}
+
+.main-bar .pause-icon {
+    display: inline-block;
+    width: 32px;
+    pointer-events: all;
+    cursor: pointer;
+    margin-left: 15px;
+}
+.main-bar .pause-icon i {
+    cursor: pointer;
+}
+.main-bar .pause-icon.play svg {
+    color: #d44e52;
+}
+.main-bar .pause-icon.pause svg {
+    color: #76a535;
+}
+
+.main-bar .time-wrapper {
+    display: inline-block;
+}
+.main-bar .time-wrapper div {
+    display: inline-block;
+    font-size: 37px
+}
+.main-bar .time-wrapper svg {
+    color: #ec8a4b
+}
+.main-bar .calendar-wrapper {
+    display: inline-block;
+}
+.main-bar .calendar-wrapper svg {
+    color: #8bd0ba;
+}
+.main-bar .calendar-wrapper div {
+    display: inline-block;
+    font-size: 37px
+}
+
+.helpButton {
+    bottom: 10px;
+    right: 10px;
+    height: auto;
+    position: absolute;
+}
+
+.helpButton svg {
+    pointer-events: all;
+    color: #8bc2ec;
+    cursor: pointer;
+}
+
+
+
+/*
+*/
+
+.tooltip {
+    position: relative;
+    /*display: inline-block;*/
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #410000;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    top: 5px;
+    right: 105%;
+}

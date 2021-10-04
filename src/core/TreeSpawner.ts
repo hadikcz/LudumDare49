@@ -35,6 +35,7 @@ export default class TreeSpawner {
             let treeIndex = this.generateTreeSpriteIndex();
 
             let tree = new Tree(this.scene, spawnPoint.x, spawnPoint.y, treeIndex);
+            // @ts-ignore
             this.group.add(tree);
         }
     }

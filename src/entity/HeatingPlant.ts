@@ -57,6 +57,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
             this.x - 25,
             this.y - 50,
             'Heating plant',
+            // @ts-ignore
             style4
         )
             .setScale(0.3)
@@ -99,6 +100,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         const modifyTextX2 = 90;
         const modifyTextY2 = -5;
 
+        // @ts-ignore
         this.nasobitel = this.scene.add.text(this.x + modifyTextX2, this.y + modifyTextY2, 'x10', style2)
             .setScale(0.2)
             .setDepth(Depths.UI);
@@ -142,6 +144,7 @@ export default class HeatingPlant extends Building implements OutputSocket, Pipe
         const modifyTextX = 62;
         const modifyTextY = -55;
 
+        // @ts-ignore
         this.heatText = this.scene.add.text(this.x + modifyTextX, this.y + modifyTextY, '11', style)
             .setScale(0.2)
             .setStroke('#7c6e1b', 30)

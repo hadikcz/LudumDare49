@@ -2,11 +2,11 @@ let fs = require('fs');
 let path = require('path');
 let webpack = require('webpack');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let definePlugin = new webpack.DefinePlugin({
-    __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
+    __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false')),
     WEBGL_RENDERER: true,
     CANVAS_RENDERER: true,
     VERSION: JSON.stringify(require('./package.json').version)
@@ -25,7 +25,7 @@ module.exports = {
     },
     plugins: [
         definePlugin,
-        new CleanWebpackPlugin({cleanAfterEveryBuildPatterns: ['dist']}),
+        new CleanWebpackPlugin({ cleanAfterEveryBuildPatterns: ['dist'] }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         /* new webpack.optimize.UglifyJsPlugin({
       drop_console: true,
@@ -53,7 +53,7 @@ module.exports = {
             hash: true
         }),
         new CopyWebpackPlugin([
-            {from: 'assets', to: 'assets'}
+            { from: 'assets', to: 'assets' }
         ])
     ],
     resolve: {

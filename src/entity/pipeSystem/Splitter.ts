@@ -13,7 +13,7 @@ import Rectangle = Phaser.Geom.Rectangle;
 
 export default class Splitter extends Container implements InputSocket, DoubleOutputSocket, OutputSocket {
 
-    protected scene: GameScene;
+    public scene: GameScene;
     private variableOutputPipe: PipeVisual|null = null;
     private variableOutput: InputSocket|null = null;
     private inputSocket: OutputSocket|null = null;
@@ -67,6 +67,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             this.x + 15,
             this.y + -13,
             '0',
+            // @ts-ignore
             style
         )
             .setScale(0.3)
@@ -78,6 +79,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             this.x + -25,
             this.y -13,
             '0',
+            // @ts-ignore
             style2
         )
             .setStroke('#771d1d', 15)
@@ -89,6 +91,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             this.x - 2,
             this.y + 11,
             '0',
+            // @ts-ignore
             style3
         )
             .setScale(0.3)
@@ -100,6 +103,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
             this.x - 25,
             this.y - 45,
             'Splitter',
+            // @ts-ignore
             style4
         )
             .setScale(0.3)

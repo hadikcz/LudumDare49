@@ -45,7 +45,7 @@ module.exports = {
                 removeComments: false,
                 removeEmptyAttributes: false
             },
-            hash: false
+            hash: true
         }),
         new BrowserSyncPlugin({
             host: process.env.IP || 'localhost',

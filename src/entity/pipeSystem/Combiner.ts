@@ -11,7 +11,7 @@ import Rectangle = Phaser.Geom.Rectangle;
 
 export default class Combiner extends Container implements OutputSocket, DoubleInputSocket, InputSocket {
 
-    protected scene: GameScene;
+    public scene: GameScene;
     private inputSocketFirst: OutputSocket|null = null;
     private inputSocketSecond: OutputSocket|null = null;
     private inputSocketFirstPipe: PipeVisual|null = null;
@@ -46,6 +46,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
             this.x - 5,
             this.y + 11,
             '0',
+            // @ts-ignore
             style3
         )
             .setScale(0.3)
@@ -57,6 +58,7 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
             this.x - 25,
             this.y - 30,
             'Combiner',
+            // @ts-ignore
             style4
         )
             .setScale(0.3)

@@ -6,8 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "webpack --mode development --config webpack.config.ts.js --progress --profile --colors --watch",
-    "build": "webpack --config webpack.production.config.js --progress --profile --colors",
+    "dev": "webpack --mode development --config webpack.config.ts.js --progress --profile --colors --watch --no-cache",
+    "build": "webpack --config webpack.production.config.js --mode production --progress --profile --colors",
     "test": "echo 11"
   },
   "license": "MIT",

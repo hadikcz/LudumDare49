@@ -1,8 +1,8 @@
 import 'phaser';
+
 import GameConfig from 'config/GameConfig';
 import BootScene from 'scenes/BootScene';
 import GameScene from 'scenes/GameScene';
-import WinScene from 'scenes/WinScene';
 
 declare let __DEV__: any;
 const config = {
@@ -38,7 +38,7 @@ const config = {
         // },
         arcade: {
             debug: true,
-            gravity: {y: 200}
+            gravity: { y: 200 }
         }
     },
     disableContextMenu: !__DEV__,
@@ -52,8 +52,7 @@ const config = {
     },
     scene: [
         BootScene,
-        GameScene,
-        WinScene
+        GameScene
     ]
 };
 // @ts-ignore

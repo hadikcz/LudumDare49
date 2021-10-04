@@ -9,6 +9,7 @@ import Steamer from 'entity/Steamer';
 import { Depths } from 'enums/Depths';
 import Rectangle = Phaser.Geom.Rectangle;
 
+// @ts-ignore
 export default class Switch extends Container implements OutputSocket, InputSocket {
 
     protected scene: GameScene;
@@ -30,6 +31,7 @@ export default class Switch extends Container implements OutputSocket, InputSock
 
     constructor (scene: GameScene, x, y) {
         super(scene, x, y, []);
+        // @ts-ignore
         scene.add.existing(this);
 
         this.setDepth(Depths.PIPE_BOXES);
@@ -44,6 +46,7 @@ export default class Switch extends Container implements OutputSocket, InputSock
             this.x - 5,
             this.y + 11,
             '0',
+            // @ts-ignore
             style3
         )
             .setScale(0.3)
@@ -55,6 +58,7 @@ export default class Switch extends Container implements OutputSocket, InputSock
             this.x - 20,
             this.y - 45,
             'Switch',
+            // @ts-ignore
             style4
         )
             .setScale(0.3)

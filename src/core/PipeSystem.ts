@@ -4,7 +4,7 @@ import { OutputSocket } from 'entity/pipeSystem/OutputSocket';
 import { SocketType } from 'enums/SocketType';
 import GameScene from 'scenes/GameScene';
 import Line = Phaser.GameObjects.Line;
-import ConsumerBuilding from 'entity/ConsumerBuilding';
+import ConsumerBuildingX from 'entity/ConsumerBuildingX';
 import Balancer from 'entity/pipeSystem/Balancer';
 import { BalancerTarget } from 'entity/pipeSystem/BalancerTarget';
 import Combiner from 'entity/pipeSystem/Combiner';
@@ -79,12 +79,12 @@ export default class PipeSystem {
             }
 
             for (let object of this.worldEnvironment.buildingsGroup.getChildren()) {
-                let building = object as any as ConsumerBuilding;
+                let building = object as any as ConsumerBuildingX;
                 building.updateHeat();
             }
 
             for (let object of this.worldEnvironment.factoriesGroup.getChildren()) {
-                let building = object as any as ConsumerBuilding;
+                let building = object as any as ConsumerBuildingX;
                 building.updateHeat();
             }
 

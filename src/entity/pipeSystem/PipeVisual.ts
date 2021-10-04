@@ -12,7 +12,7 @@ export default class PipeVisual extends Container {
     private inputSocket: InputSocket;
     private outputSocket: OutputSocket;
     private splitterBalancerTarget: SplitterTarget|BalancerTarget|null = null;
-    private scene: GameScene;
+    public scene: GameScene;
 
     private lines: Phaser.GameObjects.Line[] = [];
 

@@ -13,7 +13,7 @@ import { DoubleStableOutputSocket } from 'entity/pipeSystem/DoubleStableOutputSo
 
 export default class Balancer extends Container implements InputSocket, DoubleStableOutputSocket, OutputSocket {
 
-    protected scene: GameScene;
+    public scene: GameScene;
     private inputSocket: OutputSocket|null = null;
     private inputPipe: PipeVisual|null = null;
     private overlay: Phaser.GameObjects.Sprite;
@@ -49,6 +49,7 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
             this.x + 15,
             this.y + -13,
             '0',
+            // @ts-ignore
             style
         )
             .setScale(0.3)
@@ -60,6 +61,7 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
             this.x + -25,
             this.y -13,
             '0',
+            // @ts-ignore
             style2
         )
             .setStroke('#865306', 15)
@@ -71,6 +73,7 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
             this.x - 2,
             this.y + 11,
             '0',
+            // @ts-ignore
             style3
         )
             .setScale(0.3)
@@ -82,6 +85,7 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
             this.x - 25,
             this.y - 30,
             'Balancer',
+            // @ts-ignore
             style4
         )
             .setScale(0.3)

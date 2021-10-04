@@ -1,6 +1,7 @@
+import Phaser from 'phaser';
 export default class ProgressBarUI extends Phaser.GameObjects.Container {
 
-    protected scene: Phaser.Scene;
+    public scene: Phaser.Scene;
     private config: any | object;
     private bgImage!: Phaser.GameObjects.Image;
     private barImage!: Phaser.GameObjects.Image;

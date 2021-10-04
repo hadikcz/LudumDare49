@@ -69,18 +69,23 @@ export default class Builder {
 
         if (this.buildMode === Building.SPLITTER) {
             const obj = new Splitter(this.scene, worldX, worldY);
+            // @ts-ignore
             this.worldEnvironment.splitters.add(obj);
         } else if (this.buildMode === Building.SWITCH) {
             const obj = new Switch(this.scene, worldX, worldY);
+            // @ts-ignore
             this.worldEnvironment.switches.add(obj);
         } else if (this.buildMode === Building.COMBINER) {
             const obj = new Combiner(this.scene, worldX, worldY);
+            // @ts-ignore
             this.worldEnvironment.combiners.add(obj);
         } else if (this.buildMode === Building.HEATING_PLANT) {
             const obj = new HeatingPlant(this.scene, worldX, worldY);
+            // @ts-ignore
             this.worldEnvironment.heaterGroup.add(obj);
         } else if (this.buildMode === Building.BALANCER) {
             const obj = new Balancer(this.scene, worldX, worldY);
+            // @ts-ignore
             this.worldEnvironment.balancers.add(obj);
         }
 
