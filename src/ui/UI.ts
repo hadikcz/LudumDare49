@@ -82,6 +82,8 @@ export default class UI {
         $('#pause-icon').on('click', () => {
             this.scene.pause.pause();
         });
+
+        $('.ui').show();
     }
 
     update () {

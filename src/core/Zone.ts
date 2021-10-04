@@ -16,7 +16,7 @@ export default class Zone {
     );
 
     private static readonly BEGIN_RADIUS = 80;
-    private visibleCircle = true;
+    private visibleCircle = false;
 
     private scene: GameScene;
 

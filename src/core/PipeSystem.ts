@@ -25,7 +25,7 @@ export default class PipeSystem {
     private pipesVisuals: PipeVisual[] = [];
     private splitterBalancerTarget: SplitterTarget|BalancerTarget|null = null;
 
-    private showAll = false;
+    private showAll = true;
     private firedHideAll = false;
 
     constructor (scene: GameScene, worldEnvironment: WorldEnvironment) {
