@@ -27,6 +27,7 @@ export default class GameScene extends Phaser.Scene {
     public destroyer!: Destroyer;
     public dayNightSystem!: DayNightSystem;
     public money = 100;
+    public mouseCircle!: Phaser.Geom.Circle;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -36,6 +37,8 @@ export default class GameScene extends Phaser.Scene {
         window.scene = this;
         this.cameras.main.setBackgroundColor('#00');
         this.cameras.main.setZoom(1);
+
+        this.mouseCircle = new Phaser.Geom.Circle(-100, -100, 5);
 
         this.datGui = new DatGui(this);
 
@@ -70,6 +73,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update (): void {
+        this.mouseCircle.setPosition(this.input.activePointer.worldX, this.input.activePointer.worldY);
         this.ui.update();
         this.builder.update();
         this.worldEnvironment.update();

@@ -15,6 +15,8 @@ export default class PipeVisual extends Container {
     public scene: GameScene;
 
     private lines: Phaser.GameObjects.Line[] = [];
+    private lastStroke = 0x6f6f8d;
+    private lastWidth = 2;
 
     constructor (scene: GameScene, position: Vector2[], input: InputSocket, output: OutputSocket, splitterBalancerTarget: SplitterTarget|BalancerTarget|null = null) {
         super(scene, -100, -100, []);
@@ -27,7 +29,7 @@ export default class PipeVisual extends Container {
             const y1 = position[i].y;
             const x2 = position[i + 1].x;
             const y2 = position[i + 1].y;
-            const line = this.scene.add.line(0, 0, x1, y1, x2, y2, 0x6f6f8d, 1);
+            const line = this.scene.add.line(0, 0, x1, y1, x2, y2, this.lastStroke, 1);
 
             line.setLineWidth(2);
             line.setOrigin(0, 0);
@@ -41,7 +43,27 @@ export default class PipeVisual extends Container {
 
     }
 
-    setStrokeStyle (width: number, color: number): void {
+    preUpdate (): void {
+        let isOverlap = false;
+        for (let line of this.lines) {
+            if (Phaser.Geom.Intersects.LineToCircle(line.geom, this.scene.mouseCircle)) {
+                isOverlap = true;
+                break;
+            }
+        }
+
+        if (isOverlap) {
+            this.setStrokeStyle(2, 0xFFFFFF, true);
+        } else {
+            this.setStrokeStyle(this.lastWidth, this.lastStroke);
+        }
+    }
+
+    setStrokeStyle (width: number, color: number, highLight: boolean = false): void {
+        if (!highLight) {
+            this.lastStroke = color;
+            this.lastWidth = width;
+        }
         for (let line of this.lines) {
             line.setStrokeStyle(width, color);
         }
