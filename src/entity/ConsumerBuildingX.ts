@@ -24,6 +24,7 @@ export default class ConsumerBuildingX extends Building implements InputSocket, 
     private pipeVisual: PipeVisual|null = null;
     private healthbar: ProgressBarUI;
     private warnIcon: Image;
+    private previousHeat = -9999;
 
     private colors = {
         hot: 0xe9373a,
@@ -33,6 +34,7 @@ export default class ConsumerBuildingX extends Building implements InputSocket, 
 
     private snowflakeIcon: Phaser.GameObjects.Image;
     private consumerBuildingCoordsBuilding: ConsumerBuildingSettings;
+    private growDecreaseHeatIcon: Phaser.GameObjects.Image;
 
     constructor (scene: GameScene, x: number, y: number, image: string) {
         super(scene, x, y, image);
@@ -89,6 +91,10 @@ export default class ConsumerBuildingX extends Building implements InputSocket, 
         });
         this.healthbar.setTint(this.colors.ok);
         this.healthbar.setPercent(50);
+
+        this.growDecreaseHeatIcon = this.scene.add.image(this.x + this.consumerBuildingCoordsBuilding.bar.x + 5, this.y,'assets', 'heat_grow');
+        this.growDecreaseHeatIcon.setVisible(false);
+        this.growDecreaseHeatIcon.setDepth(Depths.UI1);
 
         // @ts-ignore
         this.heatText = this.scene.add.text(this.x + this.consumerBuildingCoordsBuilding.heatText.x, this.y + this.consumerBuildingCoordsBuilding.heatText.y, '', style)
@@ -149,6 +155,32 @@ export default class ConsumerBuildingX extends Building implements InputSocket, 
                 }
             });
         }, NumberHelpers.randomIntInRange(0, 6000));
+
+        this.scene.time.addEvent({
+            delay: 500,
+            repeat: Infinity,
+            callbackScope: this,
+            callback: () => {
+                if (!this.active) return;
+                this.growDecreaseHeatIcon.setVisible(true);
+                if (this.previousHeat === -9999) {
+                    this.previousHeat = this.heatDeposit;
+                    return;
+                }
+
+                if (this.previousHeat === this.heatDeposit) {
+                    this.growDecreaseHeatIcon.setAlpha(0);
+                } else if (this.previousHeat > this.heatDeposit) {
+                    this.growDecreaseHeatIcon.setAlpha(1);
+                    this.growDecreaseHeatIcon.setFrame('heat_down');
+                } else if (this.previousHeat < this.heatDeposit) {
+                    this.growDecreaseHeatIcon.setAlpha(1);
+                    this.growDecreaseHeatIcon.setFrame('heat_grow');
+                }
+
+                this.previousHeat = this.heatDeposit;
+            }
+        });
     }
 
     preUpdate (): void {
@@ -232,6 +264,7 @@ export default class ConsumerBuildingX extends Building implements InputSocket, 
         this.healthbar.destroy();
         this.warnIcon.destroy();
         this.snowflakeIcon.destroy();
+        this.growDecreaseHeatIcon.destroy();
         this.stopSteam();
     }
 

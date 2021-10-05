@@ -96,7 +96,7 @@ a {text-decoration: none;}
     position: absolute;
     top: 130px;
     right: 0;
-    width: autopx;
+    width: auto;
     height: auto;
     background: rgba(0,0,0, 0.5);
     padding: 5px;
@@ -206,6 +206,13 @@ a {text-decoration: none;}
 }
 .main-bar .time-wrapper svg {
     color: #ec8a4b
+}
+
+.main-bar #time {
+    margin-left: 10px;
+}
+.main-bar #calendar {
+    margin-left: 10px;
 }
 .main-bar .calendar-wrapper {
     display: inline-block;

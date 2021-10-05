@@ -18,9 +18,11 @@ export default class PauseSystem {
         };
 
         let shouldStartupWithPauseGame = !__DEV__;
-        // shouldStartupWithPauseGame = true;
+        shouldStartupWithPauseGame = true;
         if (shouldStartupWithPauseGame) {
-            this.pause();
+            setTimeout(() => {
+                this.pause();
+            }, 200);
         }
     }
 
