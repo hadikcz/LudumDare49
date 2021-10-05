@@ -9,5 +9,5 @@ export interface OutputSocket {
     setOutputObject(object: InputSocket, pipe: PipeVisual): void;
     getOutputPower(): number | null;
     getPosition(): Vector2;
-    disconnect(onlyInput: boolean, splitterTarget?: SplitterTarget|BalancerTarget|null): void;
+    disconnect(input: boolean, output: boolean, splitterTarget?: SplitterTarget|BalancerTarget|null): void;
 }

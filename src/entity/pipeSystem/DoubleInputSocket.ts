@@ -11,5 +11,4 @@ export interface DoubleInputSocket {
     getRequiredHeat(): number;
     sendHeat(heatValue: number): void;
     getPosition(): Vector2;
-    disconnect(onlyInput: boolean): void;
 }

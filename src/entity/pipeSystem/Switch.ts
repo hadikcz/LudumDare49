@@ -73,14 +73,14 @@ export default class Switch extends Container implements OutputSocket, InputSock
         this.overlay.on('pointerdown', () => {
             const disconnect = (): void => {
                 console.log('HEAT: switch destroy');
-                this.outputPipe?.destroy();
-                this.inputPipe?.destroy();
+                this.outputPipe?.destroy(true, false);
+                this.inputPipe?.destroy(true, true);
             };
 
             if (this.scene.destroyer.isDestroyMode()) {
                 if (confirm('Are you really want to destroy switch?')) {
                     disconnect();
-                    this.disconnect(false);
+                    this.disconnect(true, true);
                     setTimeout(() => {
                         this.destroy();
                     }, 300);
@@ -135,13 +135,17 @@ export default class Switch extends Container implements OutputSocket, InputSock
         this.steamer = new Steamer(this.scene, this.x, this.y);
     }
 
-    disconnect (onlyInput: boolean): void {
+    disconnect (input: boolean, output: boolean): void {
         setTimeout(() => {
 
             this.steamer.stop();
-            this.inputSocket = null;
-            this.inputPipe = null;
-            if (!onlyInput) {
+            if (input) {
+                this.inputSocket = null;
+                this.inputPipe?.destroy(false, true);
+                this.inputPipe = null;
+            }
+            if (output) {
+                this.outputPipe?.destroy(true);
                 this.outputPipe = null;
                 this.outputSocket = null;
             }

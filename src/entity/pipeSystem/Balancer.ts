@@ -99,15 +99,15 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
 
         this.overlay.on('pointerdown', () => {
             const disconnect = (): void => {
-                this.firstOutputPipe?.destroy(true);
-                this.secondOutputPipe?.destroy(true);
-                this.inputPipe?.destroy();
+                this.firstOutputPipe?.destroy(true, false);
+                this.secondOutputPipe?.destroy(true, false);
+                this.inputPipe?.destroy(true, true);
             };
 
             if (this.scene.destroyer.isDestroyMode()) {
                 if (confirm('Are you really want to destroy balancer?')) {
                     disconnect();
-                    this.disconnect();
+                    this.disconnect(true, true);
                     setTimeout(() => {
                         this.destroy();
                     }, 300);
@@ -180,12 +180,10 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
         }
     }
 
-    disconnect (onlyInput: boolean = false, balancerTarget: BalancerTarget|null = null): void {
+    disconnect (input: boolean, output: boolean, balancerTarget: BalancerTarget|null = null): void {
         console.log('disconnect balancer target ' + balancerTarget);
         setTimeout(() => {
-            this.inputSocket = null;
-            this.inputPipe = null;
-            if (!onlyInput) {
+            if (output) {
                 if (balancerTarget === null) {
                     this.firstOutput = null;
                     this.firstOutputPipe?.destroy(true);
@@ -202,6 +200,12 @@ export default class Balancer extends Container implements InputSocket, DoubleSt
                     this.secondOutputPipe?.destroy(true);
                     this.secondOutputPipe = null;
                 }
+            }
+
+            if (input) {
+                this.inputSocket = null;
+                this.inputPipe?.destroy(false, true);
+                this.inputPipe = null;
             }
             this.heatValuesZero();
         }, 10);

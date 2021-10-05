@@ -72,15 +72,15 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
 
         this.overlay.on('pointerdown', () => {
             const disconnect = (): void => {
-                this.inputSocketFirstPipe?.destroy();
-                this.inputSocketSecondPipe?.destroy();
-                this.outputSocketPipe?.destroy();
+                this.inputSocketFirstPipe?.destroy(true, true);
+                this.inputSocketSecondPipe?.destroy(true, true);
+                this.outputSocketPipe?.destroy(true, false);
             };
 
             if (this.scene.destroyer.isDestroyMode()) {
                 if (confirm('Are you really want to destroy combiner?')) {
                     disconnect();
-                    // this.disconnect(false);
+                    this.disconnect(true, true);
                     setTimeout(() => {
                         this.destroy();
                     }, 300);
@@ -138,17 +138,24 @@ export default class Combiner extends Container implements OutputSocket, DoubleI
         }
     }
 
-    disconnect (onlyInput: boolean): void {
+    disconnect (input: boolean, output: boolean): void {
         setTimeout(() => {
-            this.inputSocketFirst = null;
-            this.inputSocketSecond = null;
-            this.inputSocketFirstPipe = null;
-            this.inputSocketSecondPipe = null;
 
-            if (!onlyInput) {
+            if (input) {
+                // this.inputSocketFirstPipe?.destroy(false, true);
+                this.inputSocketFirst = null;
+                this.inputSocketSecond = null;
+                this.inputSocketFirstPipe = null;
+                // this.inputSocketSecondPipe?.destroy(false, true);
+                this.inputSocketSecondPipe = null;
+            }
+
+            if (output) {
+                // this.outputSocketPipe?.destroy(true);
                 this.outputSocket = null;
                 this.outputSocketPipe = null;
             }
+
             this.heatValuesZero();
         }, 800);
     }

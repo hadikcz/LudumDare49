@@ -118,17 +118,17 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         this.overlay.on('pointerdown', () => {
             const disconnect = (): void => {
                 console.log('HEAT: splitter destroy');
-                this.variableOutputPipe?.destroy(true);
-                this.staticOutputPipe?.destroy(true);
                 console.log(this.inputPipe);
-                this.inputPipe?.destroy();
-                console.log(this.inputPipe);
+
+                this.variableOutputPipe?.destroy(true, false);
+                this.staticOutputPipe?.destroy(true, false);
+                this.inputPipe?.destroy(true, true);
             };
 
             if (this.scene.destroyer.isDestroyMode()) {
                 if (confirm('Are you really want to destroy splitter?')) {
                     disconnect();
-                    this.disconnect();
+                    this.disconnect(true, true);
                     setTimeout(() => {
                         this.destroy();
                     }, 300);
@@ -216,11 +216,10 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
         }
     }
 
-    disconnect (onlyInput: boolean = false, splitterTarget: SplitterTarget|null = null): void {
-        console.log('disconnect splitter target ' + splitterTarget);
+    disconnect (input: boolean, output: boolean, splitterTarget: SplitterTarget|null = null): void {
+        console.log('disconnect splitter target ' + input + ' ' + output + ' ' + splitterTarget);
         setTimeout(() => {
-            let notDisconnectInput = false;
-            if (!onlyInput) {
+            if (output) {
                 if (splitterTarget === null) {
                     this.staticOutput = null;
                     this.staticOutputPipe?.destroy(true);
@@ -232,18 +231,16 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
                     this.staticOutput = null;
                     this.staticOutputPipe?.destroy(true);
                     this.staticOutputPipe = null;
-                    notDisconnectInput = true;
                 } else if (splitterTarget === SplitterTarget.VARIABLE) {
                     this.variableOutput = null;
                     this.variableOutputPipe?.destroy(true);
                     this.variableOutputPipe = null;
-                    notDisconnectInput = true;
                 }
             }
 
-            if (!notDisconnectInput) {
+            if (input) {
                 this.inputSocket = null;
-                this.inputPipe?.destroy(true);
+                this.inputPipe?.destroy(false, true);
                 this.inputPipe = null;
             }
             this.heatValuesZero();

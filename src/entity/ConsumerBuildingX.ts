@@ -111,7 +111,7 @@ export default class ConsumerBuildingX extends Building implements InputSocket, 
 
         this.overlay.on('pointerdown', () => {
             if (this.scene.pipeSystem.isDisconnectMode()) {
-                this.pipeVisual?.destroy();
+                this.pipeVisual?.destroy(true, true);
                 return;
             }
             if (this.scene.pipeSystem.isConnectingMode()) {

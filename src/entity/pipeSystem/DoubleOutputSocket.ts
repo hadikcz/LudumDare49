@@ -11,5 +11,4 @@ export interface DoubleOutputSocket {
 
     getOutputPower(): number | null;
     getPosition(): Vector2;
-    disconnect(): void;
 }

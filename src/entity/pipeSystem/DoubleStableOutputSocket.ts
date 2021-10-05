@@ -9,5 +9,4 @@ export interface DoubleStableOutputSocket {
 
     getOutputPower(): number | null;
     getPosition(): Vector2;
-    disconnect(): void;
 }
