@@ -182,6 +182,7 @@ export default class PipeSystem {
 
         this.selectedOutputSocket = null;
         this.splitterBalancerTarget = null;
+        this.positions = [];
         this.pipeVisual?.destroy(true);
         this.scene.ui.hideSocket();
         for (let line of this.previousPathLines) {
