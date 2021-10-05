@@ -27,7 +27,7 @@ export default class WorldEnvironment {
     public readonly balancers: Group
     private treeSpawner: TreeSpawner;
 
-    private visibleBuilding = true;
+    private visibleBuilding = false;
 
     constructor (scene: GameScene) {
         this.scene = scene;
