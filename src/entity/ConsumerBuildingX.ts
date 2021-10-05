@@ -184,9 +184,10 @@ export default class ConsumerBuildingX extends Building implements InputSocket, 
     }
 
     getRequiredHeat (): number {
-        if (this.scene.dayNightSystem.isNight() && this.isIndustrial()) {
-            return 0;
-        }
+        // disable night shift
+        // if (this.scene.dayNightSystem.isNight() && this.isIndustrial()) {
+        //     return 0;
+        // }
         return this.consumerBuildingCoordsBuilding.heat.require;
     }
 
