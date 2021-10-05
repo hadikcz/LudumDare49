@@ -122,6 +122,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
                 this.staticOutputPipe?.destroy(true);
                 console.log(this.inputPipe);
                 this.inputPipe?.destroy();
+                console.log(this.inputPipe);
             };
 
             if (this.scene.destroyer.isDestroyMode()) {
@@ -218,8 +219,7 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
     disconnect (onlyInput: boolean = false, splitterTarget: SplitterTarget|null = null): void {
         console.log('disconnect splitter target ' + splitterTarget);
         setTimeout(() => {
-            this.inputSocket = null;
-            this.inputPipe = null;
+            let notDisconnectInput = false;
             if (!onlyInput) {
                 if (splitterTarget === null) {
                     this.staticOutput = null;
@@ -232,11 +232,19 @@ export default class Splitter extends Container implements InputSocket, DoubleOu
                     this.staticOutput = null;
                     this.staticOutputPipe?.destroy(true);
                     this.staticOutputPipe = null;
+                    notDisconnectInput = true;
                 } else if (splitterTarget === SplitterTarget.VARIABLE) {
                     this.variableOutput = null;
                     this.variableOutputPipe?.destroy(true);
                     this.variableOutputPipe = null;
+                    notDisconnectInput = true;
                 }
+            }
+
+            if (!notDisconnectInput) {
+                this.inputSocket = null;
+                this.inputPipe?.destroy(true);
+                this.inputPipe = null;
             }
             this.heatValuesZero();
         }, 10);
