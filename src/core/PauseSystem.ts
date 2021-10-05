@@ -10,6 +10,13 @@ export default class PauseSystem {
     constructor (scene: GameScene) {
         scene.input.keyboard.on('keydown_SPACE', this.toggle.bind(this), this);
 
+        const self = this;
+        document.body.onkeyup = function (e) {
+            if (e.keyCode == 32) {
+                self.toggle();
+            }
+        };
+
         let shouldStartupWithPauseGame = !__DEV__;
         // shouldStartupWithPauseGame = true;
         if (shouldStartupWithPauseGame) {
